@@ -2,7 +2,7 @@
 $(document).ready(function() {
 	var $this = $(this);
 	$(this).cmmDataParse('/data/dataFuncPortfolio.json', function(data) {
-		$this.find('.lnbInList').cmmAsideLst({
+		$this.find('.lnbInList').cmmMobGnb(data).cmmAsideLst({
 			list: data
 		});
 	});

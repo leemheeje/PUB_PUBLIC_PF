@@ -1,0 +1,25 @@
+<script type="text/javascript">
+$(document).ready(function() {
+	//프로필 레이어팝
+	$('.profDiagBtn').on('click', function() {
+		$('[data-layerpop="profileLayerPop"]').cmmLocLaypop({
+			width: 640,
+			targetBtnsName: ['aaaa', '확인'],
+			parentAddClass : 'profile_layer',
+			submit: function($this) {
+				$this.cmmLocLaypop('close');
+			},
+		});
+		return false;
+	});
+});
+</script>
+<!-- 프로필 레이어팝 : S -->
+<div class="cmm_layerpop" data-layerpop="profileLayerPop">
+	<div class="lp_prof">
+		<div class="pic">
+			<img src="/images/sample.png" alt="사진" />
+		</div>
+	</div>
+</div>
+<!-- 프로필 레이어팝 : E -->

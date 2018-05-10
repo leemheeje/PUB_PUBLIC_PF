@@ -30,6 +30,11 @@ if (location.host.indexOf('8000') != -1) document.write('<script src="http://' +
 						target: '.contentInclude',
 						url: location.host.indexOf('github') != -1 ? '/include/content.html' : '/include/content.html',
 						get: 'on'
+					}],
+					['layerpop', {
+						target: 'body',
+						url: location.host.indexOf('github') != -1 ? '/include/layerpop.html' : '/include/layerpop.html',
+						get: 'on'
 					}]
 					/*
 					 * ['footer', { target: '.toolbar', url: '/public/include/toolbar.html', get: 'on' }],
@@ -247,14 +252,16 @@ if (location.host.indexOf('8000') != -1) document.write('<script src="http://' +
 				animation: true,
 				effect: 'fade', // fade, slidedown,
 				title: '타이틀',
+				parentAddClass: '',
 				targetBtnsName: ['취소', '확인'],
+				beforeCallback: null,
 				submit: null,
 			};
 
 			function CmmLocLaypop($this) {
 				var _this = this;
 				this.target = $this;
-				this.obj = typeof obj === 'object' ? $.extend(true, defaults, obj) : obj;
+				this.obj = typeof obj === 'object' ? $.extend(defaults, obj) : obj;
 				this.dimmClsName = '.cmm_dimm';
 				this.targetParent = '.laypopWarp';
 				this.targetParentIn = '.laypopIn';
@@ -280,7 +287,7 @@ if (location.host.indexOf('8000') != -1) document.write('<script src="http://' +
 					this.submitFun();
 				},
 				set: function() {
-					this.cont += '<div class="' + this.clsFormat(this.targetParent) + '">';
+					this.cont += '<div class="' + this.clsFormat(this.targetParent) + ' ' + this.obj.parentAddClass + '">';
 					this.cont += '<div class="' + this.clsFormat(this.targetParentIn) + '" style="width: ' + this.obj.width + 'px;">';
 					this.cont += '<div class="' + this.clsFormat(this.targetCont) + '">';
 					if (this.obj.type == 'alert') {
@@ -320,6 +327,9 @@ if (location.host.indexOf('8000') != -1) document.write('<script src="http://' +
 					$(this.target).closest(this.targetParent).css({
 						'top': sc.val + 50,
 					});
+					if (typeof this.obj.beforeCallback === 'function') {
+						this.obj.beforeCallback($(this.target));
+					}
 				},
 				submitFun: function() {
 					var _this = this;
