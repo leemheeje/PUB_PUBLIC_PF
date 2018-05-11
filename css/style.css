@@ -56,7 +56,7 @@ html,body,.wrap{height: 100%;}
 .sub_side{overflow-y: auto; height: 100%;}
 .sside_hd+.sub_side{height: calc(100% - 81px);}
 .sub_side .sside_list{}
-.sub_side .sside_list .lst{transition: all .3s ease-in-out; margin-left: -50px;}
+.sub_side .sside_list .lst{margin-left: -50px;}
 .sub_side .sside_list .lst.active{margin-right: -16px;}
 .sub_side .sside_list .lst .item{position: relative; display: block;}
 .sub_side .sside_list .lst .item:after{content: ''; width: 3px; height: 100%; position: absolute; left: 0; top: 0; transition: all 0.2s ease-in-out;}
@@ -88,7 +88,7 @@ html,body,.wrap{height: 100%;}
 .contents .cont_hd .cont_utl .cutl.git{background-image: url(/images/common/cutl_git.png); background-size: 40px;}
 .contents .cont_msg{ overflow-y: auto; height: 100%;}
 .contents .cont_msg .cont_msg_in{padding: 26px 0;}
-.contents .cont_msg .msg_bx{margin-bottom: 20px;}
+.contents .cont_msg .msg_bx{margin-bottom: 20px; transform: translateY(-15px); opacity: 0}
 .contents .cont_msg .msg_bx .msg_in{position: relative; padding: 0 96px;}
 .contents .cont_msg .msg_bx .msg_in .msg_img{position: absolute; width: 96px; left: 0; top: 14px; text-align: center;}
 .contents .cont_msg .msg_bx .msg_in .msg_img .img{width: 35px; height: 35px; display: inline-block; border-radius: 50%; overflow: hidden;}
@@ -120,7 +120,8 @@ html,body,.wrap{height: 100%;}
 .as_pannl .asp_hd .pannel_btn{height: 80px; float: right; width: 80px; background: url(/images/common/pannel_btn.png) no-repeat center center; background-size: 13px; border-left: 1px solid #e5e5e5; transition: all 0.2s ease-in-out;}
 .as_pannl .asp_hd .pannel_btn:hover, .as_pannl .asp_hd .pannel_btn:focus{background-color: #f1f1f1;}
 .as_pannl .asp_cont{text-align: center; padding: 37px 30px; border-bottom: 1px solid #e5e5e5;}
-.as_pannl .asp_cont .img{border-radius: 50%; width: 120px; height: 120px; overflow: hidden; display: inline-block; background: no-repeat center center; background-size: cover;}
+.as_pannl .asp_cont .img{width: 120px; height: 120px; overflow: hidden; display: inline-block; background: no-repeat center center; background-size: cover;}
+.as_pannl .asp_cont .img img{width: 100%; height: 100%;}
 .as_pannl .asp_cont .txts{padding-top: 25px;}
 .as_pannl .asp_cont .txts .tit,
 .as_pannl .asp_cont .txts .stit{font-weight: normal; text-overflow: ellipsis; white-space: nowrap; overflow: hidden;}
@@ -173,6 +174,9 @@ html,body,.wrap{height: 100%;}
 .lp_prof{text-align: center; color: #fff;}
 @media only screen and (min-width: 640px){
 	.gnb .mobGnb{display: none !important;}
+	.contents .cont_msg .msg_bx.selfie.info .msg_in .pf_info .pfinfo_in{ overflow: hidden; padding-left: 0; font-size: 0; max-width: 500px;}
+	.contents .cont_msg .msg_bx.selfie.info .msg_in .pf_info .pfinfo_in .thumb{display: inline-block; vertical-align: top; width: 30%; position: static;}
+	.contents .cont_msg .msg_bx.selfie.info .msg_in .pf_info .pfinfo_in .txt_bx{width: 70%; display: inline-block; padding-left: 25px; max-width: 100%; box-sizing: border-box; padding-top: 0;}
 }
  @media only screen and (max-width: 1600px){
 	.container{padding-right: 0;}
@@ -237,6 +241,18 @@ html,body,.wrap{height: 100%;}
 	.scr_wrap .scr_bar{display: none !important;}
 	.scr_wrap>div{margin-right: 0 !important; padding-right: 0 !important;}
 	.contents .cont_msg{overflow: visible !important;}
+	.laypopWarp{top: 0 !important; height: 100%;}
+	.laypopWarp  .laypopIn{width: 100% !important; left: 0 !important; margin-left: 0 !important;top: 0 !important; padding: 20px; height: 100%; margin-top: calc(0% + 10px); height: calc(100% - 20px);}
+	.laypopWarp  .laypopIn .laypopTit,
+	.laypopWarp  .laypopIn .laypopCont,
+	.laypopWarp  .laypopIn .laypopBottom{position: relative;}
+	.laypopWarp  .laypopIn .laypopTit,
+	.laypopWarp  .laypopIn .laypopBottom{z-index: 3;}
+	.laypopWarp  .laypopIn .laypopCont{min-height: 100%; z-index: 2; padding-bottom: 80px;}
+	.laypopWarp  .laypopIn .laypopBottom{margin-top: -80px; }
+	.laypopWarp .laypopIn .laypopBottom .layClosebtn, 
+	.laypopWarp .laypopIn .laypopBottom .laySmtbtn{min-width: 50px; padding-top: 50px; background-size: 45px; background-position: center center;}
+
 
 }
 

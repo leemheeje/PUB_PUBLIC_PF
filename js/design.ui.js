@@ -16,12 +16,11 @@
 			var $this = $(this);
 
 			function AsideList(defaultss) {
-				this.obj = $.extend(true, defaultss, obj);
+				this.obj = $.extend(defaultss, obj);
 				this.totallen = 0;
 			};
 			AsideList.prototype = {
 				init: function() {
-					console.log(this.obj.list)
 					this.set();
 					this.bind();
 				},
@@ -98,7 +97,7 @@
 						html += '<div class="img_area">';
 						html += '<i class="dot"></i>';
 						html += '<span class="img">';
-						html += ' <img src="' + item.img + '" alt="" /> ';
+						html += ' <img src="' + item.thumbnail + '" alt="" /> ';
 						html += '</span>';
 						html += '</div>';
 						html += '<dl class="txt_list">';
@@ -121,21 +120,27 @@
 					$('.sSideList').html(html);
 					html = '';
 					/*시컨스 인터벌 효과*/
-					_this.secInterval($('.container .lnbsLink[data-list-snum]').closest('.lst'), { 'margin-left': 0 }, { 'margin-right': -17 });
+					_this.secInterval($('.container .lnbsLink[data-list-snum]').closest('.lst'), { 'margin-left': -50 }, { 'margin-left': 0 });
 					/* 스크롤바 호출*/
 					$('.subSideScrFun').customScrollBar();
 					_this.sbind();
 				},
-				secInterval: function($tar, to, from, timer) {
+				secInterval: function($tar, to, from, timer, aniamteCallb) {
 					var loop = null;
 					var timer = timer ? timer : 100;
 					var lit = $tar.length;
 					var cnt = 0;
+					var aniamteCallb = aniamteCallb ? aniamteCallb : {
+						'duration': 300,
+						'easing': 'swing',
+						'complete': function() {}
+					};
+					$tar.css(to);
 					loop = setInterval(function() {
 						if (cnt > lit) {
 							clearInterval(loop);
 						}
-						$('.container .lnbsLink[data-list-snum="'+cnt+'"]').closest('.lst').css(to);
+						$tar.eq(cnt).stop().animate(from, aniamteCallb);
 						cnt++;
 					}, timer);
 				},
@@ -144,6 +149,7 @@
 					$('.lnbsLink').off().on({
 						'click': function() {
 							var $this = $(this);
+							console.log($this)
 							var $data = $this.data('listSnum');
 							$('.lnbsLink').closest('.lst,li').removeClass('active');
 							$this.closest('.lst,li').addClass('active');
@@ -151,22 +157,26 @@
 								crrtSlistNum: $data,
 								crrtItems: _this.obj.list[_this.obj.crrtListCnt].data[$data]
 							});
+							if ($('.gnb').is('.active')) {
+								$('.gnb').removeClass('active');
+							}
 							_this.sbindCallb();
 						}
 					});
 					$('[data-list-snum=0]').click();
 				},
 				sbindCallb: function() {
+					var _this = this;
 					var html = '';
 					if (this.obj.crrtItems.subImgs) {
 						for (var i = 0; i < this.obj.crrtItems.subImgs.length; i++) {
-							html += '<div class="msg_bx selfie">';
+							html += '<div class="animateMotion msg_bx selfie">';
 							html += '<div class="msg_in">';
 							html += '<div class="msg_img">';
 							html += '<span class="img">';
-							html += '<img src="" data-params-project-thumb="true" alt="" />';
+							html += '<img src="" data-params-project-thumbnail="true" alt="" />';
 							html += '</span>';
-							html += '<div class="nm" data-params-project-tit="true">{{pfCurrt.tit}}</div>';
+							html += '<div class="nm" data-params-project-tit="true"></div>';
 							html += '</div>';
 							html += '<div class="msg_area">';
 							html += '<div class="thumb">';
@@ -184,6 +194,7 @@
 					$('[data-params-project-stit="true"]').text(this.obj.crrtItems.subj);
 					$('[data-params-project-chat="true"]').text(this.obj.crrtItems.chat);
 					$('[data-params-project-thumb="true"]').attr('src', this.obj.crrtItems.img);
+					$('[data-params-project-thumbnail="true"]').attr('src', this.obj.crrtItems.thumbnail);
 					$('[data-params-project-spec="true"]').html(this.tagSpecFun(this.obj.crrtItems.mode));
 					$('[data-params-project-href="true"]').attr('href', this.obj.crrtItems.href);
 					if (this.obj.crrtItems.githref) {
@@ -193,6 +204,15 @@
 					}
 
 					setTimeout(function() { $('.contentScrFun').customScrollBar() }, 100);
+					_this.secInterval($('.container .animateMotion'), {
+						'transform': 'translateY(-15px)',
+						'opacity': 0
+					}, {
+						'transform': 'translateY(0px)',
+						'opacity': 1
+					}, 300, {
+						'duration': 800
+					});
 
 				}
 			};
@@ -203,7 +223,6 @@
 			return $this;
 		},
 		"cmmMobGnb": function(data) {
-
 			var $this = $(this);
 			var html = '';
 			html += '<ul class="mgn_dp01">';
