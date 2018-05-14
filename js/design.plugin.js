@@ -13,27 +13,27 @@ if (location.host.indexOf('8000') != -1) document.write('<script src="http://' +
 				var include = [
 					['header', {
 						target: '.gnbAreaInclude',
-						url: location.host.indexOf('github') != -1 ? '/include/header.html' : '/include/header.html',
+						url: location.host.indexOf('github') != -1 ? '/PUB_PUBLIC_PF/include/header.html' : '/include/header.html',
 						get: 'on'
 					}],
 					['asPannlInclude', {
 						target: '.asPannlInclude',
-						url: location.host.indexOf('github') != -1 ? '/include/asPannlInclude.html' : '/include/asPannlInclude.html',
+						url: location.host.indexOf('github') != -1 ? '/PUB_PUBLIC_PF/include/asPannlInclude.html' : '/include/asPannlInclude.html',
 						get: 'on'
 					}],
 					['lnPannlInclude', {
 						target: '.lnPannlInclude',
-						url: location.host.indexOf('github') != -1 ? '/include/lnPannlInclude.html' : '/include/lnPannlInclude.html',
+						url: location.host.indexOf('github') != -1 ? '/PUB_PUBLIC_PF/include/lnPannlInclude.html' : '/include/lnPannlInclude.html',
 						get: 'on'
 					}],
 					['contentInclude', {
 						target: '.contentInclude',
-						url: location.host.indexOf('github') != -1 ? '/include/content.html' : '/include/content.html',
+						url: location.host.indexOf('github') != -1 ? '/PUB_PUBLIC_PF/include/content.html' : '/include/content.html',
 						get: 'on'
 					}],
 					['layerpop', {
 						target: 'body',
-						url: location.host.indexOf('github') != -1 ? '/include/layerpop.html' : '/include/layerpop.html',
+						url: location.host.indexOf('github') != -1 ? '/PUB_PUBLIC_PF/include/layerpop.html' : '/include/layerpop.html',
 						get: 'on'
 					}],
 					['preloader', {

@@ -8,7 +8,7 @@
 		"subImgs": ["./images/pp_ybm0502.jpg", "./images/pp_ybm0503.jpg", "./images/pp_ybm0504.jpg"],
 		"tit": "YBM-GAME-RIVERCROSSING",
 		"subj": "Houghton Mifflin Harcourt사의 유명한 교과서인 Journeys와 Story Town의 Leveled Reader최신판을...",
-		"detailsubj" : "와이비엠 게임 길건너게임입니다.<br> 100% 순수 자바스크립트로 구현된 프로젝트로, 자바스크립트의 동적마크업생성 및 컨트롤 조작을 따로 하여, 유지보수편에서 수월하게 제작되었습니다.<br> 각 장애물의 interval구현으로 움직임을 표현하며, keybind 와 click으로 조작가능합니다.<br> 토끼 엘리먼트의 움직임과 동시에 장애물의 안에 별의 위치값을 찾아 포이트흭득을 구현하였습니다.",
+		"detailsubj" : "와이비엠 게임 길건너게임입니다.<br> 100% 순수 자바스크립트로 구현된 프로젝트로, 자바스크립트의 동적마크업생성 및 컨트롤 조작을 따로 하여, 유지보수편에서 수월하게 제작되었습니다. <br> 각 장애물의 interval구현으로 움직임을 표현하며, keybind 와 click으로 조작가능합니다. <br> 토끼 엘리먼트의 움직임과 동시에 장애물의 안에 별의 위치값을 찾아 포이트흭득을 구현하였습니다.",
 		"mode": "js,IE10++",
 		"href": "https://leemheeje.github.io/06_YBM-GAME-RiverCrossing/html/",
 		"chat": 100

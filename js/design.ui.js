@@ -262,7 +262,7 @@
 								};
 							},
 							loop: null,
-							timer: 80,
+							timer: 10,
 							count: 0,
 							brCnt : 0
 						});
@@ -277,7 +277,7 @@
 					var rtxt = '';
 					clearInterval(this.typingFunc.loop);
 					this.typingFunc.loop = setInterval(function() {
-						rtxt += _this.typingFunc.txtSet().txtwrit[cnt]//.replace('.','.<br>');
+						rtxt += _this.typingFunc.txtSet().txtwrit[cnt].replace('.','<br>');
 						if (cnt >= _this.typingFunc.txtSet().txtwrit.length) {
 							clearInterval(_this.typingFunc.loop);
 						}
