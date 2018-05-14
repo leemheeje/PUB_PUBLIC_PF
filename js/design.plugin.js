@@ -35,6 +35,11 @@ if (location.host.indexOf('8000') != -1) document.write('<script src="http://' +
 						target: 'body',
 						url: location.host.indexOf('github') != -1 ? '/include/layerpop.html' : '/include/layerpop.html',
 						get: 'on'
+					}],
+					['preloader', {
+						target: 'body',
+						url: location.host.indexOf('github') != -1 ? '/include/preloader.html' : '/include/preloader.html',
+						get: 'on'
 					}]
 					/*
 					 * ['footer', { target: '.toolbar', url: '/public/include/toolbar.html', get: 'on' }],
@@ -1734,6 +1739,7 @@ if (location.host.indexOf('8000') != -1) document.write('<script src="http://' +
 						$this.wrap('<div class="' + this.obj.scrEl.bx + ' ' + this.scrClassName.wrap + '" style="width:' + this.scr.outw + 'px; overflow: hidden;"></div>').css({
 							'margin-right': -(this.scr.outw - this.scr.scrw),
 							'padding-right': this.scr.outw - this.scr.scrw,
+							'overflow-x': 'hidden'
 						});
 						$this.closest('.' + this.scrClassName.wrap).append(this.html);
 					}

@@ -198,6 +198,10 @@ $.fn.extend({
 				}
 			});
 		})(jQuery);
+		$(window).smartresize(function(){
+			$this.find('.subSideScrFun').customScrollBar();
+			$this.find('.contentScrFun').customScrollBar();
+		});
 		return $this;
 	},
 });
