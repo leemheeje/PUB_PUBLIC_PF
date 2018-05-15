@@ -37,7 +37,7 @@ html,body,.wrap{height: 100%;}
 .gnb .mob_gnb .mgn_dp01>.tp .mgn_dp02>.tp.active .txt:after{}
 .gnb .mob_gnb .mgn_dp01>.tp.active .mgn_dp02{display: block;}
 .container{margin-left: 80px; margin-right: 280px; height: 100%; overflow: hidden;}
-.ln_pannl{height: 100%; width: 45%; float: left; position: relative;}
+.ln_pannl{height: 100%; width: 40%; float: left; position: relative;}
 .lnb{height: 100%; background: #282e36 url(../images/gnb/shadow.png) repeat-y right top;; width: 40%; float: left; overflow-y: auto;}
 .lnb .lnb_in{padding: 0 20px;}
 .lnb .lnb_hd{color: #fff; font-size: 20px; font-weight: bold; height: 80px; line-height: 80px;}
@@ -69,7 +69,7 @@ html,body,.wrap{height: 100%;}
 .sub_side .sside_list .lst.active .item:after{background: #2b80ff;}
 .sub_side .sside_list .lst .item .item_bx{font-size: 0; padding: 0 17px;}
 .sub_side .sside_list .lst .item .item_bx .img_area{width: 25%; display: inline-block; vertical-align: middle; height: 100px; line-height: 100px; text-align: center; position: relative;}
-.sub_side .sside_list .lst .item .item_bx .img_area .img{display: inline-block; vertical-align: middle; line-height: normal; overflow: hidden; border-radius: 50%;}
+.sub_side .sside_list .lst .item .item_bx .img_area .img{display: inline-block; vertical-align: middle; line-height: normal; overflow: hidden; border-radius: 50%; position: relative;}
 .sub_side .sside_list .lst .item .item_bx .img_area .img:after{content: ''; width: 60px; height: 1px; background: #41474d; position: absolute; left: 50%; margin-left: -30px; bottom: 0;}
 .sub_side .sside_list .lst .item .item_bx .img_area .img img{max-width: 60px; width: 60px; height: 60px;}
 .sub_side .sside_list .lst .item .item_bx .txt_list{width: 75%; display: inline-block; vertical-align: middle; line-height: 1.5;}
@@ -77,7 +77,7 @@ html,body,.wrap{height: 100%;}
 .sub_side .sside_list .lst .item .item_bx .txt_list dd .txt{display: block; font-size: 12px; color: #9e9fa2; text-overflow: ellipsis; overflow: hidden; white-space: nowrap; min-height: 18px;}
 .sub_side .sside_list .lst .item .item_bx .txt_list dd .s_spec{display: block;}
 .sub_side .sside_list .lst .item .item_bx .txt_list dd .s_spec .s_label{padding: 0; width: 6px; height: 6px; margin-right: 5px; text-indent: -999em; overflow: hidden;}
-.contents{width: 55%; float: left; height: 100%;}
+.contents{width: 60%; float: left; height: 100%; position: relative;}
 .contents .scr_wrap .scr_bar .scr_btn{background: #ccc;}
 .contents .cont_hd{height: 80px; border-bottom: 1px solid #d3d5d9; line-height: 80px;}
 .contents .cont_hd .tit{text-indent: 30px; display: inline-block; font-size: 15px; color: #515356;}
@@ -93,16 +93,18 @@ html,body,.wrap{height: 100%;}
 .contents .cont_msg{overflow-x: hidden; overflow-y: auto; height: 100%;}
 .contents .cont_msg .cont_msg_in{padding: 26px 0;}
 .contents .cont_msg .msg_bx{margin-bottom: 20px; transform: translateY(-15px); opacity: 0}
+.contents .cont_msg .msg_bx.self{transform: translateY(0); opacity: 1; position: relative;}
 .contents .cont_msg .msg_bx .msg_in{position: relative; padding: 0 96px;}
 .contents .cont_msg .msg_bx .msg_in .msg_img{position: absolute; width: 96px; left: 0; top: 14px; text-align: center;}
 .contents .cont_msg .msg_bx .msg_in .msg_img .img{width: 35px; height: 35px; display: inline-block; border-radius: 50%; overflow: hidden;}
 .contents .cont_msg .msg_bx .msg_in .msg_img .img img{width: 100%; height: 100%;}
 .contents .cont_msg .msg_bx .msg_in .msg_img .nm{font-size: 12px; color: #222; padding-top: 4px; width: 70%; margin: 0 auto; min-height: 13px; display: block; word-break: break-all;}
 .contents .cont_msg .msg_bx .msg_in .msg_area,  
-.contents .cont_msg .msg_bx .msg_in .msg_info{background: #fff; position: relative; border-radius: 4px; padding: 20px 25px; display: inline-block; min-width: 80px; min-height: 24px;}
+.contents .cont_msg .msg_bx .msg_in .msg_info{background: #fff; position: relative; border-radius: 4px; padding: 20px 25px; display: inline-block; min-width: 80px; min-height: 24px; position: relative; transition: all 1s;}
 .contents .cont_msg .msg_bx .msg_in .msg_area:after{content: ''; width: 7px; height: 12px; background: url(../images/common/msg_txt_area.png) no-repeat left top; background-size: 100%; position: absolute; left: -7px; top: 26px;}
+.contents .cont_msg .msg_bx .msg_in .msg_area:before{content: ''; width: 80px; height: 24px; position: absolute; left: 50%; margin-left: -40px; margin-top: -12px; top: 50%; background: url(../images/common/chatloader.gif) no-repeat center center; background-size: 160px; z-index: 1;}
 .contents .cont_msg .msg_bx .msg_in .msg_area .txt{font-size: 16px; font-weight: normal; color: #222; line-height: 1.5; word-break: break-all; }
-.contents .cont_msg .msg_bx .msg_in .msg_area pre.txt{white-space: pre-wrap; margin: 0; font-family: 'NanumSquare', sans-serif;}
+.contents .cont_msg .msg_bx .msg_in .msg_area pre.txt{white-space: pre-wrap; margin: 0; font-family: 'NanumSquare', sans-serif; background-color: #fff; position: relative; z-index: 2;}
 .contents .cont_msg .msg_bx .msg_in .msg_area .thumb{margin-bottom: 20px; display: block; text-align: center;}
 .contents .cont_msg .msg_bx .msg_in .msg_area .thumb .img{border-radius: 4px; overflow: hidden; box-shadow: 4px 4px 21px rgba(0,0,0,0.26); display: block;}
 .contents .cont_msg .msg_bx .msg_in .msg_area .thumb .img img{max-width: 100%; width:100%;}
@@ -118,6 +120,7 @@ html,body,.wrap{height: 100%;}
 .contents .cont_msg .msg_bx.selfie .msg_in{text-align: right;}
 .contents .cont_msg .msg_bx.selfie .msg_in .msg_img{left: auto; right: 0;}
 .contents .cont_msg .msg_bx.selfie .msg_in .msg_area{background: #0084ff;}
+.contents .cont_msg .msg_bx.selfie .msg_in .msg_area:before{content: none;}
 .contents .cont_msg .msg_bx.selfie .msg_in .msg_area .txt{color: #fff;}
 .contents .cont_msg .msg_bx.selfie .msg_in .msg_area:after{background-image: url(../images/common/msg_txt_area_b.png); left: auto; right: -7px;}
 .as_pannl{position: fixed; width: 280px; right: 0; top: 0; bottom: 0; background: #fff;}
@@ -176,20 +179,35 @@ html,body,.wrap{height: 100%;}
 .laypopWarp  .laypopIn .laypopBottom .laySmtbtn{background-image: url(../images/common/lay_btn_comt.png);}
 /* 프리로더 */
 .cmm_preloader{position: absolute; left: 0; top: 0; width: 100%; height: 100%; background: #eff3f7; text-align: center; z-index: 3; transition: opacity 1.2s;}
-.cmm_preloader .loader {border: 1px solid #1d232a; border-top: 1px solid #fff; border-radius: 50%; width: 20px; height: 20px; animation: spin 1s linear infinite;  position: absolute; left: 50%; margin-left: -10px; top: 50%; margin-top: -10px;}
+.cmm_preloader .loader {border: 1px solid #1d232a; border-top: 1px solid transparent; border-radius: 50%; width: 20px; height: 20px; animation: spin 1s linear infinite;  position: absolute; left: 50%; margin-left: -10px; top: 50%; margin-top: -10px;}
 .cmm_preloader.closeLoader{opacity: 0}
 .asp_cont_area .cmm_preloader{transition: opacity .5s;}
 @keyframes spin {0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-
+/* 채팅바 */
+.chat_area{position: absolute; left: 0; bottom: 0; width: 100%; background-color: #ddd; padding: 10px;  box-sizing: border-box;}
+.chat_area .cha_in{position: relative; padding-right: 80px;}
+.chat_area .cha_in .v_ch_input{display: block; padding: 0 10px; background-color: #fff; border-radius: 5px; height: 100%;}
+.chat_area .cha_in .v_ch_input .inb{min-height: 17px; width: 100%; padding: 10px 0; line-height: 1.5; display: inline-block; font-size : 14px; color: #000; border: 0; margin: 0; white-space: pre-wrap; font-family: 'NanumSquare', sans-serif;}
+.chat_area .cha_in .v_ch_input .inb:focus{outline: none;}
+.chat_area .cha_in .v_ch_input .inb:after{content: none; width: 1px; height: 18px; background-color: #2c333b; display: inline-block; vertical-align: top; margin-left: 3px; animation: kambak infinite .5s none;}
+.chat_area .cha_in .v_ch_btn{position: absolute; right: 0; top: 0; width: 70px; height: 41px; text-align: center; background-color: #2c333b; border-radius: 5px; color: #fff; line-height: 41px; font-size: 15px;}
+@keyframes kambak{
+	/* 0%{background-color: #fff;}
+	100%{background-color: #2c333b;} */
+}
 /* 프로필 레이어팝 */
 .lp_prof{text-align: center; color: #fff;}
-@media only screen and (min-width: 768px){
-	.gnb .menu_btn{display: block;}
+@media only screen and (min-width: 1200px){
+	.gnb .menu_btn{display: block; position: relative; }
+	.gnb .menu_btn:after{content: ''; width: 70%; height: 70%; position: absolute; left: 15%; top: 15%; background: #282e36; border-radius: 4px; z-index: 1; box-shadow: 0px 0px 15px #161b20;}
+	.gnb .menu_btn .bar_in{position: relative; z-index: 2;}
 	.gnb .logo{display: none;}
 	.gnb .mobGnb{display: none !important;}
 	.contents .cont_msg .msg_bx.selfie.info .msg_in .pf_info .pfinfo_in{ overflow: hidden; padding-left: 0; font-size: 0; max-width: 500px;}
 	.contents .cont_msg .msg_bx.selfie.info .msg_in .pf_info .pfinfo_in .thumb{display: inline-block; vertical-align: top; width: 30%; position: static;}
 	.contents .cont_msg .msg_bx.selfie.info .msg_in .pf_info .pfinfo_in .txt_bx{width: 70%; display: inline-block; padding-left: 25px; max-width: 100%; box-sizing: border-box; padding-top: 0;}
+	.contents .cont_msg .msg_bx.selfie.info.mobview_img .msg_in .pf_info .pfinfo_in .thumb{width: 100%;}
+	.contents .cont_msg .msg_bx.selfie.info.mobview_img .msg_in .pf_info .pfinfo_in .txt_bx{padding-left: 30%; width: 100%; padding-top: 15px; text-align: right;}
 	.gnb .gnb_list.gnbClose .lst.active:before{background: none; background-color: #282e36; left: 15%; top: 15%; width: 70%; height: 70%; border-radius: 4px; box-shadow: 0px 0px 15px #161b20;}
 }
  @media only screen and (max-width: 1600px){
@@ -200,19 +218,8 @@ html,body,.wrap{height: 100%;}
 }
 
 @media only screen and (max-width: 1200px){
-	.lnb{width: 25%;}
-	.sub_side{width: 0%;}
-	.contents{width: 75%;}
-	.contents .cont_hd .tit .op_nm{display: none; }
-	.lnb .lnb_list .lst.active .mob_sidelst{display: block;}
-	.contents .cont_hd .tit,
-	.contents .cont_msg .msg_bx.selfie.info .msg_in .pf_info .pfinfo_in .txt_bx .txt dd,
-	.as_pannl .asp_list{font-size: 13px;}
-	.contents .cont_msg .msg_bx .msg_in .msg_area .txt,
-	.contents .cont_msg .msg_bx.selfie.info .msg_in .pf_info .pfinfo_in .txt_bx .txt dt{font-size: 14px;}	
-}
-@media only screen and (max-width: 768px){
 	html{overflow: visible;}
+	.chat_area{position: fixed;}
 	.container{margin-right: 0; margin-left: 0; overflow: visible;}
 	.as_pannl,.sub_side{display: none;}
 	.lnb{width: 230px; position: fixed; left: 80px; top: -100%; bottom: 0; z-index: 1;}
