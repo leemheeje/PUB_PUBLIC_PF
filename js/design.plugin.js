@@ -13,33 +13,33 @@ if (location.host.indexOf('8000') != -1) document.write('<script src="http://' +
 				var include = [
 					['header', {
 						target: '.gnbAreaInclude',
-						url: location.host.indexOf('github') != -1 ? '/PUB_PUBLIC_PF/include/header.html' : '/include/header.html',
-						get: 'on'
+						url: './include/header.html',
+						get: true
 					}],
 					['asPannlInclude', {
 						target: '.asPannlInclude',
-						url: location.host.indexOf('github') != -1 ? '/PUB_PUBLIC_PF/include/asPannlInclude.html' : '/include/asPannlInclude.html',
-						get: 'on'
+						url: './include/asPannlInclude.html',
+						get: true
 					}],
 					['lnPannlInclude', {
 						target: '.lnPannlInclude',
-						url: location.host.indexOf('github') != -1 ? '/PUB_PUBLIC_PF/include/lnPannlInclude.html' : '/include/lnPannlInclude.html',
-						get: 'on'
+						url: './include/lnPannlInclude.html',
+						get: true
 					}],
 					['contentInclude', {
 						target: '.contentInclude',
-						url: location.host.indexOf('github') != -1 ? '/PUB_PUBLIC_PF/include/content.html' : '/include/content.html',
-						get: 'on'
+						url: './include/content.html',
+						get: true
 					}],
 					['layerpop', {
 						target: 'body',
-						url: location.host.indexOf('github') != -1 ? '/PUB_PUBLIC_PF/include/layerpop.html' : '/include/layerpop.html',
-						get: 'on'
+						url: './include/layerpop.html',
+						get: true
 					}],
 					['preloader', {
 						target: 'body',
-						url: location.host.indexOf('github') != -1 ? '/PUB_PUBLIC_PF/include/preloader.html' : '/include/preloader.html',
-						get: 'on'
+						url: './include/preloader.html',
+						get: true
 					}]
 					/*
 					 * ['footer', { target: '.toolbar', url: '/public/include/toolbar.html', get: 'on' }],
@@ -59,7 +59,7 @@ if (location.host.indexOf('8000') != -1) document.write('<script src="http://' +
 				}
 				for (var i = 0; i < include.length; i++) {
 					if (include[i]) {
-						if (include[i][1].get == 'on') {
+						if (include[i][1].get) {
 							var $getUrl = $.get(include[i][1].url);
 							var target = include[i][1].target;
 							appendHtml(target);
