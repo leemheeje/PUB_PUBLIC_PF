@@ -1,11 +1,50 @@
+<!-- <script type="text/javascript">
+$(document).ready(function() {
+	$(this).find('.pfPrevBtn').on('click', function() { ftBtnsPrevNext(true); });
+	$(this).find('.pfNextBtn').on('click', function() { ftBtnsPrevNext(false); });
+
+	function ftBtnsPrevNext(dir) {
+		var $crtListNum = $('.lnb .lnb_list .lst.active').find('.lnbLink').data('listNum');
+		var $crtListNumLen = $('.lnb .lnb_list .lst:last').find('.lnbLink').data('listNum');
+		var $data = $('.sub_side .sside_list .lst.active').find('.lnbsLink').data('listSnum');
+		var $dataLen = $('.sub_side .sside_list .lst:last').find('.lnbsLink').data('listSnum');
+		if (dir) {
+			$data--;
+			if ($data < 0) {
+				$crtListNum--;
+				$('.container .lnbLink[data-list-num="' + $crtListNum + '"]').click();
+			}
+		} else {
+			$data++;
+			if ($data > $dataLen) {
+				$crtListNum++;
+				if ($crtListNum > $crtListNumLen) {
+					$(this).cmmAlert({
+						title: '경고창',
+						msg: '마지막 포트폴리오입니다ㅠㅠ'
+					});
+					return;
+				}
+				$('.container .lnbLink[data-list-num="' + $crtListNum + '"]').click();
+				return;
+			}
+		}
+		console.log($data)
+		$('.container .lnbsLink[data-list-snum="' + $data + '"]').click();
+	};
+});
+</script> -->
 <div class="cont_hd">
 	<span class="tit">
 		<strong data-params-project-tit="true">홈페이지명</strong>
 		<span class="op_nm"> 방에 입장하셨습니다.</span>
 	</span>
 	<div class="cont_utl">
-		<a href="#" class="cutl link" data-params-project-href="true" title="프로젝트주소새창" target="_blank"></a>
-		<a href="#" class="cutl git" data-params-project-githref="true" title="깃헙소스창새창" target="_blank"></a>
+		<input type="hidden" name="">
+		<a href="#;" class="cutl link" data-params-project-href="true" title="프로젝트주소새창" target="_blank"></a>
+		<!-- <a href="#;" class="cutl prev pfPrevBtn" title="이전 프로젝트"></a>
+		<a href="#;" class="cutl next pfNextBtn" title="다음 프로젝트"></a> -->
+		<a href="#;" class="cutl git" data-params-project-githref="true" title="깃헙소스창새창" target="_blank"></a>
 	</div>
 </div>
 <div class="cont_msg contentScrFun">
@@ -13,7 +52,7 @@
 		<div class="msg_bx self">
 			<div class="msg_in msgSelfBox">
 				<div class="msg_img">
-					<a href="javascript:;" class="img profDiagBtn">
+					<a href="javascript:;" class="img"><!-- profDiagBtn -->
 						<img src="./images/common/pic.png" alt="" />
 					</a>
 					<div class="nm">임희재</div>

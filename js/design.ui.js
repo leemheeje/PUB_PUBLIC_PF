@@ -102,12 +102,12 @@
 					var _this = this;
 					var html = '';
 					$.each(_this.obj.list[cn].data, function(i, item) {
-						html += '<div class="lst musMoveTarget">';
+						html += '<div class="lst">';
 						html += '<a href="javascript:;" class="item lnbsLink" data-list-snum="' + i + '">';
 						html += '<div class="item_bx">';
 						html += '<div class="img_area">';
 						html += '<i class="dot"></i>';
-						html += '<span class="img musMoveItems">';
+						html += '<span class="img">';
 						html += ' <img src="' + item.thumbnail + '" alt="" /> ';
 						html += '</span>';
 						html += '</div>';
@@ -266,7 +266,7 @@
 							input: '.chatInputField',
 							tar: tar,
 							orgintxt: txt,
-							timer: 50,
+							timer: 35,
 							loop: null
 						};
 						this.typingFuncLoop();
@@ -304,7 +304,7 @@
 										$(this).hide();
 									}
 								});
-								$(_this.typingFunc.inputArea).animate({
+								$(_this.typingFunc.inputArea).stop().animate({
 									'bottom': -$(_this.typingFunc.inputArea).outerHeight()
 								}, aniamteCallb);
 								$('.contentScrFun').customScrollBar();

@@ -165,11 +165,8 @@ html,body,.wrap{height: 100%;}
 
 .cmm_dimm,.laypop{display: none; opacity: 0;}
 .cmm_dimm{background: #293037 !important; opacity: .95 !important;}
-.laypopWarp  .laypopIn{background: #3e4651; border-radius: 5px; padding: 44px; position: absolute; left: 50%; margin-left: -230px; top: 40px; box-shadow: 0 0 20px rgba(0,0,0,.2);}
+.laypopWarp  .laypopIn{background: #3e4651; border-radius: 5px; padding: 10px 44px; box-shadow: 0 0 20px rgba(0,0,0,.2);}
 .laypopWarp  .laypopIn .laypopTit{display: none;}
-.laypopWarp  .laypopIn .lay_hd.warr{background-image: url(../images/common/lay_hd_warr.png);}
-.laypopWarp  .laypopIn .lay_hd .tit{color: #d7d7d7; font-size: 17px; line-height: 1.7; font-weight: normal;}
-.laypopWarp  .laypopIn .lay_hd .tit strong{color: #fff; font-size: 22px; vertical-align: baseline; font-weight: normal;}
 .laypopWarp  .laypopIn .laypopCont{padding: 40px 0 30px;}
 .laypopWarp  .laypopIn .laypopCont .msg{font-size: 15px; color: #fff; line-height: 1.7; font-weight: normal;}
 .laypopWarp  .laypopIn .laypopBottom {text-align: center; border-top: none;}
@@ -177,6 +174,24 @@ html,body,.wrap{height: 100%;}
 .laypopWarp  .laypopIn .laypopBottom .laySmtbtn{margin: 0 15px; padding-top: 75px; min-width: 68px; background: url() no-repeat center top; background-size: 68px; font-size: 12px; color: #8c929a; text-align: center; display: inline-block; vertical-align: top; text-indent: -999em;}
 .laypopWarp  .laypopIn .laypopBottom .layClosebtn{background-image: url(../images/common/lay_btn_def.png);}
 .laypopWarp  .laypopIn .laypopBottom .laySmtbtn{background-image: url(../images/common/lay_btn_comt.png);}
+.dig_plug_area .dig_plug_tp{padding-top: 80px; background: url() no-repeat center top; background-size: 70px; text-align: center;}
+.dig_plug_area .dig_plug_tp.warr{background-image: url(../images/common/lay_hd_warr.png);}
+.dig_plug_area .dig_plug_msg{font-size: 15px; color: #ccc; line-height: 1.7; font-weight: normal; margin-top: 30px; text-align: justify;}
+.dig_plug_area .dig_plug_msg strong{font-weight: 600;}
+.dig_plug_area .dig_plug_msg u{text-decoration: underline; color: #fff;}
+.dig_plug_area .dig_plug_msg .tp01{font-size: 20px; font-weight: 600; margin: 30px 0; text-align: center; color: #f49e17;}
+.dig_plug_area .dig_plug_msg .tp02{font-size: 13px; margin: 10px 0; color: #ddd;}
+.dig_plug_area .dig_plug_tp .tit{color: #d7d7d7; font-size: 17px; line-height: 1.7; font-weight: normal;}
+.dig_plug_area .dig_plug_tp .tit strong{color: #fff; font-size: 22px; vertical-align: baseline; font-weight: normal;}
+.dig_plug_area .dig_git_btn_in{text-align: center; margin-top: 40px;}
+.dig_plug_area .dig_git_btn{display: inline-block; background: #24292e; text-align: center; font-size: 13px; padding: 5px 18px; min-width: 150px; border-radius: 3px; color: #fff; vertical-align: top; box-shadow: 0 2px 0 #161a1d; font-weight: 400;}
+.dig_plug_area .dig_git_btn.gith{background: #24292e; box-shadow: 0 3px 0 #161a1d, inset 0 1px 0 rgba(36,41,46,.5); }
+.dig_plug_area .dig_git_btn.down{background: #0084ff; box-shadow: 0 3px 0 #0460b6, inset 0 1px 0 rgba(255,255,255,.25); }
+.laypopWarp.plugin .laypopIn .laypopBottom{padding: 0;}
+.laypopWarp.plugin .laypopIn .laypopBottom .laySmtbtn{display: none;}
+.laypopWarp  .laypopIn .laypopCont .msg{}
+
+
 /* 프리로더 */
 .cmm_preloader{position: absolute; left: 0; top: 0; width: 100%; height: 100%; background: #eff3f7; text-align: center; z-index: 3; transition: opacity 1.2s;}
 .cmm_preloader .loader {border: 1px solid #1d232a; border-top: 1px solid transparent; border-radius: 50%; width: 20px; height: 20px; animation: spin 1s linear infinite;  position: absolute; left: 50%; margin-left: -10px; top: 50%; margin-top: -10px;}
@@ -218,6 +233,7 @@ html,body,.wrap{height: 100%;}
 }
 
 @media only screen and (max-width: 1200px){
+	.laypopWarp.plugin{display: none !important;}
 	html{overflow: visible;}
 	.chat_area{position: fixed;}
 	.container{margin-right: 0; margin-left: 0; overflow: visible;}
@@ -233,7 +249,8 @@ html,body,.wrap{height: 100%;}
 	.lnb{left: 60px;}
 	.gnb .gnb_list .lst .mn{height: 60px; background-size: 30px;}
 	.contents .cont_hd .tit{text-indent: 12px; display: block; text-overflow: ellipsis; white-space: nowrap; overflow: hidden;}
-	.contents .cont_hd{height: 50px; line-height: 50px; position: relative; padding-right: 100px;}
+	.contents .cont_hd .tit .op_nm{display: none;}
+	.contents .cont_hd{height: 50px; line-height: 50px; position: relative; padding-right: 160px;}
 	.contents .cont_hd .cont_utl{position: absolute; right: 0; top: 0;}
 	.contents .cont_hd .cont_utl .cutl{width: 50px; height: 50px; }
 	.contents .cont_hd .cont_utl .cutl.opt{display: inline-block;}
@@ -273,9 +290,8 @@ html,body,.wrap{height: 100%;}
 }
 
 @media only screen and (max-width: 480px){
-	
 	.laypop{width: 80%; left: 10%; margin-left: 0; box-sizing: border-box; padding: 22px;}
-	.laypop .layp_in .lay_hd{padding-top: 80px; background-size: 60px; background-position: center 10px;}
+	.dig_plug_area .dig_plug_tp{padding-top: 80px; background-size: 60px; background-position: center 10px;}
 	.laypop .layp_in .lay_hd .tit{font-size: 15px; }
 	.laypop .layp_in .lay_ft .lay_btn{padding-top: 60px; background-size: 50px;}
 } 

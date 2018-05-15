@@ -307,8 +307,8 @@ if (location.host.indexOf('8000') != -1) document.write('<script src="http://' +
 					this.title += '</div>';
 					this.bottom += '<div class="' + this.clsFormat(this.targetBottom) + '">';
 					if (this.obj.type != 'alert') {
-						this.bottom += '<a href="#;" class="' + this.clsFormat(this.targetBtns[0]) + '">' + this.obj.targetBtnsName[0] + '</a>';
-						this.bottom += '<a href="#;" class="' + this.clsFormat(this.targetBtns[1]) + '">' + this.obj.targetBtnsName[1] + '</a>';
+						this.bottom += '<a href="#;" class="' + this.clsFormat(this.targetBtns[0]) + '" title="팝업닫기">' + this.obj.targetBtnsName[0] + '</a>';
+						this.bottom += '<a href="#;" class="' + this.clsFormat(this.targetBtns[1]) + '" title="확인">' + this.obj.targetBtnsName[1] + '</a>';
 					} else {
 						this.bottom += '<a href="#;" class="' + this.clsFormat(this.targetBtns[1]) + '">' + this.obj.targetBtnsName[0] + '</a>';
 					}
@@ -384,7 +384,6 @@ if (location.host.indexOf('8000') != -1) document.write('<script src="http://' +
 							$(_this.target).closest(_this.targetParent).hide();
 							_this.dimm().get(false);
 							_this.scrLock(false);
-							console.log(121212)
 							if (_this.obj.type == 'alert') {
 								$('.cmmAlert').closest(_this.targetParent).remove();
 							}
