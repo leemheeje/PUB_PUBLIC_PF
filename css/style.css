@@ -101,7 +101,8 @@ html,body,.wrap{height: 100%;}
 .contents .cont_msg .msg_bx .msg_in .msg_area,  
 .contents .cont_msg .msg_bx .msg_in .msg_info{background: #fff; position: relative; border-radius: 4px; padding: 20px 25px; display: inline-block; min-width: 80px; min-height: 24px;}
 .contents .cont_msg .msg_bx .msg_in .msg_area:after{content: ''; width: 7px; height: 12px; background: url(../images/common/msg_txt_area.png) no-repeat left top; background-size: 100%; position: absolute; left: -7px; top: 26px;}
-.contents .cont_msg .msg_bx .msg_in .msg_area .txt{font-size: 16px; font-weight: normal; color: #222; line-height: 1.5; word-break: break-all;}
+.contents .cont_msg .msg_bx .msg_in .msg_area .txt{font-size: 16px; font-weight: normal; color: #222; line-height: 1.5; word-break: break-all; }
+.contents .cont_msg .msg_bx .msg_in .msg_area pre.txt{white-space: pre-wrap; margin: 0; font-family: 'NanumSquare', sans-serif;}
 .contents .cont_msg .msg_bx .msg_in .msg_area .thumb{margin-bottom: 20px; display: block; text-align: center;}
 .contents .cont_msg .msg_bx .msg_in .msg_area .thumb .img{border-radius: 4px; overflow: hidden; box-shadow: 4px 4px 21px rgba(0,0,0,0.26); display: block;}
 .contents .cont_msg .msg_bx .msg_in .msg_area .thumb .img img{max-width: 100%; width:100%;}

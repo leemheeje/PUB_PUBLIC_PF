@@ -19,7 +19,9 @@
 				this.obj = $.extend(defaultss, obj);
 				this.typingFunc = {
 					tar: '',
+					orgintxt: '',
 					txt: '',
+					loop: null
 				}
 				this.typingFuncBool = true;
 				this.totallen = 0;
@@ -62,7 +64,11 @@
 							$('.ssideHdTit').text(_this.obj.crrtTit);
 						}
 					});
-					$('[data-list-num=0]').click();
+					if (!$('html').is('.mobile')) {
+						$('.container [data-list-num=0]').click();
+					} else {
+						$('[data-list-num=0]').click();
+					}
 				},
 				tagSpecFun: function(specmode) {
 					var mak = '';
@@ -171,7 +177,11 @@
 							$('.cmmAsPannlPreloader').show().removeClass('closeLoader');
 						}
 					});
-					$('[data-list-snum=0]').click();
+					if (!$('html').is('.mobile')) {
+						$('.container [data-list-snum=0]').click();
+					} else {
+						$('[data-list-snum=0]').click();
+					}
 				},
 				sbindCallb: function() {
 					var _this = this;
@@ -243,70 +253,32 @@
 
 				},
 				typingFuncInit: function(tar, txt) {
-					var _this = this;
-					if (_this.typingFuncBool) {
-						this.typingFunc = $.extend(this.typingFunc, {
+					if (this.typingFuncBool) {
+						clearInterval(this.typingFunc.loop);
+						this.typingFunc = {
 							tar: tar,
 							orgintxt: txt,
-							txtSet: function() {
-								var splt = txt.split('<br>');
-								var brIdx = [];
-								var txtwrit = txt;
-								$.each(splt, function(i, t) {
-									brIdx.push(t.length);
-									txtwrit = txt.replace('<br>', '');
-								});
-								return {
-									brIdx: brIdx,
-									txtwrit: txtwrit
-								};
-							},
-							loop: null,
-							timer: 10,
-							count: 0,
-							brCnt : 0
-						});
-						_this.typingFuncLoop();
+							timer: 50,
+							loop: null
+						};
+						this.typingFuncLoop();
 					}
-					_this.typingFuncBool = false;
 				},
 				typingFuncLoop: function() {
-					console.log(this.typingFunc.txtSet())
 					var _this = this;
-					var cnt = 0;
 					var rtxt = '';
-					clearInterval(this.typingFunc.loop);
+					var cnt = 0;
+					this.typingFunc.tar.html('');
 					this.typingFunc.loop = setInterval(function() {
-						rtxt += _this.typingFunc.txtSet().txtwrit[cnt].replace('.','<br>');
-						if (cnt >= _this.typingFunc.txtSet().txtwrit.length) {
+						if (cnt >= _this.typingFunc.orgintxt.length) {
 							clearInterval(_this.typingFunc.loop);
+							$('.contentScrFun').customScrollBar();
 						}
-						_this.typingFunc.tar.html(rtxt);
+						rtxt = _this.typingFunc.orgintxt.slice(0, cnt);
+						_this.typingFunc.tar.html(rtxt)
 						cnt++;
 					}, this.typingFunc.timer);
-					/*this.typingFunc.loop = setInterval(function() {
-						_this.test(cnt);
-						cnt++;
-						if (cnt >= _this.typingFunc.txtArray.length) {
-							clearInterval(_this.typingFunc.loop);
-						}
-					}, this.typingFunc.timer);*/
-					/*for (var i = 0; i < this.typingFunc.txtArray.length; i++) {
-						clearInterval(this.typingFunc.loop)
-						this.test(i);
-					}*/
-				},
-				test: function(i) {
-					//console.log(i)
-					var _this = this;
-					var timeCnt = 0;
-					var cc = setInterval(function() {
-						_this.typingFunc.tar.append(_this.typingFunc.txtArray[i][timeCnt])
-						timeCnt++;
-						if (timeCnt >= _this.typingFunc.txtArray[i].length) {
-							clearInterval(cc);
-						}
-					}, this.typingFunc.timer)
+
 				}
 			};
 			var asidelist = new AsideList({
