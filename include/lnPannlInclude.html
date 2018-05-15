@@ -3,7 +3,8 @@ $(document).ready(function() {
 	var $this = $(this);
 	$(this).cmmDataParse('./data/dataFuncPortfolio.json', function(data) {
 		$this.find('.lnbInList').cmmMobGnb(data).cmmAsideLst({
-			list: data
+			list: data,
+			nullTxt : '관리자의 코멘트가 등록되어 있지 않습니다.'
 		});
 	});
 });

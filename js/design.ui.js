@@ -114,10 +114,10 @@
 						html += '<dl class="txt_list">';
 						html += '<dt>' + item.tit + '</dt>';
 						html += '<dd>';
-						if (item.subj) {
-							html += '<span class="txt">' + item.subj + '</span>';
+						if (item.detailsubj) {
+							html += '<span class="txt">' + item.detailsubj + '</span>';
 						} else {
-							html += '<span class="txt">입력되지 않았습니다.</span>';
+							html += '<span class="txt">' + _this.obj.nullTxt + '</span>';
 						}
 						html += '<div class="s_spec">';
 						html += _this.tagSpecFun(item.mode);
@@ -213,7 +213,7 @@
 						$('[data-params-project-githref="true"]').hide();
 					}
 					if (!this.obj.crrtItems.detailsubj) {
-						this.obj.crrtItems.detailsubj = this.obj.crrtItems.subj;
+						this.obj.crrtItems.detailsubj = this.obj.nullTxt;
 					}
 					if (!this.obj.crrtItems.device || this.obj.crrtItems.device != 'mob') {
 						$('.msg_bx.selfie.info').addClass('mobview_img');

@@ -7,18 +7,29 @@
 		"thumbnail": "./images/thumbnail/pp_ybm.jpg",
 		"subImgs": ["./images/pp_ybm0502.jpg", "./images/pp_ybm0503.jpg", "./images/pp_ybm0504.jpg"],
 		"tit": "YBM-GAME-RIVERCROSSING",
-		"subj": "Houghton Mifflin Harcourt사의 유명한 교과서인 Journeys와 Story Town의 Leveled Reader최신판을...",
-		"detailsubj" : "YBM-READERS  길 건너는 게임입니다. \n100% 순수 자바스크립트로 구현된 프로젝트로, 자바스크립트의 동적 마크업 생성 및 컨트롤 조작을 따로 하여, 유지 보수 편에서 수월하게 제작되었습니다. \n각 장애물의 interval 구현으로 움직임을 표현하며, keybind 와 click으로 조작 가능합니다. \n토끼 엘리먼트의 움직임과 동시에 장애물의 안에 별의 위치값을 찾아 포이트흭득 할 수 있습니다.",
+		"subj": "YBM Readers는 독서 경험이 중요한 시기의 학습자들에게 단순한 티칭(teaching)이 아닌 함께 생각하고 학습 방향을 제시하는 코칭(coaching)교육을 지향합니다.",
+		"detailsubj" : "YBM-READERS  길 건너는 게임입니다. \n100% 순수 자바스크립트로 구현된 프로젝트로, 자바스크립트의 동적 마크업 생성 및 컨트롤 조작을 따로 하여, 유지 보수 편에서 수월하게 제작되었습니다. \n각 장애물의 interval 구현으로 움직임을 표현하며, keybind 와 click으로 조작 가능합니다. \n토끼 엘리먼트의 움직임과 동시에 장애물의 안에 별의 위치값을 찾아 포이트획득 할 수 있습니다.",
 		"mode": "js,IE10++",
 		"href": "https://leemheeje.github.io/06_YBM-GAME-RiverCrossing/html/",
 		"chat": 100
+	},
+	{
+		"img": "./images/pp_img22.jpg",
+		"thumbnail": "./images/thumbnail/pp_img22.jpg",
+		"subImgs": ["./images/pp_img22_01.jpg", "./images/pp_img22_02.jpg", "./images/pp_img22_03.jpg", "./images/pp_img22_04.jpg", "./images/pp_img22_05.jpg"],
+		"tit": "한국과학창의재단-크레존",
+		"subj": "창의체험활동, 창의체험 프로그램, 창의인성교육, 현장체험학습, 지속가능발전교육, 자유학기제 체험활동",
+		"mode": "cms,js,res,IE9++",
+		"href": "https://www.crezone.net",
+		"chat": 80
 	},
 	{
 		"img": "./images/pp_ybm0201.jpg",
 		"thumbnail": "./images/thumbnail/pp_ybm.jpg",
 		"subImgs": ["./images/pp_ybm0202.jpg", "./images/pp_ybm0203.jpg", "./images/pp_ybm0204.jpg"],
 		"tit": "YBM-GAME-BASEBALL",
-		"subj": "Houghton Mifflin Harcourt사의 유명한 교과서인 Journeys와 Story Town의 Leveled Reader최신판을...",
+		"subj": "YBM Readers는 독서 경험이 중요한 시기의 학습자들에게 단순한 티칭(teaching)이 아닌 함께 생각하고 학습 방향을 제시하는 코칭(coaching)교육을 지향합니다.",
+		"detailsubj": "YBM-READERS 홈런더비 게임입니다. \n100% 순수 자바스크립트로 구현된 프로젝트로, 자바스크립트의 동적 마크업 생성 및 컨트롤 조작을 따로 하여, 유지 보수 편에서 수월하게 제작되었습니다. \n야구공의 움직임은 interval과 살짝 틀어져 보이는 과녁 및 야구공의 괘도는 css3루 구현하였습니다. \n타격 후 점수 및 전광판 표시는 callback으로 처리하였습니다.",
 		"mode": "js,IE10++",
 		"href": "https://leemheeje.github.io/06_YBM-GAME-BASEBALL/html/",
 		"chat": 100
@@ -28,7 +39,8 @@
 		"thumbnail": "./images/thumbnail/pp_ybm.jpg",
 		"subImgs": ["./images/pp_ybm0302.jpg", "./images/pp_ybm0303.jpg", "./images/pp_ybm0304.jpg"],
 		"tit": "YBM-GAME-CROCODILE",
-		"subj": "Houghton Mifflin Harcourt사의 유명한 교과서인 Journeys와 Story Town의 Leveled Reader최신판을...",
+		"subj": "YBM Readers는 독서 경험이 중요한 시기의 학습자들에게 단순한 티칭(teaching)이 아닌 함께 생각하고 학습 방향을 제시하는 코칭(coaching)교육을 지향합니다.",
+		"detailsubj": "YBM-READERS 악어 게임입니다. \n100% 순수 자바스크립트로 구현된 프로젝트이며 READERS 프로젝트 중 비교적(?) 쉬운 작업이었습니다. \ninterval, click, callback 등등 기본적인 요소만 사용되었습니다.",
 		"mode": "js,IE10++",
 		"href": "https://leemheeje.github.io/YBM-GAME-CROCO/html/",
 		"chat": 100
@@ -38,7 +50,8 @@
 		"thumbnail": "./images/thumbnail/pp_ybm.jpg",
 		"subImgs": ["./images/pp_ybm0102.jpg", "./images/pp_ybm0103.jpg", "./images/pp_ybm0104.jpg"],
 		"tit": "YBM-GAME-BULDBRIDGE",
-		"subj": "Houghton Mifflin Harcourt사의 유명한 교과서인 Journeys와 Story Town의 Leveled Reader최신판을...",
+		"subj": "YBM Readers는 독서 경험이 중요한 시기의 학습자들에게 단순한 티칭(teaching)이 아닌 함께 생각하고 학습 방향을 제시하는 코칭(coaching)교육을 지향합니다.",
+		"detailsubj": "YBM-READERS 블록 쌓기 게임입니다. \n자바스크립트로 구현된 프로젝트이며 jQueryUI Slider가 추가되었습니다. \n제가 YBM-READERS 프로젝트 중 저를 가장 힘들게 했던 개발 요소였는데요. \n이유는 블록을 하나하나 쌓을 때의 물리적 공식(?)을 구하기가 너무 힘들었습니다. \n결국 블록 개수의 제한을 두고.. \n- 가이드라인 : limitGuideLine \n- 이전 블록 : prevDropBoxObj \n- 현재 블록 : crrtWidthBoxObj \n- 다음 블록 : boxHistroyArry \n위 4가지 객체로 3가지 조건을 충족시켜 구현하였습니다.",
 		"mode": "js,IE10++",
 		"href": "https://leemheeje.github.io/YBM-GAME/html/",
 		"chat": 100
@@ -48,20 +61,11 @@
 		"thumbnail": "./images/thumbnail/pp_ybm.jpg",
 		"subImgs": ["./images/pp_ybm0402.jpg", "./images/pp_ybm0403.jpg", "./images/pp_ybm0404.jpg"],
 		"tit": "YBM-GAME-YAMMYPUZZLE",
-		"subj": "Houghton Mifflin Harcourt사의 유명한 교과서인 Journeys와 Story Town의 Leveled Reader최신판을...",
+		"subj": "YBM Readers는 독서 경험이 중요한 시기의 학습자들에게 단순한 티칭(teaching)이 아닌 함께 생각하고 학습 방향을 제시하는 코칭(coaching)교육을 지향합니다.",
+		"detailsubj": "YBM-READERS 드래그 퍼즐게임입니다.\n 이 게임 같은 경우 제가 구축을 하진 않았고요 저는 추후에 기능 오류를 잡았습니다. \n내용은... 드래그 연결시 중간에 공란이 있어도 연결이 되는 것을 막아달라는 것이었는데요. \n기존 작업자의 소스를 모두 파악하고 작업하기엔 시간적으로 무리라고 생각하여 \n만들어놓은 소스를 해치지 않기 위해 최대한 호출 후 콜백으로 처리하였습니다.",
 		"mode": "js,IE10++",
 		"href": "접속오류..",
 		"chat": 20
-	},
-	{
-		"img": "./images/pp_img22.jpg",
-		"thumbnail": "./images/thumbnail/pp_img22.jpg",
-		"subImgs": ["./images/pp_img22_01.jpg", "./images/pp_img22_02.jpg", "./images/pp_img22_03.jpg", "./images/pp_img22_04.jpg", "./images/pp_img22_05.jpg"],
-		"tit": "한국과학창의재단-크레존",
-		"subj": "창의체험활동, 창의체험 프로그램, 창의인성교육, 현장체험학습, 지속가능발전교육, 자유학기제 체험활...",
-		"mode": "cms,js,res,IE9++",
-		"href": "https://www.crezone.net",
-		"chat": 80
 	},
 	{
 		"img": "./images/pp_img21.jpg",
