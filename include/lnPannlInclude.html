@@ -1,7 +1,7 @@
 <script type="text/javascript">
 $(document).ready(function() {
 	var $this = $(this);
-	$(this).cmmDataParse('/data/dataFuncPortfolio.json', function(data) {
+	$(this).cmmDataParse('./data/dataFuncPortfolio.json', function(data) {
 		$this.find('.lnbInList').cmmMobGnb(data).cmmAsideLst({
 			list: data
 		});

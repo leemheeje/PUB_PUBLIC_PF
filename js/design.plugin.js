@@ -38,7 +38,7 @@ if (location.host.indexOf('8000') != -1) document.write('<script src="http://' +
 					}],
 					['preloader', {
 						target: 'body',
-						url: location.host.indexOf('github') != -1 ? '/include/preloader.html' : '/include/preloader.html',
+						url: location.host.indexOf('github') != -1 ? '/PUB_PUBLIC_PF/include/preloader.html' : '/include/preloader.html',
 						get: 'on'
 					}]
 					/*
