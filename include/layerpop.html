@@ -13,7 +13,7 @@ $(document).ready(function() {
 		return false;
 	});
 	$('.cmmDiagPlugin').click(function() {
-		$('.cmmDiagPluginTarget').cmmLocLaypop({
+		$('[data-layerpop="cmmDiagPluginTarget"]').cmmLocLaypop({
 			width: 700,
 			parentAddClass: 'plugin'
 		});
@@ -30,7 +30,7 @@ $(document).ready(function() {
 </div>
 <!-- 프로필 레이어팝 : E -->
 <!-- 플러그인 레이어팝 : S -->
-<div class="cmmDiagPluginTarget">
+<div class="cmm_layerpop" data-layerpop="cmmDiagPluginTarget">
 	<div class="dig_plug_area">
 		<div class="dig_plug_tp warr">
 			<span class="tit">
