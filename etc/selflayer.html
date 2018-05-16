@@ -1,0 +1,153 @@
+<script type="text/javascript">
+	$('[data-layerpop="startPop"]').cmmLocLaypop({
+		width: $(document).width() * .9,
+		height: $(document).height() * .9,
+		parentAddClass: 'start_pop',
+		submit: function($self) {
+			$self.cmmLocLaypop('close');
+			
+		}
+	});
+	$('.sorcScrFun').customScrollBar();
+</script>
+<!-- 시작팝업 : S -->
+<div class="cmm_layerpop" data-layerpop="startPop">
+	<div class="msg">
+		<div class="dig_cm_tp warr">
+			<span class="tit">
+				<strong>포트폴리오!</strong> 간략한 설명 및 정보
+			</span>
+		</div>
+		<div class="dig_cm_msg sorcScrFun">
+			<div class="in">
+				안녕하세요. 입사지원자 임희재입니다.
+				<br> 포트폴리오에 대하여 간략하게 설명드리려합니다.
+				<ol class="tp03">
+					<li class="ttp">
+						<span class="dot">구성 :</span> 작업물 리스트, 제작 플러그인(UI개발)</li>
+					<li class="ttp">
+						<span class="dot">작업기간 :</span> 6일</li>
+					<li class="ttp">
+						<span class="dot">작업언어 :</span> HTML, CSS(반응형,IE9++), JS/JQUERY(동적생성,OOP,PLUGIN)</li>
+					<li class="ttp">
+						<span class="dot">추가플러그인 :</span> jQueryUI(draggble), jqueryTransform, jqueryEasing</li>
+					<li class="ttp">
+						<span class="dot">디자인요소참여 :</span> 10%</li>
+				</ol>
+				<div><strong>step.1 - 마크업 동적 생성하기</strong></div>
+				<p class="mnd">
+					index.html 루트로 기본 구조가 형성됩니다.
+					<br> 기본 마크업구조 wrap > gnb + container + pannl 형식으로 이뤄지며,
+					<br> 각각의 테그에 해당파일을 동적호출 합니다.
+				</p>
+				<div class="pop_sorc_area w50">
+					<div class="pop_sorc_in w50">
+						<div class="sch_tit">html</div>
+						<div class="sch" data-source-tool='{"lang" : "html" , "scroll" : true}'>
+							<pre class="surcepre">
+&lt;div id="gnbArea" class="gnb gnbAreaInclude"&gt;&lt;/div&gt;
+						</pre>
+						</div>
+					</div>
+					<div class="pop_sorc_in w50">
+						<div class="sch_tit">호출함수</div>
+						<div class="sch" data-source-tool='{"lang" : "호출함수" , "scroll" : true}'>
+							<pre class="surcepre">
+&lt;script type="text/javascript"&gt;
+	$(this).include(true);
+&lt;/script&gt;
+						</pre>
+						</div>
+					</div>
+				</div>
+				<div class="pop_sorc_area">
+					<div class="pop_sorc_in">
+						<div class="sch_tit">내장함수</div>
+						<div class="sch" data-source-tool='{"lang" : "내장함수" , "scroll" : true}'>
+							<pre class="surcepre">
+var appendHtml = function(target) {
+	$getUrl.done(function(data) {
+		$(target).append(function() {
+			$(this).append(data);
+			$(this).customTags();
+		});
+	});
+}
+for (var i = 0; i < include.length; i++) {
+	if (include[i]) {
+		if (include[i][1].get) {
+			var $getUrl = $.get(include[i][1].url);
+			var target = include[i][1].target;
+			appendHtml(target);
+		}
+	}
+}
+						</pre>
+						</div>
+					</div>
+				</div>
+				<div><strong>step02 = json데이터 호출</strong></div>
+				<p class="mnd">
+					DB연동을 기술적으로 할수가없기에
+					<br> 프로젝트 전반적으로 수정&추가가 용이하기 위하여 json데이타(하드코딩)를 직접만들어놓고 사용하고있습니다.
+					<br> (/data/dataFuncPortfolio.json)
+				</p>
+				<div class="pop_sorc_area">
+					<div class="pop_sorc_in w50">
+						<div class="sch_tit">json</div>
+						<div class="sch" data-source-tool='{"lang" : "json" , "scroll" : true}'>
+							<pre class="surcepre">
+[{
+"name": "기업명",
+"data": [
+{
+	"img": "메인이미지",
+	"thumbnail": "썸네일",
+	"subImgs": [서브 이미지, 서브 이미지],
+	"tit": "프로젝트명",
+	"subj": "기업설명",
+	"detailsubj" : "프로젝트 코멘트",
+	"mode": "프로젝트 스펙",
+	"href": "해당주소",
+	"chat": "참여도"
+}
+}]
+						</pre>
+						</div>
+					</div>
+					<div class="pop_sorc_in w50">
+						<div class="sch_tit">호출함수</div>
+						<div class="sch" data-source-tool='{"lang" : "호출함수" , "scroll" : true}'>
+							<pre class="surcepre">
+&lt;script type="text/javascript"&gt;
+	$this.cmmDataParse('./data/dataFuncPortfolio.json', function(data) {
+		/*
+		data callback
+		..
+		.
+		*/
+	});
+&lt;/script&gt;
+						</pre>
+						</div>
+					</div>
+				</div>
+				<div class="pop_sorc_area">
+					<div class="pop_sorc_in">
+						<div class="sch_tit">내장함수</div>
+						<div class="sch" data-source-tool='{"lang" : "내장함수" , "scroll" : true}'>
+							<pre class="surcepre">
+$.getJSON(url, function(data) {
+	if (typeof callback === "function") {
+		callback(data);
+	}
+});
+						</pre>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- 시작팝업 : E -->

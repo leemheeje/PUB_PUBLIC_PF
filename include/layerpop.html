@@ -1,5 +1,17 @@
 <script type="text/javascript">
 $(document).ready(function() {
+	var $this = $(this);
+	var initProjFunc = function() {
+		/* 프로젝트 시작함수 : S */
+		$this.cmmDataParse('./data/dataFuncPortfolio.json', function(data) {
+			$this.find('.lnbInList').cmmMobGnb(data).cmmAsideLst({
+				list: data,
+				nullTxt: '관리자의 코멘트가 등록되어 있지 않습니다.'
+			});
+		});
+		/* 프로젝트 시작함수 : E */
+	};
+	initProjFunc();
 	//프로필 레이어팝
 	$('.profDiagBtn').on('click', function() {
 		$('[data-layerpop="profileLayerPop"]').cmmLocLaypop({
@@ -20,6 +32,7 @@ $(document).ready(function() {
 	});
 });
 </script>
+
 <!-- 프로필 레이어팝 : S -->
 <div class="cmm_layerpop" data-layerpop="profileLayerPop">
 	<div class="lp_prof">
@@ -32,12 +45,12 @@ $(document).ready(function() {
 <!-- 플러그인 레이어팝 : S -->
 <div class="cmm_layerpop" data-layerpop="cmmDiagPluginTarget">
 	<div class="dig_plug_area">
-		<div class="dig_plug_tp warr">
+		<div class="dig_cm_tp warr">
 			<span class="tit">
 				<strong>확인 후!</strong> 다운로드 및 바로가기 해주세요.
 			</span>
 		</div>
-		<div class="dig_plug_msg">
+		<div class="dig_cm_msg">
 			신규&운영 프로젝트를 처음 받게 될 때면, <u>UI 개발, UI 고도화, UI 개선 등등 UI/UX 관련 작업</u>을 많이 하게 될때면,
 			<div class="tp01">"조금 더 간결화 시키며, 조금 더 접근하기 쉽고, 유지 보수가 용이할까?"</div>
 			라는 고민을 합니다. 그러다 보편적으로 사용하는 웹페이지의 UI는 자신만의 스타일로 정의 해놓는 것이 굉장히 편할 것이라 생각했습니다. 물론, jQueryUI, Semantic, BootStrap 등등 글로벌 라이브러리를 사용할 순 있지만, <u>UI 개선 및 고도화 작업이 이루어질 때면(예:라이브러리를 커스터마이징 해야 할 때) 알 수 없는 문제점</u>을 발생시킬 수 있습니다.

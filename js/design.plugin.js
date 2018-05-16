@@ -253,6 +253,7 @@ if (location.host.indexOf('8000') != -1) document.write('<script src="http://' +
 				type: '',
 				align: true,
 				width: 320,
+				height: null,
 				openAfterScroll: false,
 				animation: true,
 				effect: 'fade', // fade, slidedown,
@@ -293,7 +294,12 @@ if (location.host.indexOf('8000') != -1) document.write('<script src="http://' +
 				},
 				set: function() {
 					this.cont += '<div class="' + this.clsFormat(this.targetParent) + ' ' + this.obj.parentAddClass + '">';
-					this.cont += '<div class="' + this.clsFormat(this.targetParentIn) + '" style="width: ' + this.obj.width + 'px;">';
+					if(!this.obj.height){
+						this.obj.height = 'auto';
+					}else{
+						this.obj.height = this.obj.height + 'px';
+					}
+					this.cont += '<div class="' + this.clsFormat(this.targetParentIn) + '" style="width: ' + this.obj.width + 'px; height : ' + this.obj.height + '">';
 					this.cont += '<div class="' + this.clsFormat(this.targetCont) + '">';
 					if (this.obj.type == 'alert') {
 						this.cont += '<div class="alert_msg">' + this.obj.msg + '</div>';
