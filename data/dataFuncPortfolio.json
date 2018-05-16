@@ -259,19 +259,6 @@
 	}]
 },
 {
-	"name": "(주)UIVISTA",
-	"data": [
-	{
-		"img": "./images/pp_img11.jpg",
-		"subImgs": ["./images/pp_img11_01.jpg", "./images/pp_img11_02.jpg", "./images/pp_img11_03.jpg", "./images/pp_img11_04.jpg", "./images/pp_img11_05.jpg", "./images/pp_img11_06.jpg"],
-		"tit": "한국한의학연구원-미병",
-		"subj": "이 어플리케이션은 일상 생활에서 사용자의 미병을 평가하고 관리방법을 제공하기 위한 한의학 기반 예방관리 프로그램입니다. 현재 등록된 어플리케이션은 임상연구 수행을 위한 버전으로, 일반 사용자가 활용할 때는 자료 또는 기능에 제한이 있습니다.",
-		"mode": "js,hyb",
-		"href": "https://play.google.com/store/apps/details?id=kr.re.kiom.mibyeong.app",
-		"chat": 55
-	}]
-},
-{
 	"name": "프리랜서 활동",
 	"data": [
 	{
