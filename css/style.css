@@ -200,6 +200,26 @@ html,body,.wrap{height: 100%;}
 .pop_sorc_area .pop_sorc_in .surcepre{margin: 0; display: block; font-size: 13px; color: #fff; }
 .laypopWarp.start_pop{}
 .sorcScrFun{height: 500px; overflow-y: auto;}
+.dig_start_in{font-size: 0;}
+.dig_start_info,
+.dig_start_step{width: 50%; display: inline-block; vertical-align: top; font-size: 13px;}
+.dig_start_info{padding-left: 15px;}
+.dig_start_step{padding-right: 15px;}
+.dig_start_info .dist_tp{}
+.dig_start_info .dist_tp .tit{font-size: 18px; font-weight: normal; color: #fff;}
+.dig_start_info .dist_tp .stit{margin-top: 10px; display: block; font-size: 15px;}
+.dig_start_info .tp03{margin-top: 20px;}
+.dig_start_info .tp03 .ttp{position: relative; font-size: 14px; line-height: 1.7; padding-left: 120px; color: #fff;}
+.dig_start_info .tp03 .ttp+.ttp{margin-top: 3px;}
+.dig_start_info .tp03 .ttp .dot{position: absolute; left: 0; padding-left: 10px; top: 0; width: 110px; text-align: justify; color: #ccc;}
+.dig_start_info .tp03 .ttp .dot:before{content: '-'; position: absolute; left: 0; top: 0;}
+.dig_start_info .tp03 .ttp .dot:after{content: ':'; position: absolute; right: 0; top: 0;}
+.dig_start_step{}
+.dig_start_step .dist_step_tp{}
+.dig_start_step .dist_step_tp .dot{font-size: 16px; color: #fff; font-weight: 600; display: inline-block; vertical-align: bottom; margin-right: 15px; position: relative;}
+.dig_start_step .dist_step_tp .dot:before{}
+.dig_start_step .dist_step_tp .dot:after{content: '';}
+.dig_start_step .mnd{margin-top: 10px; font-size: 14px;}
 /* 프리로더 */
 .cmm_preloader{position: absolute; left: 0; top: 0; width: 100%; height: 100%; background: #eff3f7; text-align: center; z-index: 3; transition: opacity 1.2s;}
 .cmm_preloader .loader {border: 1px solid #1d232a; border-top: 1px solid transparent; border-radius: 50%; width: 20px; height: 20px; animation: spin 1s linear infinite;  position: absolute; left: 50%; margin-left: -10px; top: 50%; margin-top: -10px;}

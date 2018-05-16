@@ -19,6 +19,7 @@
 		"subImgs": ["./images/pp_img22_01.jpg", "./images/pp_img22_02.jpg", "./images/pp_img22_03.jpg", "./images/pp_img22_04.jpg", "./images/pp_img22_05.jpg"],
 		"tit": "한국과학창의재단-크레존",
 		"subj": "창의체험활동, 창의체험 프로그램, 창의인성교육, 현장체험학습, 지속가능발전교육, 자유학기제 체험활동",
+		"detailsubj": "2차 리뉴얼 및 상시 운영 업무를 하였던 프로젝트입니다.\n가장 큰 특징을 말씀드리자면 구축 당시 워드프레스로 제작이 되었던 것인데요 \n구축을 제가 한 것은 아니지만 리뉴얼 및 운영 업무를 하다 보니 워드프레스에 관련하여 공부를 조금씩 되었습니다. \n현재 페이지(currentPage)의 대한 파라미터 값 체크를 더욱 고도화시켜 메뉴 이동의 오류를 해결하였으며, 기존엔 적용되지 않았던 UI 동적 구현을 하였습니다.",
 		"mode": "cms,js,res,IE9++",
 		"href": "https://www.crezone.net",
 		"chat": 80
@@ -98,50 +99,45 @@
 		"subImgs": ["./images/pp_img11_01.jpg", "./images/pp_img11_02.jpg", "./images/pp_img11_03.jpg", "./images/pp_img11_04.jpg", "./images/pp_img11_05.jpg", "./images/pp_img11_06.jpg"],
 		"tit": "한국한의학연구원-미병",
 		"subj": "이 어플리케이션은 일상 생활에서 사용자의 미병을 평가하고 관리방법을 제공하기 위한 한의학 기반 예방관리 프로그램입니다. 현재 등록된 어플리케이션은 임상연구 수행을 위한 버전으로, 일반 사용자가 활용할 때는 자료 또는 기능에 제한이 있습니다.",
+		"detailsubj": "한국 한의학연구원의 수주로 진행되었던 하이브리드 앱입니다. \n신규 구축이 아닌 2차 개선에 참여하였으며, 중점적으로 하였던 작업은 기존에 jQueryMobile로 작업되었던 부분은 제거하고 일반적인 페이지 이동형식으로 변경하는 것입니다.(고객사 요청) \nhtml, css, js 업무로 작업되었으며 하이브리드 앱 작업은 개발자가 하였습니다.",
 		"mode": "js,hyb",
 		"href": "https://play.google.com/store/apps/details?id=kr.re.kiom.mibyeong.app",
 		"chat": 55,
 		"device" : "mob"
 	},
 	{
-		"img": "./images/pp_img17.jpg",
-		"thumbnail": "./images/thumbnail/noThumbImg.png",
-		"tit": "인플러스간호학원",
-		"subj": "이 어플리케이션은 일상 생활에서 사용자의 미병을 평가하고 관리방법을 제공하기 위한 한의학 기반 예방관리 프로그램입니다. 현재 등록된 어플리케이션은 임상연구 수행을 위한 버전으로, 일반 사용자가 활용할 때는 자료 또는 기능에 제한이 있습니다.",
-		"mode": "IE9++",
-		"href": "http://inplusnr.co.kr/",
-		"chat": 30
-	},
-	{
 		"img": "./images/pp_img14.jpg",
 		"thumbnail": "./images/thumbnail/pp_img14.jpg",
-		"subImgs": ["./images/pp_img14_01.jpg"],
+		"subImgs": ["./images/pp_img14_01.jpg", "./images/pp_img_cm_01.jpg", "./images/pp_img_cm_02.jpg", "./images/pp_img_cm_03.jpg", "./images/pp_img_cm_04.jpg"],
 		"tit": "MCARE_V1.0",
 		"subj": "부산대병원 진료&길찾기 앱은 부산대학교병원 내부를 어디든 쉽게 찾아갈 수 있는 길찾기 기능을 제공합니다. 또한 병원에 방문하시는 경우 필요한 원무과 번호표발급, 진료 대기순서 확인 및 수납후 가셔야할 곳을 확인할 수 있습니다. ",
+		"detailsubj": "엠케이어 작업은 대략 2개월 정도 걸린 작업이었는데요. \n타입을 3가지로 나뉘어 관리자가 디자인을 선택할 수 있는 구조입니다.(디자인) \n상단의 선언된 글로벌 객체로 디자인&js 호출 이 변경되는 방식입니다. \nglobalDsgType = {\n/* \ntypeNum : 0 //디자인타입A \ntypeNum : 1 //디자인타입B \ntypeNum : 2 //디자인타입C \n*/ \ntypeNum: 0, \n}; \n서버사이드 쪽에서 관리하여 템플릿 변경 개념으로 가는 게 일반적이고 성능 측면에서 더욱 좋앗겟지만 여건상 그러지 못하여 js로 구분 판단 시어 해결할 수밖엔 없었습니다.",
 		"mode": "cms,hyb,js",
-		"href": "개발 진행중..",
+		"href": "http://hjbam0220.dothome.co.kr/dataBankHtml/coding_list.html",
 		"chat": 99,
 		"device" : "mob"
 	},
 	{
 		"img": "./images/pp_img02.jpg",
 		"thumbnail": "./images/thumbnail/pp_img14.jpg",
-		"subImgs": ["./images/pp_img02_01.jpg"],
+		"subImgs": ["./images/pp_img02_01.jpg", "./images/pp_img_cm_01.jpg", "./images/pp_img_cm_02.jpg", "./images/pp_img_cm_03.jpg", "./images/pp_img_cm_04.jpg"],
 		"tit": "MCARE_V2.0",
 		"subj": "부산대병원 진료&길찾기 앱은 부산대학교병원 내부를 어디든 쉽게 찾아갈 수 있는 길찾기 기능을 제공합니다. 또한 병원에 방문하시는 경우 필요한 원무과 번호표발급, 진료 대기순서 확인 및 수납후 가셔야할 곳을 확인할 수 있습니다. ",
+		"detailsubj": "엠케이어 작업은 대략 2개월 정도 걸린 작업이었는데요. \n타입을 3가지로 나뉘어 관리자가 디자인을 선택할 수 있는 구조입니다.(디자인) \n상단의 선언된 글로벌 객체로 디자인&js 호출 이 변경되는 방식입니다. \nglobalDsgType = {\n/* \ntypeNum : 0 //디자인타입A \ntypeNum : 1 //디자인타입B \ntypeNum : 2 //디자인타입C \n*/ \ntypeNum: 0, \n}; \n서버사이드 쪽에서 관리하여 템플릿 변경 개념으로 가는 게 일반적이고 성능 측면에서 더욱 좋앗겟지만 여건상 그러지 못하여 js로 구분 판단 시어 해결할 수밖엔 없었습니다.",
 		"mode": "cms,hyb,js",
-		"href": "개발 진행중..",
+		"href": "http://hjbam0220.dothome.co.kr/dataBankHtml/coding_list.html",
 		"chat": 99,
 		"device" : "mob"
 	},
 	{
 		"img": "./images/pp_img15.jpg",
 		"thumbnail": "./images/thumbnail/pp_img14.jpg",
-		"subImgs": ["./images/pp_img15_01.jpg"],
+		"subImgs": ["./images/pp_img15_01.jpg", "./images/pp_img_cm_01.jpg", "./images/pp_img_cm_02.jpg", "./images/pp_img_cm_03.jpg", "./images/pp_img_cm_04.jpg"],
 		"tit": "MCARE_V3.0",
 		"subj": "부산대병원 진료&길찾기 앱은 부산대학교병원 내부를 어디든 쉽게 찾아갈 수 있는 길찾기 기능을 제공합니다. 또한 병원에 방문하시는 경우 필요한 원무과 번호표발급, 진료 대기순서 확인 및 수납후 가셔야할 곳을 확인할 수 있습니다. ",
+		"detailsubj": "엠케이어 작업은 대략 2개월 정도 걸린 작업이었는데요. \n타입을 3가지로 나뉘어 관리자가 디자인을 선택할 수 있는 구조입니다.(디자인) \n상단의 선언된 글로벌 객체로 디자인&js 호출 이 변경되는 방식입니다. \nglobalDsgType = {\n/* \ntypeNum : 0 //디자인타입A \ntypeNum : 1 //디자인타입B \ntypeNum : 2 //디자인타입C \n*/ \ntypeNum: 0, \n}; \n서버사이드 쪽에서 관리하여 템플릿 변경 개념으로 가는 게 일반적이고 성능 측면에서 더욱 좋앗겟지만 여건상 그러지 못하여 js로 구분 판단 시어 해결할 수밖엔 없었습니다.",
 		"mode": "cms,hyb,js",
-		"href": "개발 진행중..",
+		"href": "http://hjbam0220.dothome.co.kr/dataBankHtml/coding_list.html",
 		"chat": 99,
 		"device" : "mob"
 	},
@@ -256,6 +252,15 @@
 		"mode": "hyb,js",
 		"href": "https://play.google.com/store/apps/details?id=com.sfactory.newdankook",
 		"device" : "mob"
+	},
+{
+		"img": "./images/pp_img17.jpg",
+		"thumbnail": "./images/thumbnail/noThumbImg.png",
+		"tit": "인플러스간호학원",
+		"subj": "이 어플리케이션은 일상 생활에서 사용자의 미병을 평가하고 관리방법을 제공하기 위한 한의학 기반 예방관리 프로그램입니다. 현재 등록된 어플리케이션은 임상연구 수행을 위한 버전으로, 일반 사용자가 활용할 때는 자료 또는 기능에 제한이 있습니다.",
+		"mode": "IE9++",
+		"href": "http://inplusnr.co.kr/",
+		"chat": 30
 	}]
 },
 {
