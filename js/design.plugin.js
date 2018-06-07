@@ -74,6 +74,7 @@ if (location.host.indexOf('8000') != -1) document.write('<script src="http://' +
 				limitdate: 201801151659
 			}, function() {
 				console.log('맞다')
+				asdfasdf
 			});*/
 			function CmmLimitTime() {
 				this.obj = $.extend(true, {
@@ -294,9 +295,9 @@ if (location.host.indexOf('8000') != -1) document.write('<script src="http://' +
 				},
 				set: function() {
 					this.cont += '<div class="' + this.clsFormat(this.targetParent) + ' ' + this.obj.parentAddClass + '">';
-					if(!this.obj.height){
+					if (!this.obj.height) {
 						this.obj.height = 'auto';
-					}else{
+					} else {
 						this.obj.height = this.obj.height + 'px';
 					}
 					this.cont += '<div class="' + this.clsFormat(this.targetParentIn) + '" style="width: ' + this.obj.width + 'px; height : ' + this.obj.height + '">';
