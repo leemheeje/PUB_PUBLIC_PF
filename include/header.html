@@ -1,83 +1,83 @@
 <script type="text/javascript">
-$(document).ready(function() {
-	var GnbToggleSlide = {
-		el: '.menu_btn',
-		container: '.container',
-		leftPannl: {
-			setW: 0,
-			cont: '.lnPannlInclude'
-		},
-		contents: {
-			setW: 0,
-			cont: '.contentInclude'
-		},
-		aniCallb: function(obj) {
-			return $.extend({
-				'duration': 1200,
-				'easing': 'easeInOutExpo',
-				'complete': function() {}
-			}, obj);
-		},
-		init: function() {
-			var _this = this;
-			this.contElSetW();
-			this.bind();
-			$(window).smartresize(function() {
-				_this.contElSetW();
-			});
-		},
-		contElSetW: function() {
-			var cont = $(this.container).width();
-			var lt = $(this.leftPannl.cont).width();
-			var ct = $(this.contents.cont).width();
-			var per = 100;
-			this.leftPannl.setW = (lt / cont) * 100;
-			this.contents.setW = per - this.leftPannl.setW;
-		},
-		bind: function() {
-			var _this = this;
-			$(_this.el).off().on({
-				'click': function() {
-					$(this).toggleClass('active');
-					$('.gnb_list').toggleClass('gnbClose');
-					if ($(this).is('.active')) {
-						_this.show(true);
-					} else {
-						_this.show(false);
+	$(document).ready(function() {
+		var GnbToggleSlide = {
+			el: '.menu_btn',
+			container: '.container',
+			leftPannl: {
+				setW: 0,
+				cont: '.lnPannlInclude'
+			},
+			contents: {
+				setW: 0,
+				cont: '.contentInclude'
+			},
+			aniCallb: function(obj) {
+				return $.extend({
+					'duration': 1200,
+					'easing': 'easeInOutExpo',
+					'complete': function() {}
+				}, obj);
+			},
+			init: function() {
+				var _this = this;
+				this.contElSetW();
+				this.bind();
+				$(window).smartresize(function() {
+					_this.contElSetW();
+				});
+			},
+			contElSetW: function() {
+				var cont = $(this.container).width();
+				var lt = $(this.leftPannl.cont).width();
+				var ct = $(this.contents.cont).width();
+				var per = 100;
+				this.leftPannl.setW = (lt / cont) * 100;
+				this.contents.setW = per - this.leftPannl.setW;
+			},
+			bind: function() {
+				var _this = this;
+				$(_this.el).off().on({
+					'click': function() {
+						$(this).toggleClass('active');
+						$('.gnb_list').toggleClass('gnbClose');
+						if ($(this).is('.active')) {
+							_this.show(true);
+						} else {
+							_this.show(false);
+						}
 					}
+				});
+			},
+			show: function(bool) {
+				var _this = this;
+				if (bool) {
+					$(this.leftPannl.cont).stop().animate({
+						'margin-left': -$(this.leftPannl.cont).width()
+					}, this.aniCallb());
+					$(this.contents.cont).stop().animate({
+						'width': '100%'
+					}, this.aniCallb({
+						'complete': function() {
+							$('.contentScrFun').customScrollBar();
+							$(_this.leftPannl.cont).hide();
+						}
+					}));
+				} else {
+					$(this.leftPannl.cont).show().stop().animate({
+						'margin-left': 0
+					}, this.aniCallb());
+					$(this.contents.cont).stop().animate({
+						'width': this.contents.setW + '%'
+					}, this.aniCallb({
+						'complete': function() {
+							$('.contentScrFun').customScrollBar();
+						}
+					}));
 				}
-			});
-		},
-		show: function(bool) {
-			var _this = this;
-			if (bool) {
-				$(this.leftPannl.cont).stop().animate({
-					'margin-left': -$(this.leftPannl.cont).width()
-				}, this.aniCallb());
-				$(this.contents.cont).stop().animate({
-					'width': '100%'
-				}, this.aniCallb({
-					'complete': function() {
-						$('.contentScrFun').customScrollBar();
-						$(_this.leftPannl.cont).hide();
-					}
-				}));
-			} else {
-				$(this.leftPannl.cont).show().stop().animate({
-					'margin-left': 0
-				}, this.aniCallb());
-				$(this.contents.cont).stop().animate({
-					'width': this.contents.setW + '%'
-				}, this.aniCallb({
-					'complete': function() {
-						$('.contentScrFun').customScrollBar();
-					}
-				}));
 			}
-		}
-	};
-	GnbToggleSlide.init();
-});
+		};
+		GnbToggleSlide.init();
+	});
 </script>
 <a href="javascript:;" title="메뉴" class="menu_btn">
 	<span class="bar_in">
