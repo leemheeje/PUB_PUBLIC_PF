@@ -1,37 +1,37 @@
 <script type="text/javascript">
-$(document).ready(function() {
-	var $this = $(this);
-	var initProjFunc = function() {
-		/* 프로젝트 시작함수 : S */
-		//$this.cmmDataParse('./data/dataFuncPortfolio.json', function(data) {
-		$this.cmmDataParse('//leemheeje.github.io/PUB_DATA/data/dataFuncPortfolio.json', function(data) {
-			$this.find('.lnbInList').cmmMobGnb(data).cmmAsideLst({
-				list: data,
-				nullTxt: '관리자의 코멘트가 등록되어 있지 않습니다.'
+	$(document).ready(function() {
+		var $this = $(this);
+		var initProjFunc = function() {
+			/* 프로젝트 시작함수 : S */
+			//$this.cmmDataParse('./data/dataFuncPortfolio.json', function(data) {
+			$this.cmmDataParse('//leemheeje.github.io/PUB_DATA/data/dataFuncPortfolio.json', function(data) {
+				$this.find('.lnbInList').cmmMobGnb(data).cmmAsideLst({
+					list: data,
+					nullTxt: '관리자의 코멘트가 등록되어 있지 않습니다.'
+				});
+			});
+			/* 프로젝트 시작함수 : E */
+		};
+		initProjFunc();
+		//프로필 레이어팝
+		$('.profDiagBtn').on('click', function() {
+			$('[data-layerpop="profileLayerPop"]').cmmLocLaypop({
+				width: 640,
+				targetBtnsName: ['aaaa', '확인'],
+				parentAddClass: 'profile_layer',
+				submit: function($this) {
+					$this.cmmLocLaypop('close');
+				},
+			});
+			return false;
+		});
+		$('.cmmDiagPlugin').click(function() {
+			$('[data-layerpop="cmmDiagPluginTarget"]').cmmLocLaypop({
+				width: 700,
+				parentAddClass: 'plugin'
 			});
 		});
-		/* 프로젝트 시작함수 : E */
-	};
-	initProjFunc();
-	//프로필 레이어팝
-	$('.profDiagBtn').on('click', function() {
-		$('[data-layerpop="profileLayerPop"]').cmmLocLaypop({
-			width: 640,
-			targetBtnsName: ['aaaa', '확인'],
-			parentAddClass: 'profile_layer',
-			submit: function($this) {
-				$this.cmmLocLaypop('close');
-			},
-		});
-		return false;
 	});
-	$('.cmmDiagPlugin').click(function() {
-		$('[data-layerpop="cmmDiagPluginTarget"]').cmmLocLaypop({
-			width: 700,
-			parentAddClass: 'plugin'
-		});
-	});
-});
 </script>
 <script type="text/javascript">
 </script>
