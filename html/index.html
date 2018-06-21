@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <title>음양사</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <link rel="stylesheet" type="text/css" href="./css/style.css" media="all" />
+</head>
+
+<body>
+    <div class="cmm_wind_area"> </div>
+    <script src="./js/plugin/jquery-1.11.3.min.js"></script>
+    <script src="./js/plugin/jquery.easing.1.3.js"></script>
+    <script src="./js/ui.js"></script>
+    <script>
+        $(document).ready(function() {
+            UiCommPackage.wind.init({
+                target : '.cmm_wind_area',
+                leng: 2,
+                speed: 5,
+                dir: [2,3],
+                easing: 'swing',
+            });
+        });
+    </script>
+    <script src="http://localhost:35729/livereload.js"></script>
+</body>
+
+</html>
