@@ -257,8 +257,10 @@
                 title: '타이틀',
                 parentAddClass: '',
                 targetBtnsName: ['취소', '확인'],
+                scroll: true,
                 beforeCallback: null,
                 submit: null,
+                closeCallb: null
             };
 
             function CmmLocLaypop($this) {
@@ -269,6 +271,7 @@
                 this.targetParent = '.laypopWarp';
                 this.targetParentIn = '.laypopIn';
                 this.targetTitle = '.laypopTit';
+                this.targetTitleTxt = '.laypopTitTxt';
                 this.targetCont = '.laypopCont';
                 this.targetBottom = '.laypopBottom';
                 this.targetBtns = ['.layClosebtn', '.laySmtbtn'];
@@ -305,15 +308,15 @@
                     this.cont += '</div>';
                     this.cont += '</div>';
                     this.title += '<div class="' + this.clsFormat(this.targetTitle) + '">';
-                    this.title += this.obj.title;
-                    this.title += '<a href="#;" class="' + this.clsFormat(this.targetBtns[0]) + '" title="팝업닫기"><span class="ti-close"></span></a>';
+                    this.title += '<span class="' + this.clsFormat(this.targetTitleTxt) + '">' + this.obj.title + '</span>';
+                    this.title += '<a href="javascript: ;" class="' + this.clsFormat(this.targetBtns[0]) + '" title="팝업닫기"><span class="ti-close"></span></a>';
                     this.title += '</div>';
                     this.bottom += '<div class="' + this.clsFormat(this.targetBottom) + '">';
                     if(this.obj.type != 'alert') {
-                        this.bottom += '<a href="#;" class="' + this.clsFormat(this.targetBtns[0]) + '" title="팝업닫기">' + this.obj.targetBtnsName[0] + '</a>';
-                        this.bottom += '<a href="#;" class="' + this.clsFormat(this.targetBtns[1]) + '" title="확인">' + this.obj.targetBtnsName[1] + '</a>';
+                        this.bottom += '<a href="javascript:;" class="' + this.clsFormat(this.targetBtns[0]) + '" title="팝업닫기">' + this.obj.targetBtnsName[0] + '</a>';
+                        this.bottom += '<a href="javascript:;" class="' + this.clsFormat(this.targetBtns[1]) + '" title="확인">' + this.obj.targetBtnsName[1] + '</a>';
                     } else {
-                        this.bottom += '<a href="#;" class="' + this.clsFormat(this.targetBtns[1]) + '">' + this.obj.targetBtnsName[0] + '</a>';
+                        this.bottom += '<a href="javascript:;" class="' + this.clsFormat(this.targetBtns[1]) + '">' + this.obj.targetBtnsName[0] + '</a>';
                     }
                     this.bottom += '</div>';
                     if(!$(this.target).closest(this.targetParent).length) {
@@ -352,14 +355,16 @@
                     });
                 },
                 scrLock: function(bool) {
-                    if(bool) {
-                        $('body').css({
-                            'overflow-y': 'hidden'
-                        });
-                    } else {
-                        $('body').css({
-                            'overflow-y': 'visible'
-                        });
+                    if(this.obj.scroll) {
+                        if(bool) {
+                            $('body').css({
+                                'overflow-y': 'hidden'
+                            });
+                        } else {
+                            $('body').css({
+                                'overflow-y': 'visible'
+                            });
+                        }
                     }
                 },
                 close: function() {
@@ -370,6 +375,11 @@
                         }
                     });
                     $(_this.target).closest(_this.targetParent).find(this.targetBtns[0]).on({
+                        'click': function() {
+                            _this.act().hide();
+                        }
+                    });
+                    $(_this.target).closest(_this.targetParent).find(this.dimmClsName).on({
                         'click': function() {
                             _this.act().hide();
                         }
@@ -389,6 +399,9 @@
                             _this.scrLock(false);
                             if(_this.obj.type == 'alert') {
                                 $('.cmmAlert').closest(_this.targetParent).remove();
+                            }
+                            if(typeof _this.obj.closeCallb === 'function') {
+                                _this.obj.closeCallb();
                             }
                         }
                     };
