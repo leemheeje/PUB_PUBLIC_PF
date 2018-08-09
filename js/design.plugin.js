@@ -1,7 +1,7 @@
 /*
- * 제작자 : 웹사업부 - 임희재대리
- * 버전 : v.06
- * 수정내용 : cmmLocLaypop 추가 / customScrollBar 수정
+ * 제작자 : 임희재
+ * 버전 : v.07
+ * 수정내용 : cmmYoutubePlayPause 삭제
  */
 /* Plugin */
 ;
@@ -66,6 +66,75 @@
                     }
                 }
             }
+        },
+        cmmYoutubePlayPause: function(opt) {
+            var $this = $(this);
+            var defaults = {
+                action: 'stop', //stop, pause, play , onReady, playing
+                eventCallback: null,
+                actionCallback: null
+            };
+
+            function CmmYoutubePlayPause(_self) {
+                var _this = this;
+                this.el = _self;
+                this.opt = $.extend(true, defaults, opt);
+                this.obj = {
+                    paramGubun: ['?', '&'],
+                    params: 'enablejsapi=1&version=3&playerapiid=ytplayer&cc_load_policy=1',
+                };
+                this.init();
+            }
+            CmmYoutubePlayPause.prototype = {
+                init: function() {
+                    this.set();
+                    if(this.opt.action) {
+                        this.actions(this.opt.action);
+                    }
+                },
+                set: function() {
+                    var _this = this;
+                    $(this.el).each(function() {
+                        var $this = $(this);
+                        var $thisSrc = $this.attr('src');
+                        if($thisSrc.indexOf(_this.obj.params) == -1) {
+                            if($thisSrc.indexOf(_this.obj.paramGubun[0]) != -1) {
+                                $thisSrc = $thisSrc + _this.obj.paramGubun[1] + _this.obj.params;
+                            } else {
+                                $thisSrc = $thisSrc + _this.obj.paramGubun[0] + _this.obj.params;
+                            }
+                            $this.attr('src', $thisSrc);
+                        }
+                    });
+                },
+                actions: function(gubun) {
+                    var _this = this;
+                    var gubunv = '';
+                    if(gubun == 'stop') {
+                        gubunv = 'stopVideo';
+                    } else if(gubun == 'pause') {
+                        gubunv = 'pauseVideo';
+                    } else if(gubun == 'play') {
+                        gubunv = 'playVideo';
+                    } else {
+                        gubunv = gubun;
+                    }
+                    $(_this.el).load(function() {
+                        this.contentWindow.postMessage('{"event" : "command","func" : "' + gubunv + '","args":""}', '*');
+
+                        function onYouTubePlayerReady() {
+                            console.log(123123123123123123123123123);
+                        }
+                        if(typeof _this.opt.eventCallback === 'function') {
+                            _this.opt.eventCallback(this);
+                        }
+                    });
+                }
+            };
+            this.each(function() {
+                $.data($(this), new CmmYoutubePlayPause(this));
+            });
+            return $this;
         },
         cmmLimitTime: function(obj, callb) {
             /*$(this).cmmLimitTime({
@@ -134,79 +203,494 @@
             return this;
         },
         cmmValidator: function(obj) {
-            /*
-			$('.tntntntntn a').click(function(){
-			$('.tntntntntn').cmmValidator();
-		});
-<div class="tntntntntn">
-		<input type="checkbox" data-input-class='{"required" : true}' name=""><label>asdf</label>
-		<input type="text" data-input-class='{"ime" : "string", "required" : true}' title="전화번호">
-		<input type="text" data-input-class='{"ime" : "number", "required" : true}' title="문자">
-		<input type="text" data-input-class='{"ime" : "string", "required" : true}' title="ㄴㄴㄴㄴㄴ">
-		<input type="text" data-input-class='{"ime" : "string", "required" : true}' title="ㅊㅊㅊㅊ">
-		<select data-input-class='{"required" : true}'>
-			<option value="">asdfasdf</option>
-		</select>
-		<a href="#">asdfasdf</a>
-	</div>
-			*/
+            /*<form class="form">
+                <div class="form-group">디바이스선택
+                    <input type="radio" data-params='{"required" : true}' name="USER_DEVICE">
+                    <label class="form-check-label">안드로이드</label>
+                    <input type="radio" data-params='{"required" : true}' name="USER_DEVICE">
+                    <label class="form-check-label">아이폰</label>
+                    <input type="radio" data-params='{"required" : true}' name="USER_DEVICE">
+                    <label class="form-check-label">아이폰A</label>
+                    <input type="radio" data-params='{"required" : true}' name="USER_DEVICE">
+                    <label class="form-check-label">아이폰C</label>
+                    <input type="radio" data-params='{"required" : true}' name="USER_DEVICE">
+                    <label class="form-check-label">아이폰D</label>
+                    <input type="radio" data-params='{"required" : true}' name="USER_DEVICE">
+                    <label class="form-check-label">아이폰E</label>
+                </div>
+        
+                <div class="form-group">
+                    <label>한글</label>
+                    <input type="text" name="USER_NAME" data-params='{"ime" : "ko", "required" : true}' class="form-control valTest1" placeholder="한글만입력" title="한글">
+                </div>
+                <div class="form-group">
+                    <label>숫자</label>
+                    <input type="number" name="USER_NUMBER" data-params='{"ime" : "number", "required" : true}' class="form-control valTest2" placeholder="숫자만입력" title="숫자">
+                </div>
+        
+                <div class="form-group">
+                    <label>전화번호</label>
+                    <input type="number" name="USER_PHONENUMBER" data-params='{"ime" : "tel", "required" : true}' class="form-control valTest3" placeholder="숫자만입력" title="숫자 전화번호">
+                </div>
+                <div class="form-group">
+                    <label>영어</label>
+                    <input type="text" name="USER_EN_NAME" data-params='{"ime" : "en", "required" : true}' class="form-control valTest4" placeholder="영어만입력" title="영어">
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label>en,number = 이메일</label>
+                        <input type="email" name="USER_EMAIL" data-params='{"ime" : "en,number", "required" : true}' class="form-control valTest5" placeholder="이메일" title="이메일">
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label>영어&특수문자</label>
+                        <input type="email" name="USER_EMAIL_DOMAIN" data-params='{"ime" : "en,etc"}' class="form-control mailform valTes6" placeholder="이메일" title="이메일">
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label>선택</label>
+                        <select class="form-control" onchange="$('.mailform').val(this.value)">
+                            <option value="">직접입력</option>
+                            <option value="naver.com">naver.com</option>
+                            <option value="hanmail.net">hanmail.net
+                                <option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>선택</label>
+                    <select class="form-control valTest7" name="USER_GENDER" data-params='{"required" : true}'>
+                        <option value="">선택</option>
+                        <option value="1">남성</option>
+                        <option value="2">여성</option>
+                    </select>
+                </div>
+                <div class="form-group">개인정보A
+                    <input type="radio" data-params='{"required" : true}' name="USER_AGREE1" class="valTest8 agree1">
+                    <label class="form-check-label">동의</label>
+                    <input type="radio" name="USER_AGREE1">
+                    <label class="form-check-label">미동의</label>
+                </div>
+                <div class="form-group">개인정보B
+                    <input type="radio" data-params='{"required" : true}' name="USER_AGREE2" class="agree2">
+                    <label class="form-check-label">동의</label>
+                    <input type="radio" name="USER_AGREE2">
+                    <label class="form-check-label">미동의</label>
+                </div>
+                <div class="form-group form-check">
+                    <input type="checkbox" name="USER_CHK1" data-params='{"required" : true}' class="form-check-input">
+                    <label class="form-check-label"><span style="color: red">필수선택</span></label>
+                </div>
+                <div class="form-group form-check">
+                    <input type="checkbox" name="USER_CHK2" class="form-check-input">
+                    <label class="form-check-label">다중선택</label>
+                </div>
+                <div class="form-group form-check">
+                    <input type="checkbox" name="USER_CHK3" class="form-check-input">
+                    <label class="form-check-label">다중선택</label>
+                </div>
+                <div class="form-group form-check">
+                    <input type="checkbox" name="USER_CHK4" class="form-check-input">
+                    <label class="form-check-label">다중선택</label>
+                </div>
+                <div class="form-group">
+                    <label>Example textarea</label>
+                    <textarea class="form-control" name="USER_COMMENT" data-params='{"required" : true}' placeholder="텍스트에어리어"></textarea>
+                </div>
+                <button type="button" class="btn btn-primary">값전송</button>
+                <button type="button" class="btn formClearBtn">값초기화</button>
+            </form>
+            
+            $(document).ready(function() {
+                $(this).find('.form').cmmValidator();
+                $('.btn-primary').click(function() {
+                    if (!$('[name="USER_DEVICE"]').cmmAjax()) {
+                        alert('디바이스선택해주세요');
+                        return false;
+                    }
+                    if (!$('[name="USER_NAME"]').cmmAjax()) {
+                        alert('한글 비엇음');
+                        return false;
+                    }
+                    if (!$('[name="USER_NUMBER"]').cmmAjax()) {
+                        alert('숫자 비엇음');
+                        return false;
+                    }
+                    if (!$('[name="USER_PHONENUMBER"]').cmmAjax()) {
+                        alert('전화번호 비엇음');
+                        return false;
+                    }
+                    if (!$('[name="USER_PHONENUMBER"]').cmmAjax('tel')) {
+                        alert('전화번호는 010/011로 시작하여야합니다.');
+                        return false;
+                    }
+                    if (!$('[name="USER_EN_NAME"]').cmmAjax()) {
+                        alert('영어 비엇음');
+                        return false;
+                    }
+                    if (!$('[name="USER_EMAIL"]').cmmAjax()) {
+                        alert('USER_EMAIL 비엇음');
+                        return false;
+                    }
+                    if (!$('[name="USER_EMAIL_DOMAIN"]').cmmAjax()) {
+                        alert('USER_EMAIL_DOMAIN 비엇음');
+                        return false;
+                    }
+                    if (!$('[name="USER_GENDER"]').cmmAjax()) {
+                        alert('USER_GENDER 비엇음');
+                        return false;
+                    }
+                    if (!$('[name="USER_AGREE1"]:required').cmmAjax()) {
+                        alert('USER_AGREE1 동의필요');
+                        return false;
+                    }
+                    if (!$('[name="USER_AGREE2"]:required').cmmAjax()) {
+                        alert('USER_AGREE2 동의필요');
+                        return false;
+                    }
+                    if (!$('[name="USER_CHK1"]:required').cmmAjax()) {
+                        alert('USER_CHK1 체크필요');
+                        return false;
+                    }
+                    if (!$('[name="USER_COMMENT"]').cmmAjax()) {
+                        alert('USER_COMMENT 비엇음');
+                        return false;
+                    }
+                    $('.form').cmmAjax('submit', {
+                        'complete': function(data) {
+                            console.log(data);
+                        }
+                    });
+                    return false;
+                });
+                $('.formClearBtn').click(function() {
+                    $('.form').cmmAjax('clear');
+                });
+            });*/
+            var $this = $(this);
             var defaults = {
-                errorCall: 'alert', //alert , append
-                errorStr: 'title',
+                ime: true,
+                /*eventType: 'keyup blur keypress',
+                keycodeGubun: false,*/
+                eventType: 'keydown keyup blur',
+                keycodeGubun: true
             };
 
             function CmmValidator($this) {
                 this.el = $this;
                 this.obj = $.extend(true, defaults, obj);
+                this.opt = {
+                    imeArry: ['number', 'tel', 'ko', 'en', 'email', 'ennumber', 'konumber', 'etc', 'enetc', 'koetc'],
+                    ankeycode: [9, 8, 13, 16, 20, 21, 35, 36, 37, 38, 39, 40],
+                    kokeycode: 229
+                };
                 this.input = null;
-                this.data = null;
+                this.inputArry = [];
+                this.dataName = 'params';
                 this.title = '';
+                this.clearchk = false;
                 this.init();
             };
             CmmValidator.prototype = {
                 init: function() {
+                    var _this = this;
                     this.set();
+                    this.fnIme();
                 },
                 set: function() {
                     var _this = this;
-                    this.clear = false;
-                    console.log(this.clear)
-                    this.el.find('input, select').each(function() {
+                    var clsName = '';
+                    this.el.find('input').each(function() {
                         var $this = $(this);
-                        var $data = $this.data('inputClass');
-                        if($data.required) {
-                            _this.input = $this;
-                            _this.chk();
-                            if(_this.clear) {
-                                return false;
+                        var $data = $this.data(_this.dataName);
+                        if($data) {
+                            if($data.required) {
+                                $this.attr('required', $data.required);
+                            }
+                        }
+                        if($data && $data.ime && !$this.is('[type="radio"]') && !$this.is('[type="checkbox"]')) {
+                            switch($data.ime) {
+                                case _this.opt.imeArry[2]:
+                                    clsName = 'IME_KO';
+                                    break;
+                                case _this.opt.imeArry[3]:
+                                    clsName = 'IME_ONLY_EN';
+                                    break;
+                            }
+                            $this.addClass(clsName);
+                        }
+                    });
+                },
+                fnImeExp: function(str, keycode) {
+                    var exp = '';
+                    var keygubun = '';
+                    var callback = null;
+                    if(str.indexOf(',') != -1) {
+                        var arry = str.split(',');
+                        var strArry = '';
+                        for(var i = 0; i < arry.length; i++) {
+                            strArry += arry[i];
+                        }
+                    } else {
+                        strArry = str;
+                    }
+                    switch(strArry) {
+                        case this.opt.imeArry[0]: //number
+                        case this.opt.imeArry[1]: //tel
+                            keygubun = (keycode >= 48 && keycode <= 57) || (keycode >= 96 && keycode <= 105) && keycode != this.opt.kokeycode;
+                            exp = /[^0-9]/gi;
+                            break;
+                        case this.opt.imeArry[2]: //ko
+                            keygubun = keycode == this.opt.kokeycode;
+                            exp = /[^ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/gi;
+                            break;
+                        case this.opt.imeArry[3]: //en
+                            keygubun = keycode >= 65 && keycode <= 90 && keycode != this.opt.kokeycode;
+                            exp = /[^A-Za-z]/gi;
+                            break;
+                        case this.opt.imeArry[4]: //email
+                            exp = /[^A-Za-z|0-9|@|.]/gi;
+                            break;
+                        case this.opt.imeArry[5]: //ennumber
+                            exp = /[^A-Za-z|0-9]/gi;
+                            break;
+                        case this.opt.imeArry[6]: //konumber
+                            exp = /[^ㄱ-ㅎ|ㅏ-ㅣ|가-힣|0-9]/gi;
+                            break;
+                        case this.opt.imeArry[7]: //etc
+                            exp = /[^~!@\#$%<>^&*\()\-=+_\’.,/]/gi;
+                            break;
+                        case this.opt.imeArry[8]: //enetc
+                            exp = /[^A-Za-z|~!@\#$%<>^&*\()\-=+_\’.,/]/gi;
+                            break;
+                        case this.opt.imeArry[9]: //koetc
+                            exp = /[^ㄱ-ㅎ|ㅏ-ㅣ|가-힣|~!@\#$%<>^&*\()\-=+_\’.,/]/gi;
+                            break;
+                    }
+                    callback = function($input) {
+                        var $val = $input.val();
+                        $input.val($val.replace(exp, ''));
+                    };
+                    return {
+                        exp: exp,
+                        keygubun: keygubun,
+                        callback: callback
+                    };
+                },
+                fnIme: function($input, ime) {
+                    var _this = this;
+                    this.el.find('input, textarea').on(_this.obj.eventType, function(e) {
+                        var $this = $(this);
+                        var _bool = true;
+                        if(!$this.is('[type="checkbox"]') && !$this.is('[type="radio"]')) {
+                            var $val = $this.val();
+                            var $data = $this.data(_this.dataName);
+                            var keycode = e.keyCode;
+                            var str = '';
+                            if($data.ime) {
+                                str = _this.fnImeExp($data.ime, keycode);
+                                if(_this.obj.keycodeGubun && str.keygubun != '' && navigator.userAgent.indexOf('Mobile') == -1) {
+                                    if(str.keygubun || _this.opt.ankeycode.indexOf(keycode) != -1) {
+                                        _bool = true;
+                                    } else {
+                                        _bool = false;
+                                    }
+                                    if(!_bool) {
+                                        e.preventDefault();
+                                        e.stopPropagation();
+                                        e.returnValue = false;
+                                    }
+                                    if(typeof str.callback === 'function') {
+                                        str.callback($this);
+                                    }
+                                    return _bool;
+                                } else {
+                                    if(str.exp.test($val)) {
+                                        $(this).val($val.replace(str.exp, ''));
+                                    }
+                                }
                             }
                         }
                     });
                 },
-                chk: function() {
-                    this.title = this.input.attr(this.obj.errorStr) ? this.input.attr(this.obj.errorStr) : '해당항목';
-                    if(this.input.is('input[type="radio"]') || this.input.is('input[type="checkbox"]')) {
-                        this.errorFun(this.input.prop('checked'), '을(를) 선택해주세요.');
-                    } else {
-                        this.errorFun(this.input.val(), '을(를) 입력해주세요.');
-                    }
-                },
-                errorFun: function(bool, bmsg) {
-                    if(!bool) {
-                        switch(this.obj.errorCall) {
-                            case 'alert':
-                                alert('\'' + this.title + '\'' + bmsg);
-                                break;
-                        }
-                        this.input.focus();
-                        this.clear = true;
-                    }
-                }
             };
             this.each(function() {
                 $.data($(this), new CmmValidator($(this), obj));
             });
             return this;
+        },
+        cmmAjax: function(obj) {
+            var globalBool = true;
+            var args = arguments;
+            var radioBool = false;
+            var defaults = {
+                errorCall: 'alert', //alert , append
+                errorStr: 'title',
+                ajax: null,
+                jsonParse: false
+            };
+
+            function CmmAjax($this) {
+                this.el = $this;
+                this.obj = typeof obj === 'string' ? obj : typeof obj === 'number' ? $.extend(true, defaults, {
+                    minlength: args[0],
+                    maxlength: args[1]
+                }) : $.extend(true, defaults, obj);
+                this.input = null;
+                this.inputArry = [];
+                this.title = '';
+                this.clearchk = false;
+                this.dataName = 'params';
+                this.opt = {
+                    chkmsg: ['을(를) 선택해주세요.', '을(를) 입력해주세요.'],
+                }
+                this.globalBool = true;
+                this.init();
+                globalBool = this.globalBool;
+                if(this.obj == 'result') {
+                    globalBool = this.el.serializeObject();
+                    if(args[1] == 'json') {
+                        globalBool = JSON.stringify(globalBool);
+                    }
+                }
+            };
+            CmmAjax.prototype = {
+                init: function() {
+                    var _this = this;
+                    var chkleng = 0;
+                    if(_this.obj == 'clear') {
+                        _this.clear(this.el);
+                    } else if(_this.obj == 'submit') {
+                        _this.submitSet(args[1]);
+                    }
+                    _this.clear = false;
+                    //_this.el.find('input, select, textarea').each(function() {
+                    _this.el.each(function() {
+                        var $this = $(this);
+                        var $data = $this.data(_this.dataName);
+                        chkleng++;
+                        if($data && $data.required) {
+                            _this.input = $this;
+                            _this.clear = false;
+                            _this.chk();
+                            if(_this.clear) {
+                                _this.clearchk = false;
+                                return false;
+                            } else {
+                                _this.clearchk = true;
+                                if($this.is('input[type="checkbox"]') || $this.is('input[type="radio"]')) {
+                                    _this.input = _this.input.prop('checked') ? _this.input : null;
+                                }
+                                if(_this.input) {
+                                    _this.inputArry.push(_this.input);
+                                }
+                            }
+                        }
+                    });
+                },
+                chk: function() {
+                    var _this = this;
+                    if(this.obj == 'tel') {
+                        _this.typeInputGubun(_this.el);
+                    }
+                    if(this.input.is('input[type="checkbox"]')) {
+                        this.errorFun(this.input.prop('checked'), this.opt.chkmsg[0]);
+                    } else if(this.input.is('input[type="radio"]')) {
+                        var $name = this.input.attr('name');
+                        if(this.input.is(':checked') && this.input.data(_this.dataName) && this.input.data(_this.dataName).required) {
+                            radioBool = true;
+                        }
+                        this.errorFun(radioBool, this.opt.chkmsg[0]);
+                    } else {
+                        var inputbool = this.input.val();
+                        var trim = inputbool.replace(/\s+/,'');
+                        if(this.input.is('textarea') && trim == ''){
+                            inputbool = false;
+                        }
+                        if(this.obj.maxlength && this.obj.minlength && (this.obj.minlength > this.input.val().length || this.obj.maxlength < this.input.val().length)) {
+                            //글자수체크 함수명 뒤에 arguments[0] : min , arguments[1] : max
+                            inputbool = false;
+                        }
+                        this.errorFun(inputbool, this.opt.chkmsg[1]);
+                    }
+                },
+                errorFun: function(bool, bmsg) {
+                    if(!bool) {
+                        /*switch(this.obj.errorCall) {
+                            case 'alert':
+                                //alert('\'' + this.title + '\'' + bmsg);
+                                //console.log('\'' + this.title + '\'' + bmsg);
+                                break;
+                            case 'layerpop':
+                                //console.log(this.data(this.dataName));
+                                console.log(this.input.data('fun'))
+                                break;
+                        }*/
+                        this.input.focus();
+                        this.clear = true;
+                        this.globalBool = false;
+                    }
+                },
+                typeInputGubun: function($this) {
+                    //var $this = this.el;
+                    var $val = $this.val();
+                    var bool = false;
+                    if($this.data(this.dataName).ime == 'tel' && $val) {
+                        if($this.val().indexOf('010') == 0 || $this.val().indexOf('011') == 0) {
+                            bool = true;
+                        }
+                    }
+                    this.errorFun(bool, this.opt.chkmsg[1]);
+                },
+                submitSet: function(_args) {
+                    if(!_args || typeof _args === 'object') {
+                        var ajaxobj = $.extend(true, {
+                            url: '',
+                            type: 'post',
+                            data: this.el.serializeObject(),
+                            dataType: 'json',
+                            success: function(data) {},
+                            error: function(r, s, e) {
+                                console.error("cmmAjax.submitSet() ERROR : \ncode:" + r.status + "\n" + "message:" + r.responseText + "\n" + "error:" + e);
+                            }
+                        }, _args);
+                        if(!this.obj.jsonParse) {
+                            //ajaxobj.data = JSON.stringify(ajaxobj.data);
+                        }
+                        $.ajax(ajaxobj);
+                    } else if(typeof _args === 'function') {
+                        _args();
+                    }
+                },
+                clear: function($this) {
+                    $this.find('input, textarea, select').each(function() {
+                        var $this = $(this);
+                        if($this.is('[type="checkbox"]') || $this.is('[type="radio"]')) {
+                            $this.prop('checked', false);
+                        } else {
+                            $this.val('');
+                        }
+                    });
+                }
+            };
+            this.each(function() {
+                $.data($(this), new CmmAjax($(this), obj));
+            });
+            return globalBool;
+        },
+        serializeObject: function() {
+            var $this = $(this);
+            var o = {};
+            var a = this.serializeArray();
+            $.each(a, function() {
+                if(o[this.name]) {
+                    if(!o[this.name].push) {
+                        o[this.name] = [o[this.name]];
+                    }
+                    o[this.name].push(this.value || '');
+                } else {
+                    o[this.name] = this.value || '';
+                }
+            });
+            return o;
         },
         cmmVisualEffect: function(obj) {
             var defaults = {};
@@ -239,28 +723,85 @@
                     $el.cmmLocLaypop('close');
                     $el.remove();
                 },
+                closeCallb: function($el) {
+                    $el.cmmLocLaypop('close');
+                    $el.remove();
+                }
+            }, obj));
+        },
+        cmmConfirm: function(obj) {
+            $('body').append('<span class="cmmConfirm"></span>');
+            $('.cmmConfirm').cmmLocLaypop($.extend(true, {
+                type: 'confirm',
+                title: '알림',
+                targetBtnsName: ['취소', '확인'],
+                msg: '',
+                submit: function($el) {
+                    $el.cmmLocLaypop('close');
+                    $el.remove();
+                },
+                closeCallb: function($el) {
+                    $el.cmmLocLaypop('close');
+                    $el.remove();
+                }
             }, obj));
         },
         cmmLocLaypop: function(obj) {
             /*
              * $('.button1').click(function() {
-             	$('[data-layerpop="tnvhtb"]').cmmLocLaypop({ title: '타이틀112311', width: 640, targetBtnsName: ['aaaa', '확인'], submit: function($this) { $this.cmmLocLaypop('close'); $(this).cmmAlert({ title: 'asdf', msg: 'asfasdfasdfasdfasfasdfasdf' }); }, }); }).click(); html : <div class="cmm_layerpop" data-layerpop="tnvhtb">내용</div>
+             	$('[data-layerpop="tnvhtb"]').cmmLocLaypop({ 
+                    title: '타이틀112311', 
+                    width: 640, 
+                    targetBtnsName: ['aaaa', '확인'], 
+                    beforeCallback: function($el) {
+                    },
+                    afterCallback: function($el) {
+                    },
+                    submit: function($this) { 
+                        $this.cmmLocLaypop('close');
+                        $(this).cmmAlert({ 
+                            title: 'asdf', msg: 'asfasdfasdfasdfasfasdfasdf' 
+                        }); 
+                    }, 
+                    targetCustomBtnsName: [
+                        ['커스텀버튼1', 'asdf asdfasdf', function($button) {
+                            $(document).on('click' ,'.asdfasdf',function(){
+                                console.log($(this));
+                            })
+                        }],
+                        ['커스텀버튼2', 'asdf asdfasdf12', function($button) {
+                            $(document).on('click' ,'.asdfasdf12',function(){
+                                console.log($(this));
+                            })
+                        }]
+                    ]
+                }); 
+            }); 
+            html : <div class="cmm_layerpop" data-layerpop="tnvhtb">내용</div>
              */
             var defaults = {
                 type: '',
-                align: true,
-                width: 320,
-                height: null,
-                openAfterScroll: false,
-                animation: true,
-                effect: 'fade', // fade, slidedown,
-                title: '타이틀',
-                parentAddClass: '',
-                targetBtnsName: ['취소', '확인'],
-                scroll: true,
-                beforeCallback: null,
-                submit: null,
-                closeCallb: null
+                align: ['center', 'center'], //['center' , 'center'] 배열에 css백그라운드 처럼 적용
+                width: 320, //너비적용
+                height: null, //그냥 주지않는게 편함
+                openAfterScroll: false, //팝업오픈 후 스크롤 막기 false 스크롤 안막기 true
+                title: '타이틀', //팝업 타이틀 
+                parentAddClass: '', //특정요소만 커스텀style 해야할때 추가
+                targetBtnsName: ['취소', '확인'], //버튼텍스트 [0][1] 인덱스 번호로 이벤트가 부여되니 순서 지켜야함
+                targetCustomBtnsName: null,
+                /*
+                * 하단부에 추가적으로 노출되어야할 버튼
+                * [   [텍스트명, 클래스명, 함수명]    ]
+                ['하단부 커스텀 버튼', 'asdf asdfasdf', function($button) {
+                    $(document).on('click' ,'.asdfasdf',function(){
+                        console.log($(this));
+                    })
+                }],
+                */
+                beforeCallback: null, //동적팝업이 형성되고, 시각화 되기전에 호출
+                afterCallback: null, //동적팝업이 형성되고, 시각화 되고 호출
+                submit: null, //확인버튼(targetBtnsName[1]) 클릭시 호출
+                closeCallb: null //x버튼, 취소버튼(targetBtnsName[2]) 클릭시 호출
             };
 
             function CmmLocLaypop($this) {
@@ -301,7 +842,7 @@
                     }
                     this.cont += '<div class="' + this.clsFormat(this.targetParentIn) + '" style="width: ' + this.obj.width + 'px; height : ' + this.obj.height + '">';
                     this.cont += '<div class="' + this.clsFormat(this.targetCont) + '">';
-                    if(this.obj.type == 'alert') {
+                    if(this.obj.type == 'alert' || this.obj.type == 'confirm') {
                         this.cont += '<div class="alert_msg">' + this.obj.msg + '</div>';
                     }
                     this.cont += '</div>';
@@ -309,12 +850,12 @@
                     this.cont += '</div>';
                     this.title += '<div class="' + this.clsFormat(this.targetTitle) + '">';
                     this.title += '<span class="' + this.clsFormat(this.targetTitleTxt) + '">' + this.obj.title + '</span>';
-                    this.title += '<a href="javascript: ;" class="' + this.clsFormat(this.targetBtns[0]) + '" title="팝업닫기"><span class="ti-close"></span></a>';
+                    this.title += '<a href="javascript: ;" class="' + this.clsFormat(this.targetBtns[0]) + '" title=""><span class="ti-close"></span></a>';
                     this.title += '</div>';
                     this.bottom += '<div class="' + this.clsFormat(this.targetBottom) + '">';
                     if(this.obj.type != 'alert') {
-                        this.bottom += '<a href="javascript:;" class="' + this.clsFormat(this.targetBtns[0]) + '" title="팝업닫기">' + this.obj.targetBtnsName[0] + '</a>';
-                        this.bottom += '<a href="javascript:;" class="' + this.clsFormat(this.targetBtns[1]) + '" title="확인">' + this.obj.targetBtnsName[1] + '</a>';
+                        this.bottom += '<a href="javascript:;" class="' + this.clsFormat(this.targetBtns[0]) + '" title="">' + this.obj.targetBtnsName[0] + '</a>';
+                        this.bottom += '<a href="javascript:;" class="' + this.clsFormat(this.targetBtns[1]) + '" title="">' + this.obj.targetBtnsName[1] + '</a>';
                     } else {
                         this.bottom += '<a href="javascript:;" class="' + this.clsFormat(this.targetBtns[1]) + '">' + this.obj.targetBtnsName[0] + '</a>';
                     }
@@ -323,23 +864,55 @@
                         $(this.target).wrap(this.cont);
                         $(this.target).closest(this.targetParentIn).prepend(this.title);
                         $(this.target).closest(this.targetParentIn).append(this.bottom);
+                        //팝업 하단부 커스텀 버튼 생성
+                        if(this.obj.targetCustomBtnsName && typeof this.obj.targetCustomBtnsName === 'object') {
+                            for(var i = 0; i < this.obj.targetCustomBtnsName.length; i++) {
+                                var clsn = this.obj.targetCustomBtnsName[i][1] ? this.obj.targetCustomBtnsName[i][1] : 'cst_btn';
+                                var html = '<a href="javascript:;" class="' + clsn + '">' + this.obj.targetCustomBtnsName[i][0] + '</a>';
+                                var $html = $(html);
+                                console.log($html);
+                                $(this.target).closest(this.targetParentIn).find(this.targetBottom).append(html);
+                                if(typeof this.obj.targetCustomBtnsName[i][2] === 'function') {
+                                    this.obj.targetCustomBtnsName[i][2]($html);
+                                }
+                            }
+                        }
                         this.cont = '';
                         this.title = '';
                         this.bottom = '';
+                    }
+                    if(typeof this.obj.beforeCallback === 'function') {
+                        this.obj.beforeCallback($(this.target));
                     }
                     $(this.target).show();
                     $(this.target).closest(this.targetParent).hide();
                     this.alignFun();
                 },
                 alignFun: function() {
+                    var _this = this;
                     var sc = {
                         val: $(document).scrollTop(),
                     };
-                    $(this.target).closest(this.targetParent).css({
-                        'top': sc.val + 50,
-                    });
-                    if(typeof this.obj.beforeCallback === 'function') {
-                        this.obj.beforeCallback($(this.target));
+                    var align = function($this) {
+                        var v = null;
+                        switch(_this.obj.align[0], _this.obj.align[1]) {
+                            case 'center', 'center':
+                                v = {
+                                    'top': sc.val + ($(window).height() / 2) - ($this.outerHeight() / 2)
+                                };
+                                break;
+                            case 'left', 'top':
+                            case 'right', 'top':
+                                v = {
+                                    'top': sc.val + 50
+                                };
+                                break;
+                        }
+                        return v;
+                    };
+                    $(this.target).closest(this.targetParent).css(align($(this.target).closest(this.targetParent)));
+                    if(typeof this.obj.afterCallback === 'function') {
+                        this.obj.afterCallback($(this.target));
                     }
                 },
                 submitFun: function() {
@@ -348,6 +921,9 @@
                         'click': function() {
                             if(typeof _this.obj.submit === 'function' && _this.obj.submit) {
                                 _this.obj.submit($(this).closest(_this.targetParent));
+                                if(_this.obj.type == 'alert' || _this.obj.type == 'confirm') {
+                                    $(_this).closest(_this.targetParent).remove();
+                                }
                             } else {
                                 _this.act().hide();
                             }
@@ -355,10 +931,27 @@
                     });
                 },
                 scrLock: function(bool) {
-                    if(this.obj.scroll) {
+                    if(!this.obj.openAfterScroll) {
                         if(bool) {
                             $('body').css({
                                 'overflow-y': 'hidden'
+                            });
+                            $(this.target).closest(this.targetParent).find(this.dimmClsName).on('scroll mousemove touchmove touchstart', function(e) {
+                                e.preventDefault();
+                                e.stopPropagation();
+                                return false;
+                            });
+                            $(this.target).closest(this.targetParent).on('touchmove', function(e) {
+                                var cnt = true;
+                                var lastY = 0;
+                                if(e.originalEvent) {
+                                    var currentY = e.originalEvent.touches[0].clientY;
+                                    if(currentY != lastY) {
+                                        cnt = false;
+                                    }
+                                    lastY = currentY;
+                                }
+                                return cnt;
                             });
                         } else {
                             $('body').css({
@@ -397,11 +990,8 @@
                             $(_this.target).closest(_this.targetParent).hide();
                             _this.dimm().get(false);
                             _this.scrLock(false);
-                            if(_this.obj.type == 'alert') {
-                                $('.cmmAlert').closest(_this.targetParent).remove();
-                            }
                             if(typeof _this.obj.closeCallb === 'function') {
-                                _this.obj.closeCallb();
+                                _this.obj.closeCallb($(_this.target).closest(_this.targetParent));
                             }
                         }
                     };
