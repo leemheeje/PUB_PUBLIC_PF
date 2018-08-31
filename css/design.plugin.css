@@ -28,4 +28,7 @@
 .scr_wrap .scr_bar{height: 100%; background: #eee; border-radius: 10px; width: 5px; position: absolute; right: 0; top: 0;}
 .scr_wrap .scr_bar .scr_btn{width: 100%; background: red; display: inline-block; border-radius: 20px; cursor: pointer;}
 
-/* 데이타 테이블 */
+/* IME */
+IME_KO{ime-mode:active;}
+IME_EN{ime-mode:inactive;}
+IME_ONLY_EN{ime-mode:disabled;}

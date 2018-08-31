@@ -168,7 +168,7 @@
                 },
                 fulldateFun: function() {
                     var d = 0;
-                    switch(this.obj.datetype) {
+                    switch (this.obj.datetype) {
                         case 'year':
                             d = Number(this.date.year);
                             break;
@@ -407,7 +407,7 @@
                             }
                         }
                         if($data && $data.ime && !$this.is('[type="radio"]') && !$this.is('[type="checkbox"]')) {
-                            switch($data.ime) {
+                            switch ($data.ime) {
                                 case _this.opt.imeArry[2]:
                                     clsName = 'IME_KO';
                                     break;
@@ -432,7 +432,7 @@
                     } else {
                         strArry = str;
                     }
-                    switch(strArry) {
+                    switch (strArry) {
                         case this.opt.imeArry[0]: //number
                         case this.opt.imeArry[1]: //tel
                             keygubun = (keycode >= 48 && keycode <= 57) || (keycode >= 96 && keycode <= 105) && keycode != this.opt.kokeycode;
@@ -601,8 +601,8 @@
                         this.errorFun(radioBool, this.opt.chkmsg[0]);
                     } else {
                         var inputbool = this.input.val();
-                        var trim = inputbool.replace(/\s+/,'');
-                        if(this.input.is('textarea') && trim == ''){
+                        var trim = inputbool.replace(/\s+/, '');
+                        if(this.input.is('textarea') && trim == '') {
                             inputbool = false;
                         }
                         if(this.obj.maxlength && this.obj.minlength && (this.obj.minlength > this.input.val().length || this.obj.maxlength < this.input.val().length)) {
@@ -819,6 +819,7 @@
                 this.cont = '';
                 this.title = '';
                 this.bottom = '';
+                this.currentScrolltop = $(document).scrollTop();
                 this.init();
             };
             CmmLocLaypop.prototype = {
@@ -895,7 +896,7 @@
                     };
                     var align = function($this) {
                         var v = null;
-                        switch(_this.obj.align[0], _this.obj.align[1]) {
+                        switch (_this.obj.align[0], _this.obj.align[1]) {
                             case 'center', 'center':
                                 v = {
                                     'top': sc.val + ($(window).height() / 2) - ($this.outerHeight() / 2)
@@ -934,7 +935,10 @@
                     if(!this.obj.openAfterScroll) {
                         if(bool) {
                             $('body').css({
-                                'overflow-y': 'hidden'
+                                'overflow-y': 'hidden',
+                                'position': 'fixed',
+                                'width': '100%',
+                                'margin-top': -this.currentScrolltop
                             });
                             $(this.target).closest(this.targetParent).find(this.dimmClsName).on('scroll mousemove touchmove touchstart', function(e) {
                                 e.preventDefault();
@@ -955,8 +959,12 @@
                             });
                         } else {
                             $('body').css({
-                                'overflow-y': 'visible'
+                                'overflow-y': 'visible',
+                                'position': 'static',
+                                'width': 'auto',
+                                'margin-top': 0
                             });
+                            $(document).scrollTop(this.currentScrolltop);
                         }
                     }
                 },
@@ -968,13 +976,15 @@
                         }
                     });
                     $(_this.target).closest(_this.targetParent).find(this.targetBtns[0]).on({
-                        'click': function() {
+                        'click': function(e) {
                             _this.act().hide();
+                            return false;
                         }
                     });
                     $(_this.target).closest(_this.targetParent).find(this.dimmClsName).on({
                         'click': function() {
                             _this.act().hide();
+                            return false;
                         }
                     });
                 },
@@ -1390,7 +1400,7 @@
                         } else {
                             var time = 0;
                         }
-                        switch(thisOpt.mode) {
+                        switch (thisOpt.mode) {
                             case 'flip':
                                 $this.css({
                                     'display': 'none'
@@ -1519,7 +1529,7 @@
                     for(var i in buttons) {
                         var buttonsVal = buttons[i];
                         var html = '';
-                        switch(i) {
+                        switch (i) {
                             case 'uiPrev':
                                 html = $('<a href="#" class="uislide_prev ' + buttonsVal + '" title="이전슬라이드"></a>');
                                 break;
@@ -2227,7 +2237,7 @@
                     _this.arry = [];
                     this.el.find(this.obj.list.left + '>li').each(function() {
                         if($(this).is('.active')) {
-                            switch(type) {
+                            switch (type) {
                                 case 'up':
                                     $(this).prev().before($(this));
                                     break;
@@ -2485,7 +2495,7 @@
                 this.el = $this;
                 this.obj = $.extend(true, defaults, obj);
                 this.w = function() {
-                    return(this.obj.value.current / this.obj.value.max) * 100;
+                    return (this.obj.value.current / this.obj.value.max) * 100;
                 };
                 this.init();
                 if(this.obj.responsive) {
