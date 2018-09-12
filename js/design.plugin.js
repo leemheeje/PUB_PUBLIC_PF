@@ -2,6 +2,112 @@
  * 제작자 : 임희재
  * 버전 : v.07
  * 수정내용 : cmmYoutubePlayPause 삭제
+ 
+ 
+ 
+ http://pb.makeulike.co.kr/study/search2/
+ $('.schItems').append(markup);
+//마크업 추가 까지만 해주고 그다음 함수호출
+UiAppsPackage.iamgesapi.init({ //너비기준의 이미지그리드 , 높이기준은 잇음 rspGrid
+    el: '.schItems',
+    itemclsname: '.imgItem',
+    maxheight: 200,
+    histrotydata: GET_DATA_PARSE_ITEMS,
+    start: GET_DATA_ALL.start,
+    layerpop: true,
+});
+
+iamgesapi: { // 이미지검색
+            _defaults: {
+                el: '',
+                itemclsname: '',
+                maxheight: 200,
+                histrotydata: [],
+                start: 0,
+                layerpop: false,
+            },
+            init: function(o) {
+                var _this = this;
+                this.obj = $.extend(true, this._defaults, o);
+                this.beforeCallback = null;
+                this.afterCallback = null;
+                this.fnReParse();
+                $(window).smartresize(function() {
+                    _this.fnReParse();
+                });
+                if(this.obj.layerpop) {
+                    this.fnLayerpop();
+                }
+            },
+            fnLayerpop: function() {
+                $(document).off().on('click', this.obj.itemclsname, function(e) {
+                    e.preventDefault();
+                    var $this = $(this);
+                    var $dataSrc = $this.data('paramsSrc');
+                    var $dataWidth = $this.data('paramsWidth');
+                    $(this).cmmAlert({
+                        width: $dataWidth < 1000 ? $dataWidth + 40 : 1000,
+                        msg: '<img src="' + $dataSrc + '" style="max-width: 100%; display: block; margin: 0 auto; max-height: 700px;" />'
+                    });
+                    return false;
+                });
+            },
+            fnReParse: function() {
+                var cnt = 0;
+                this.opt = {
+                    innerwidth: $(this.obj.el).innerWidth(),
+                    data_wh: []
+                };
+                for(var i = 0; i < this.obj.histrotydata.length; i++) {
+                    var t = $(this.obj.itemclsname + ':eq(' + i + ')');
+                    t.css('height', this.obj.maxheight);
+                    this.opt.data_wh.push(t.data('paramsWidth') * (this.obj.maxheight / t.data('paramsHeight')));
+                }
+                this.fnImgGroup();
+            },
+            fnImgGroup: function() {
+                var c = 0;
+                var aryi = [];
+                for(var i = 0; i < this.opt.data_wh.length; i++) {
+                    if(this.opt.data_wh[i + 1]) {
+                        var cp = c + this.opt.data_wh[i + 1];
+                        if(cp > this.opt.innerwidth) {
+                            this.fnImgResizable(aryi, c);
+                            aryi = [];
+                            c = 0;
+                        }
+                    }
+                    c += this.opt.data_wh[i];
+                    aryi.push(i);
+                }
+            },
+            fnImgResizable: function(aryi, rowitemwidth) {
+                var ratio = this.ratio(this.opt.innerwidth, rowitemwidth, true);
+                var tset = 0;
+                for(var i = 0; i < this.obj.histrotydata.length; i++) {
+                    if(aryi.indexOf(i) != -1) {
+                        var t = $(this.obj.itemclsname + ':eq(' + i + ')');
+                        t.css({
+                            'width': this.opt.data_wh[i] * ratio,
+                            'height': this.obj.maxheight * ratio
+                        });
+                        t.find('img').css({
+                            'width': '100%',
+                            'height': '100%'
+                        });
+                    }
+                }
+            },
+            ratio: function(w, h, gubun) {
+                return gubun || typeof gubun === 'undifined' ? w / h : h / w;
+            },
+            clsformat: function(s) {
+                return s.replace(/\./g, '');
+            },
+            resotre: function() {},
+            resize: function() {}
+        },
+
  */
 /* Plugin */
 ;
