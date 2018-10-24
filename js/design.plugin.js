@@ -977,7 +977,6 @@ iamgesapi: { // 이미지검색
                                 var clsn = this.obj.targetCustomBtnsName[i][1] ? this.obj.targetCustomBtnsName[i][1] : 'cst_btn';
                                 var html = '<a href="javascript:;" class="' + clsn + '">' + this.obj.targetCustomBtnsName[i][0] + '</a>';
                                 var $html = $(html);
-                                console.log($html);
                                 $(this.target).closest(this.targetParentIn).find(this.targetBottom).append(html);
                                 if(typeof this.obj.targetCustomBtnsName[i][2] === 'function') {
                                     this.obj.targetCustomBtnsName[i][2]($html);
@@ -1019,6 +1018,7 @@ iamgesapi: { // 이미지검색
                     };
                     $(this.target).closest(this.targetParent).css(align($(this.target).closest(this.targetParent)));
                     if(typeof this.obj.afterCallback === 'function') {
+                        $(this.target).closest(this.targetParent).attr('data-layerpop-visible', true);
                         this.obj.afterCallback($(this.target));
                     }
                 },
@@ -1046,7 +1046,7 @@ iamgesapi: { // 이미지검색
                                 'width': '100%',
                                 'margin-top': -this.currentScrolltop
                             });
-                            $(this.target).closest(this.targetParent).find(this.dimmClsName).on('scroll mousemove touchmove touchstart', function(e) {
+                            $(this.target).closest(this.targetParent).find(this.dimmClsName).on('wheel scroll mousemove touchmove touchstart', function(e) {
                                 e.preventDefault();
                                 e.stopPropagation();
                                 return false;
@@ -1065,7 +1065,7 @@ iamgesapi: { // 이미지검색
                             });
                         } else {
                             $('body').css({
-                                'overflow-y': 'visible',
+                                'overflow-y': 'hidden',
                                 'position': 'static',
                                 'width': 'auto',
                                 'margin-top': 0
@@ -1106,6 +1106,7 @@ iamgesapi: { // 이미지검색
                             $(_this.target).closest(_this.targetParent).hide();
                             _this.dimm().get(false);
                             _this.scrLock(false);
+                            $(_this.target).closest(_this.targetParent).attr('data-layerpop-visible', false);
                             if(typeof _this.obj.closeCallb === 'function') {
                                 _this.obj.closeCallb($(_this.target).closest(_this.targetParent));
                             }
@@ -1211,24 +1212,7 @@ iamgesapi: { // 이미지검색
             });
             return this;
         },
-        getParams: function(param, str, amp, url) {
-            var url = url ? url : location.search;
-            if(url) {
-                var arry = url.split(str ? str : '?');
-                var amp = amp ? amp : '&';
-                var result = null;
-                var arryDp = arry[1].split(amp);
-                for(var i = 0; i < arryDp.length; i++) {
-                    var resArry = arryDp[i].split('=');
-                    for(var j = 0; j < resArry.length; j++) {
-                        if(resArry[0] == param) {
-                            result = resArry[1];
-                        }
-                    }
-                }
-                return result;
-            }
-        },
+        
         mapApiSortFun: function(obj) {
             var defaults = {
                 LatReturn: null,
@@ -1558,6 +1542,7 @@ iamgesapi: { // 이미지검색
              * slick.js 기반의 플러그인(http://kenwheeler.github.io/slick/) slick 옵션+커스텀옵션 추가, 제작자 : 임희재 버전 : v.01
              */
             var $this = $(this);
+            var $slide = null;
             var defaults = {
                 /** slickJS 전용객체 */
                 slideObj: {
@@ -1579,7 +1564,8 @@ iamgesapi: { // 이미지검색
                 dotTabsLst: '',
                 uicallback: function() {},
                 /** 슬라이드 콜백관련 */
-                callb: function() {},
+                beforeCallback: function() {},
+                afterCallback: function() {},
             };
 
             function CmmUiSwiper() {
@@ -1602,10 +1588,16 @@ iamgesapi: { // 이미지검색
                     this.slickSlide();
                 },
                 slickSlide: function() {
-                    $this.slick($.extend(true, {}, this.obj.slideObj));
-                    if(typeof this.obj.callb === 'function') {
+                    var _this = this;
+                    $slide = $this.slick($.extend(true, {}, this.obj.slideObj));
+                    if(typeof this.obj.afterCallback === 'function' && typeof this.obj.beforeCallback === 'function') {
                         $this.on({
-                            'beforeChange swipe edge': this.obj.callb
+                            'afterChange': function(a, b, c) {
+                                _this.obj.afterCallback(a, b, c);
+                            },
+                            'beforeChange': function(a, b, c) {
+                                _this.obj.beforeCallback(a, b, c);
+                            }
                         });
                     }
                     this.initButtons();
@@ -1773,7 +1765,7 @@ iamgesapi: { // 이미지검색
             this.each(function() {
                 $.data(this, new CmmUiSwiper($exObj));
             });
-            return $this;
+            return $slide;
         },
         musMoveEffect: function(obj) {
             var $this = $(this);
