@@ -55,6 +55,60 @@
             return result;
         }
     };
-    console.log(self);
-    console.log($.__GETPARAMS('tnna'));
+    $[utills + 'SCROLL'] = function(b, t, fnc) {
+        var t = t ? t : window;
+        var events = 'scroll wheel mousemove touchmove';
+        if(b) {
+            $(t).on(events, function(e) {
+                if(typeof fnc === 'function') fnc($(this));
+                e.preventDefault();
+                e.stopPropagation();
+                return false;
+            });
+        } else {
+            $(t).off(events);
+        }
+    };
+    $[utills + 'GET_IP'] = null;
+    $[utills + 'GET_IP_FUNC'] = (function() {
+        var head = document.getElementsByTagName('head')[0];
+        var script = document.createElement('script');
+        window.getIP = function(json) {
+            $[utills + 'GET_IP'] = json.ip;
+            head.removeChild(script);
+        };
+        script.type = 'text/javascript';
+        script.src = 'https://api.ipify.org?format=jsonp&callback=getIP';
+        head.appendChild(script);
+    })();
 })(jQuery);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

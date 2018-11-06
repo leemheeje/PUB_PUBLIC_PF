@@ -308,496 +308,6 @@ iamgesapi: { // 이미지검색
             });
             return this;
         },
-        cmmValidator: function(obj) {
-            /*<form class="form">
-                <div class="form-group">디바이스선택
-                    <input type="radio" data-params='{"required" : true}' name="USER_DEVICE">
-                    <label class="form-check-label">안드로이드</label>
-                    <input type="radio" data-params='{"required" : true}' name="USER_DEVICE">
-                    <label class="form-check-label">아이폰</label>
-                    <input type="radio" data-params='{"required" : true}' name="USER_DEVICE">
-                    <label class="form-check-label">아이폰A</label>
-                    <input type="radio" data-params='{"required" : true}' name="USER_DEVICE">
-                    <label class="form-check-label">아이폰C</label>
-                    <input type="radio" data-params='{"required" : true}' name="USER_DEVICE">
-                    <label class="form-check-label">아이폰D</label>
-                    <input type="radio" data-params='{"required" : true}' name="USER_DEVICE">
-                    <label class="form-check-label">아이폰E</label>
-                </div>
-        
-                <div class="form-group">
-                    <label>한글</label>
-                    <input type="text" name="USER_NAME" data-params='{"ime" : "ko", "required" : true}' class="form-control valTest1" placeholder="한글만입력" title="한글">
-                </div>
-                <div class="form-group">
-                    <label>숫자</label>
-                    <input type="number" name="USER_NUMBER" data-params='{"ime" : "number", "required" : true}' class="form-control valTest2" placeholder="숫자만입력" title="숫자">
-                </div>
-        
-                <div class="form-group">
-                    <label>전화번호</label>
-                    <input type="number" name="USER_PHONENUMBER" data-params='{"ime" : "tel", "required" : true}' class="form-control valTest3" placeholder="숫자만입력" title="숫자 전화번호">
-                </div>
-                <div class="form-group">
-                    <label>영어</label>
-                    <input type="text" name="USER_EN_NAME" data-params='{"ime" : "en", "required" : true}' class="form-control valTest4" placeholder="영어만입력" title="영어">
-                </div>
-                <div class="form-row">
-                    <div class="form-group col-md-6">
-                        <label>en,number = 이메일</label>
-                        <input type="email" name="USER_EMAIL" data-params='{"ime" : "en,number", "required" : true}' class="form-control valTest5" placeholder="이메일" title="이메일">
-                    </div>
-                    <div class="form-group col-md-4">
-                        <label>영어&특수문자</label>
-                        <input type="email" name="USER_EMAIL_DOMAIN" data-params='{"ime" : "en,etc"}' class="form-control mailform valTes6" placeholder="이메일" title="이메일">
-                    </div>
-                    <div class="form-group col-md-2">
-                        <label>선택</label>
-                        <select class="form-control" onchange="$('.mailform').val(this.value)">
-                            <option value="">직접입력</option>
-                            <option value="naver.com">naver.com</option>
-                            <option value="hanmail.net">hanmail.net
-                                <option>
-                        </select>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label>선택</label>
-                    <select class="form-control valTest7" name="USER_GENDER" data-params='{"required" : true}'>
-                        <option value="">선택</option>
-                        <option value="1">남성</option>
-                        <option value="2">여성</option>
-                    </select>
-                </div>
-                <div class="form-group">개인정보A
-                    <input type="radio" data-params='{"required" : true}' name="USER_AGREE1" class="valTest8 agree1">
-                    <label class="form-check-label">동의</label>
-                    <input type="radio" name="USER_AGREE1">
-                    <label class="form-check-label">미동의</label>
-                </div>
-                <div class="form-group">개인정보B
-                    <input type="radio" data-params='{"required" : true}' name="USER_AGREE2" class="agree2">
-                    <label class="form-check-label">동의</label>
-                    <input type="radio" name="USER_AGREE2">
-                    <label class="form-check-label">미동의</label>
-                </div>
-                <div class="form-group form-check">
-                    <input type="checkbox" name="USER_CHK1" data-params='{"required" : true}' class="form-check-input">
-                    <label class="form-check-label"><span style="color: red">필수선택</span></label>
-                </div>
-                <div class="form-group form-check">
-                    <input type="checkbox" name="USER_CHK2" class="form-check-input">
-                    <label class="form-check-label">다중선택</label>
-                </div>
-                <div class="form-group form-check">
-                    <input type="checkbox" name="USER_CHK3" class="form-check-input">
-                    <label class="form-check-label">다중선택</label>
-                </div>
-                <div class="form-group form-check">
-                    <input type="checkbox" name="USER_CHK4" class="form-check-input">
-                    <label class="form-check-label">다중선택</label>
-                </div>
-                <div class="form-group">
-                    <label>Example textarea</label>
-                    <textarea class="form-control" name="USER_COMMENT" data-params='{"required" : true}' placeholder="텍스트에어리어"></textarea>
-                </div>
-                <button type="button" class="btn btn-primary">값전송</button>
-                <button type="button" class="btn formClearBtn">값초기화</button>
-            </form>
-            
-            $(document).ready(function() {
-                $(this).find('.form').cmmValidator();
-                $('.btn-primary').click(function() {
-                    if (!$('[name="USER_DEVICE"]').cmmAjax()) {
-                        alert('디바이스선택해주세요');
-                        return false;
-                    }
-                    if (!$('[name="USER_NAME"]').cmmAjax()) {
-                        alert('한글 비엇음');
-                        return false;
-                    }
-                    if (!$('[name="USER_NUMBER"]').cmmAjax()) {
-                        alert('숫자 비엇음');
-                        return false;
-                    }
-                    if (!$('[name="USER_PHONENUMBER"]').cmmAjax()) {
-                        alert('전화번호 비엇음');
-                        return false;
-                    }
-                    if (!$('[name="USER_PHONENUMBER"]').cmmAjax('tel')) {
-                        alert('전화번호는 010/011로 시작하여야합니다.');
-                        return false;
-                    }
-                    if (!$('[name="USER_EN_NAME"]').cmmAjax()) {
-                        alert('영어 비엇음');
-                        return false;
-                    }
-                    if (!$('[name="USER_EMAIL"]').cmmAjax()) {
-                        alert('USER_EMAIL 비엇음');
-                        return false;
-                    }
-                    if (!$('[name="USER_EMAIL_DOMAIN"]').cmmAjax()) {
-                        alert('USER_EMAIL_DOMAIN 비엇음');
-                        return false;
-                    }
-                    if (!$('[name="USER_GENDER"]').cmmAjax()) {
-                        alert('USER_GENDER 비엇음');
-                        return false;
-                    }
-                    if (!$('[name="USER_AGREE1"]:required').cmmAjax()) {
-                        alert('USER_AGREE1 동의필요');
-                        return false;
-                    }
-                    if (!$('[name="USER_AGREE2"]:required').cmmAjax()) {
-                        alert('USER_AGREE2 동의필요');
-                        return false;
-                    }
-                    if (!$('[name="USER_CHK1"]:required').cmmAjax()) {
-                        alert('USER_CHK1 체크필요');
-                        return false;
-                    }
-                    if (!$('[name="USER_COMMENT"]').cmmAjax()) {
-                        alert('USER_COMMENT 비엇음');
-                        return false;
-                    }
-                    $('.form').cmmAjax('submit', {
-                        'complete': function(data) {
-                            console.log(data);
-                        }
-                    });
-                    return false;
-                });
-                $('.formClearBtn').click(function() {
-                    $('.form').cmmAjax('clear');
-                });
-            });*/
-            var $this = $(this);
-            var defaults = {
-                ime: true,
-                /*eventType: 'keyup blur keypress',
-                keycodeGubun: false,*/
-                eventType: 'keydown keyup blur',
-                keycodeGubun: true
-            };
-
-            function CmmValidator($this) {
-                this.el = $this;
-                this.obj = $.extend(true, defaults, obj);
-                this.opt = {
-                    imeArry: ['number', 'tel', 'ko', 'en', 'email', 'ennumber', 'konumber', 'etc', 'enetc', 'koetc'],
-                    ankeycode: [9, 8, 13, 16, 20, 21, 35, 36, 37, 38, 39, 40],
-                    kokeycode: 229
-                };
-                this.input = null;
-                this.inputArry = [];
-                this.dataName = 'params';
-                this.title = '';
-                this.clearchk = false;
-                this.init();
-            };
-            CmmValidator.prototype = {
-                init: function() {
-                    var _this = this;
-                    this.set();
-                    this.fnIme();
-                },
-                set: function() {
-                    var _this = this;
-                    var clsName = '';
-                    this.el.find('input').each(function() {
-                        var $this = $(this);
-                        var $data = $this.data(_this.dataName);
-                        if($data) {
-                            if($data.required) {
-                                $this.attr('required', $data.required);
-                            }
-                        }
-                        if($data && $data.ime && !$this.is('[type="radio"]') && !$this.is('[type="checkbox"]')) {
-                            switch ($data.ime) {
-                                case _this.opt.imeArry[2]:
-                                    clsName = 'IME_KO';
-                                    break;
-                                case _this.opt.imeArry[3]:
-                                    clsName = 'IME_ONLY_EN';
-                                    break;
-                            }
-                            $this.addClass(clsName);
-                        }
-                    });
-                },
-                fnImeExp: function(str, keycode) {
-                    var exp = '';
-                    var keygubun = '';
-                    var callback = null;
-                    if(str.indexOf(',') != -1) {
-                        var arry = str.split(',');
-                        var strArry = '';
-                        for(var i = 0; i < arry.length; i++) {
-                            strArry += arry[i];
-                        }
-                    } else {
-                        strArry = str;
-                    }
-                    switch (strArry) {
-                        case this.opt.imeArry[0]: //number
-                        case this.opt.imeArry[1]: //tel
-                            keygubun = (keycode >= 48 && keycode <= 57) || (keycode >= 96 && keycode <= 105) && keycode != this.opt.kokeycode;
-                            exp = /[^0-9]/gi;
-                            break;
-                        case this.opt.imeArry[2]: //ko
-                            keygubun = keycode == this.opt.kokeycode;
-                            exp = /[^ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/gi;
-                            break;
-                        case this.opt.imeArry[3]: //en
-                            keygubun = keycode >= 65 && keycode <= 90 && keycode != this.opt.kokeycode;
-                            exp = /[^A-Za-z]/gi;
-                            break;
-                        case this.opt.imeArry[4]: //email
-                            exp = /[^A-Za-z|0-9|@|.]/gi;
-                            break;
-                        case this.opt.imeArry[5]: //ennumber
-                            exp = /[^A-Za-z|0-9]/gi;
-                            break;
-                        case this.opt.imeArry[6]: //konumber
-                            exp = /[^ㄱ-ㅎ|ㅏ-ㅣ|가-힣|0-9]/gi;
-                            break;
-                        case this.opt.imeArry[7]: //etc
-                            exp = /[^~!@\#$%<>^&*\()\-=+_\’.,/]/gi;
-                            break;
-                        case this.opt.imeArry[8]: //enetc
-                            exp = /[^A-Za-z|~!@\#$%<>^&*\()\-=+_\’.,/]/gi;
-                            break;
-                        case this.opt.imeArry[9]: //koetc
-                            exp = /[^ㄱ-ㅎ|ㅏ-ㅣ|가-힣|~!@\#$%<>^&*\()\-=+_\’.,/]/gi;
-                            break;
-                    }
-                    callback = function($input) {
-                        var $val = $input.val();
-                        $input.val($val.replace(exp, ''));
-                    };
-                    return {
-                        exp: exp,
-                        keygubun: keygubun,
-                        callback: callback
-                    };
-                },
-                fnIme: function($input, ime) {
-                    var _this = this;
-                    this.el.find('input, textarea').on(_this.obj.eventType, function(e) {
-                        var $this = $(this);
-                        var _bool = true;
-                        if(!$this.is('[type="checkbox"]') && !$this.is('[type="radio"]')) {
-                            var $val = $this.val();
-                            var $data = $this.data(_this.dataName);
-                            var keycode = e.keyCode;
-                            var str = '';
-                            if($data.ime) {
-                                str = _this.fnImeExp($data.ime, keycode);
-                                if(_this.obj.keycodeGubun && str.keygubun != '' && navigator.userAgent.indexOf('Mobile') == -1) {
-                                    if(str.keygubun || _this.opt.ankeycode.indexOf(keycode) != -1) {
-                                        _bool = true;
-                                    } else {
-                                        _bool = false;
-                                    }
-                                    if(!_bool) {
-                                        e.preventDefault();
-                                        e.stopPropagation();
-                                        e.returnValue = false;
-                                    }
-                                    if(typeof str.callback === 'function') {
-                                        str.callback($this);
-                                    }
-                                    return _bool;
-                                } else {
-                                    if(str.exp.test($val)) {
-                                        $(this).val($val.replace(str.exp, ''));
-                                    }
-                                }
-                            }
-                        }
-                    });
-                },
-            };
-            this.each(function() {
-                $.data($(this), new CmmValidator($(this), obj));
-            });
-            return this;
-        },
-        cmmAjax: function(obj) {
-            var globalBool = true;
-            var args = arguments;
-            var radioBool = false;
-            var defaults = {
-                errorCall: 'alert', //alert , append
-                errorStr: 'title',
-                ajax: null,
-                jsonParse: false
-            };
-
-            function CmmAjax($this) {
-                this.el = $this;
-                this.obj = typeof obj === 'string' ? obj : typeof obj === 'number' ? $.extend(true, defaults, {
-                    minlength: args[0],
-                    maxlength: args[1]
-                }) : $.extend(true, defaults, obj);
-                this.input = null;
-                this.inputArry = [];
-                this.title = '';
-                this.clearchk = false;
-                this.dataName = 'params';
-                this.opt = {
-                    chkmsg: ['을(를) 선택해주세요.', '을(를) 입력해주세요.'],
-                }
-                this.globalBool = true;
-                this.init();
-                globalBool = this.globalBool;
-                if(this.obj == 'result') {
-                    globalBool = this.el.serializeObject();
-                    if(args[1] == 'json') {
-                        globalBool = JSON.stringify(globalBool);
-                    }
-                }
-            };
-            CmmAjax.prototype = {
-                init: function() {
-                    var _this = this;
-                    var chkleng = 0;
-                    if(_this.obj == 'clear') {
-                        _this.clear(this.el);
-                    } else if(_this.obj == 'submit') {
-                        _this.submitSet(args[1]);
-                    }
-                    _this.clear = false;
-                    //_this.el.find('input, select, textarea').each(function() {
-                    _this.el.each(function() {
-                        var $this = $(this);
-                        var $data = $this.data(_this.dataName);
-                        chkleng++;
-                        if($data && $data.required) {
-                            _this.input = $this;
-                            _this.clear = false;
-                            _this.chk();
-                            if(_this.clear) {
-                                _this.clearchk = false;
-                                return false;
-                            } else {
-                                _this.clearchk = true;
-                                if($this.is('input[type="checkbox"]') || $this.is('input[type="radio"]')) {
-                                    _this.input = _this.input.prop('checked') ? _this.input : null;
-                                }
-                                if(_this.input) {
-                                    _this.inputArry.push(_this.input);
-                                }
-                            }
-                        }
-                    });
-                },
-                chk: function() {
-                    var _this = this;
-                    if(this.obj == 'tel') {
-                        _this.typeInputGubun(_this.el);
-                    }
-                    if(this.input.is('input[type="checkbox"]')) {
-                        this.errorFun(this.input.prop('checked'), this.opt.chkmsg[0]);
-                    } else if(this.input.is('input[type="radio"]')) {
-                        var $name = this.input.attr('name');
-                        if(this.input.is(':checked') && this.input.data(_this.dataName) && this.input.data(_this.dataName).required) {
-                            radioBool = true;
-                        }
-                        this.errorFun(radioBool, this.opt.chkmsg[0]);
-                    } else {
-                        var inputbool = this.input.val();
-                        var trim = inputbool.replace(/\s+/, '');
-                        if(this.input.is('textarea') && trim == '') {
-                            inputbool = false;
-                        }
-                        if(this.obj.maxlength && this.obj.minlength && (this.obj.minlength > this.input.val().length || this.obj.maxlength < this.input.val().length)) {
-                            //글자수체크 함수명 뒤에 arguments[0] : min , arguments[1] : max
-                            inputbool = false;
-                        }
-                        this.errorFun(inputbool, this.opt.chkmsg[1]);
-                    }
-                },
-                errorFun: function(bool, bmsg) {
-                    if(!bool) {
-                        /*switch(this.obj.errorCall) {
-                            case 'alert':
-                                //alert('\'' + this.title + '\'' + bmsg);
-                                //console.log('\'' + this.title + '\'' + bmsg);
-                                break;
-                            case 'layerpop':
-                                //console.log(this.data(this.dataName));
-                                console.log(this.input.data('fun'))
-                                break;
-                        }*/
-                        this.input.focus();
-                        this.clear = true;
-                        this.globalBool = false;
-                    }
-                },
-                typeInputGubun: function($this) {
-                    //var $this = this.el;
-                    var $val = $this.val();
-                    var bool = false;
-                    if($this.data(this.dataName).ime == 'tel' && $val) {
-                        if($this.val().indexOf('010') == 0 || $this.val().indexOf('011') == 0) {
-                            bool = true;
-                        }
-                    }
-                    this.errorFun(bool, this.opt.chkmsg[1]);
-                },
-                submitSet: function(_args) {
-                    if(!_args || typeof _args === 'object') {
-                        var ajaxobj = $.extend(true, {
-                            url: '',
-                            type: 'post',
-                            data: this.el.serializeObject(),
-                            dataType: 'json',
-                            success: function(data) {},
-                            error: function(r, s, e) {
-                                console.error("cmmAjax.submitSet() ERROR : \ncode:" + r.status + "\n" + "message:" + r.responseText + "\n" + "error:" + e);
-                            }
-                        }, _args);
-                        if(!this.obj.jsonParse) {
-                            //ajaxobj.data = JSON.stringify(ajaxobj.data);
-                        }
-                        $.ajax(ajaxobj);
-                    } else if(typeof _args === 'function') {
-                        _args();
-                    }
-                },
-                clear: function($this) {
-                    $this.find('input, textarea, select').each(function() {
-                        var $this = $(this);
-                        if($this.is('[type="checkbox"]') || $this.is('[type="radio"]')) {
-                            $this.prop('checked', false);
-                        } else {
-                            $this.val('');
-                        }
-                    });
-                }
-            };
-            this.each(function() {
-                $.data($(this), new CmmAjax($(this), obj));
-            });
-            return globalBool;
-        },
-        serializeObject: function() {
-            var $this = $(this);
-            var o = {};
-            var a = this.serializeArray();
-            $.each(a, function() {
-                if(o[this.name]) {
-                    if(!o[this.name].push) {
-                        o[this.name] = [o[this.name]];
-                    }
-                    o[this.name].push(this.value || '');
-                } else {
-                    o[this.name] = this.value || '';
-                }
-            });
-            return o;
-        },
         cmmVisualEffect: function(obj) {
             var defaults = {};
 
@@ -817,40 +327,6 @@ iamgesapi: { // 이미지검색
                 $.data($(this), new CmmMycanavs($(this), obj));
             });
             return this;
-        },
-        cmmAlert: function(obj) {
-            $('body').append('<span class="cmmAlert"></span>');
-            $('.cmmAlert').cmmLocLaypop($.extend(true, {
-                type: 'alert',
-                title: '알림',
-                targetBtnsName: ['확인'],
-                msg: '',
-                submit: function($el) {
-                    $el.cmmLocLaypop('close');
-                    $el.remove();
-                },
-                closeCallb: function($el) {
-                    $el.cmmLocLaypop('close');
-                    $el.remove();
-                }
-            }, obj));
-        },
-        cmmConfirm: function(obj) {
-            $('body').append('<span class="cmmConfirm"></span>');
-            $('.cmmConfirm').cmmLocLaypop($.extend(true, {
-                type: 'confirm',
-                title: '알림',
-                targetBtnsName: ['취소', '확인'],
-                msg: '',
-                submit: function($el) {
-                    $el.cmmLocLaypop('close');
-                    $el.remove();
-                },
-                closeCallb: function($el) {
-                    $el.cmmLocLaypop('close');
-                    $el.remove();
-                }
-            }, obj));
         },
         cmmLocLaypop: function(obj) {
             /*
@@ -1212,7 +688,6 @@ iamgesapi: { // 이미지검색
             });
             return this;
         },
-        
         mapApiSortFun: function(obj) {
             var defaults = {
                 LatReturn: null,
@@ -1581,7 +1056,7 @@ iamgesapi: { // 이미지검색
                         return $exCb;
                     }
                 };
-                this.init();
+                if($.fn.slick) this.init();
             };
             CmmUiSwiper.prototype = {
                 init: function() {
@@ -1589,7 +1064,10 @@ iamgesapi: { // 이미지검색
                 },
                 slickSlide: function() {
                     var _this = this;
-                    $slide = $this.slick($.extend(true, {}, this.obj.slideObj));
+                    $slide = $.fn.slick ? $this.slick($.extend(true, {}, this.obj.slideObj)) : null;
+                    if(!$slide) {
+                        console.error('slickJS임포트해주세요');
+                    }
                     if(typeof this.obj.afterCallback === 'function' && typeof this.obj.beforeCallback === 'function') {
                         $this.on({
                             'afterChange': function(a, b, c) {
@@ -2645,6 +2123,40 @@ iamgesapi: { // 이미지검색
             return this;
         },
     });
+    $['__ALERT'] = function(obj) {
+        $('body').append('<span class="cmmAlert"></span>');
+        $('.cmmAlert').cmmLocLaypop($.extend(true, {
+            type: 'alert',
+            title: '알림',
+            targetBtnsName: ['확인'],
+            msg: '',
+            submit: function($el) {
+                $el.cmmLocLaypop('close');
+                $el.remove();
+            },
+            closeCallb: function($el) {
+                $el.cmmLocLaypop('close');
+                $el.remove();
+            }
+        }, obj));
+    };
+    $['__CONFIRM'] = function(obj) {
+        $('body').append('<span class="cmmConfirm"></span>');
+        $('.cmmConfirm').cmmLocLaypop($.extend(true, {
+            type: 'confirm',
+            title: '알림',
+            targetBtnsName: ['취소', '확인'],
+            msg: '',
+            submit: function($el) {
+                $el.cmmLocLaypop('close');
+                $el.remove();
+            },
+            closeCallb: function($el) {
+                $el.cmmLocLaypop('close');
+                $el.remove();
+            }
+        }, obj));
+    };
 })(jQuery);
 /*
  * smartresize 기반의 resize개념 https://gist.github.com/Pushplaybang/3341936
