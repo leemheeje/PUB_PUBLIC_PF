@@ -203,15 +203,19 @@ iamgesapi: { // 이미지검색
                 ime: true,
                 /*eventType: 'keyup blur keypress',
                 keycodeGubun: false,*/
-                eventType: 'keydown keyup blur',
-                keycodeGubun: true
+                eventType: 'keydown keyup blur ',
+                keycodeGubun: true,
+                inputfile: {
+                    format: ['jpeg', 'jpg', 'gif', 'png'],
+                    size: 500
+                }
             };
 
             function CmmValidator($this) {
                 this.el = $this;
                 this.obj = $.extend(true, defaults, obj);
                 this.opt = {
-                    imeArry: ['number', 'tel', 'ko', 'en', 'email', 'ennumber', 'konumber', 'etc', 'enetc', 'koetc', 'koen'],
+                    imeArry: ['number', 'tel', 'ko', 'en', 'email', 'ennumber', 'konumber', 'etc', 'enetc', 'koetc', 'koen', 'file', 'koennumber', 'all'],
                     ankeycode: [9, 8, 13, 16, 20, 21, 35, 36, 37, 38, 39, 40],
                     kokeycode: 229
                 };
@@ -241,6 +245,9 @@ iamgesapi: { // 이미지검색
                             if($data.required) {
                                 //$this.attr('required', $data.required);
                             }
+                            if($this.is('[type="file"]')) {
+                                _this.fnFileBind($this, $data);
+                            }
                         }
                         if($data && $data.ime && !$this.is('[type="radio"]') && !$this.is('[type="checkbox"]')) {
                             switch ($data.ime) {
@@ -254,6 +261,53 @@ iamgesapi: { // 이미지검색
                             $this.addClass(clsName);
                         }
                     });
+                },
+                fnFileBind: function($this, $data) {
+                    var _this = this;
+                    this.obj.inputfile = $.extend(true, this.obj.inputfile, $data);
+                    //<input type="file" name="USER_file" data-params='{"ime" : "file", "required" : true, "inputfile" : {"format" : "image/png","size": 500}}'  placeholder="에픽게임즈 계정(E-mail)을 정확히 입력해주세요.">
+                    if(this.obj.inputfile) {
+                        $this.on({
+                            'change': function(e) {
+                                var $this = $(this);
+                                var $disc = null;
+                                var $type = null;
+                                var type_bool = false;
+                                var disc_bool = false;
+                                var type_msg = '';
+                                if($this.val()) {
+                                    $disc = $this[0].files[0].size;
+                                    $type = $this[0].files[0].type;
+                                    console.log($type);
+                                    if(typeof _this.obj.inputfile.format == 'string') {
+                                        type_msg = _this.obj.inputfile.format;
+                                        if($type.indexOf(_this.obj.inputfile.format) != -1) {
+                                            type_bool = true;
+                                        }
+                                    } else if(Array.isArray(_this.obj.inputfile.format)) {
+                                        for(var i = 0; i < _this.obj.inputfile.format.length; i++) {
+                                            type_msg += _this.obj.inputfile.format[i] + '/';
+                                            if($type.indexOf(_this.obj.inputfile.format[i]) != -1) {
+                                                type_bool = true;
+                                            }
+                                        }
+                                    }
+                                    if($disc <= _this.obj.inputfile.size * 1024) {
+                                        disc_bool = true;
+                                    }
+                                    if(!type_bool || !disc_bool) {
+                                        $this.val('');
+                                        alert('이미지파일형식은 ' + type_msg + '만 가능하며, \n이미지의 용량은 ' + _this.obj.inputfile.size + 'KB이하만 업로드 가능합니다.')
+                                    }
+                                } else {
+                                    $this.val('');
+                                    return false;
+                                }
+                            }
+                        });
+                    } else {
+                        //데이터오류
+                    }
                 },
                 fnImeExp: function(str, keycode) {
                     var exp = '';
@@ -283,7 +337,7 @@ iamgesapi: { // 이미지검색
                             exp = /[^A-Za-z]/gi;
                             break;
                         case this.opt.imeArry[4]: //email
-                            exp = /[^A-Za-z|0-9|@|.]/gi;
+                            exp = /[^A-Za-z|0-9\-_|@|.]/gi;
                             break;
                         case this.opt.imeArry[5]: //ennumber
                             exp = /[^A-Za-z|0-9]/gi;
@@ -302,6 +356,12 @@ iamgesapi: { // 이미지검색
                             break;
                         case this.opt.imeArry[10]: //koen
                             exp = /[^ㄱ-ㅎ|ㅏ-ㅣ|가-힣|A-Za-z/]/gi;
+                            break;
+                        case this.opt.imeArry[12]: //koennumber
+                            exp = /[^ㄱ-ㅎ|ㅏ-ㅣ|가-힣|A-Za-z|0-9/]/gi;
+                            break;
+                        case this.opt.imeArry[13]: //all
+                            exp = /[]/g;
                             break;
                     }
                     callback = function($input) {
@@ -337,7 +397,7 @@ iamgesapi: { // 이미지검색
                             var keycode = e.keyCode;
                             var str = '';
                             if($data) {
-                                if($data.ime) {
+                                if($data.ime && $data.ime != 'file') {
                                     str = _this.fnImeExp($data.ime, keycode);
                                     if(_this.obj.keycodeGubun && str.keygubun != '' && navigator.userAgent.indexOf('Mobile') == -1) {
                                         if(str.keygubun || _this.opt.ankeycode.indexOf(keycode) != -1) {
@@ -380,6 +440,7 @@ iamgesapi: { // 이미지검색
                 ajax: null,
                 jsonParse: false
             };
+
             function CmmAjax($this) {
                 this.el = $this;
                 this.obj = typeof obj === 'string' ? obj : typeof obj === 'number' ? $.extend(true, defaults, {
@@ -408,13 +469,11 @@ iamgesapi: { // 이미지검색
                 init: function() {
                     var _this = this;
                     var chkleng = 0;
-                    
                     if(_this.obj == 'clear') {
                         _this.clear(this.el);
                     } else if(_this.obj == 'submit') {
                         _this.submitSet(args[1]);
                     }
-                    
                     _this.clear = false;
                     //_this.el.find('input, select, textarea').each(function() {
                     _this.el.each(function() {
@@ -491,8 +550,8 @@ iamgesapi: { // 이미지검색
                         if($this.val().indexOf('010') == 0 || $this.val().indexOf('011') == 0) {
                             bool = true;
                         }
-                    }else if($this.data(this.dataName).ime == 'email' && $val){
-                        if($val.match(/[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[a-zA-Z]{2,5}/g)){
+                    } else if($this.data(this.dataName).ime == 'email' && $val) {
+                        if($val.match(/[a-zA-Z0-9\._-]+@[a-zA-Z0-9]+\.[a-zA-Z]{2,5}/g)) {
                             bool = true;
                         }
                     }
