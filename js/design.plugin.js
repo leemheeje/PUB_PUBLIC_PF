@@ -782,9 +782,10 @@ iamgesapi: { // 이미지검색
                         }); 
                     }, 
                     targetCustomBtnsName: [
-                        ['커스텀버튼1', 'asdf asdfasdf', function($button) {
+                        ['커스텀버튼1', 'asdf asdfasdf', function($button, $el) {
                             $(document).on('click' ,'.asdfasdf',function(){
                                 console.log($(this));
+                                $el.cmmLocLaypop('close');
                             })
                         }],
                         ['커스텀버튼2', 'asdf asdfasdf12', function($button) {
@@ -810,9 +811,10 @@ iamgesapi: { // 이미지검색
                 /*
                 * 하단부에 추가적으로 노출되어야할 버튼
                 * [   [텍스트명, 클래스명, 함수명]    ]
-                ['하단부 커스텀 버튼', 'asdf asdfasdf', function($button) {
+                ['하단부 커스텀 버튼', 'asdf asdfasdf', function($button, $el) {
                     $(document).on('click' ,'.asdfasdf',function(){
                         console.log($(this));
+                         $el.cmmLocLaypop('close');
                     })
                 }],
                 */
@@ -885,13 +887,14 @@ iamgesapi: { // 이미지검색
                         $(this.target).closest(this.targetParentIn).append(this.bottom);
                         //팝업 하단부 커스텀 버튼 생성
                         if(this.obj.targetCustomBtnsName && typeof this.obj.targetCustomBtnsName === 'object') {
+                            $(this.target).closest(this.targetParentIn).find(this.targetBottom).html('');
                             for(var i = 0; i < this.obj.targetCustomBtnsName.length; i++) {
                                 var clsn = this.obj.targetCustomBtnsName[i][1] ? this.obj.targetCustomBtnsName[i][1] : 'cst_btn';
                                 var html = '<a href="javascript:;" class="' + clsn + '">' + this.obj.targetCustomBtnsName[i][0] + '</a>';
                                 var $html = $(html);
                                 $(this.target).closest(this.targetParentIn).find(this.targetBottom).append(html);
                                 if(typeof this.obj.targetCustomBtnsName[i][2] === 'function') {
-                                    this.obj.targetCustomBtnsName[i][2]($html);
+                                    this.obj.targetCustomBtnsName[i][2]($html, $(this.target).closest(this.targetParent));
                                 }
                             }
                         }
