@@ -1,7 +1,7 @@
 /*
  * 제작자 : 임희재
- * 버전 : v.07
- * 수정내용 : cmmYoutubePlayPause 삭제
+ * 버전 : v.08
+ * 업데이트내용 : cmmCalendal '주' 단위 수정
  
  
  
@@ -1876,8 +1876,9 @@ iamgesapi: { // 이미지검색
                     ]
                 },
                 sch: {
-                    schMax: 4,
-                    schItem: []
+                    schMax: 1,
+                    //schItem: [기간,시작날짜,스케줄설명,스케줄들어간애 클래스네임,이건뭐지?,스케줄타이틀],
+                    schItem: [],
                 }
             };
 
@@ -1891,14 +1892,17 @@ iamgesapi: { // 이미지검색
                 this.theDay = this.theDate.getDay();
                 this.el = $(el);
                 this.opt = $.extend(true, defaults, obj);
-                this.initPasing();
-                this.initSch();
-                this.schParsing();
-                $(window).smartresize(function() {
+                this.init();
+                /*$(window).smartresize(function() {
                     _this.resize();
-                });
+                });*/
             }
             CmmCalendal.prototype = {
+                init: function() {
+                    this.initPasing();
+                    this.initSch();
+                    this.schParsing();
+                },
                 initPasing: function() {
                     var last = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
                     if(this.y % 4 && this.y % 100 != 0 || this.y % 400 === 0) {
@@ -1932,7 +1936,7 @@ iamgesapi: { // 이미지검색
                     calendar += "</div>"; // calTheadGroup
                     var dNum = 1;
                     for(var i = 1; i <= row; i++) {
-                        calendar += "<div class='calTbodyGroup'>";
+                        calendar += "<div class='calTbodyGroup' data-table-index='" + (i - 1) + "'>";
                         calendar += "<table class='calendar_table'>";
                         calendar += "<colgroup>";
                         for(var o = 0; o < commColgroup[0]; o++) {
@@ -1943,9 +1947,13 @@ iamgesapi: { // 이미지검색
                         calendar += "<tr>";
                         for(var k = 1; k <= 7; k++) {
                             if(i === 1 && k <= this.theDay || dNum > lastDate) {
-                                calendar += "<td> &nbsp; </td>";
+                                calendar += "<td>&nbsp;</td>";
                             } else {
-                                calendar += "<td>" + dNum + "</td>";
+                                if(this.d == dNum) {
+                                    calendar += "<td class='TODAY'><span class='dot'>" + dNum + "</span></td>";
+                                } else {
+                                    calendar += "<td><span class='dot'>" + dNum + "</span></td>";
+                                }
                                 dNum++;
                             }
                         }
@@ -1957,8 +1965,9 @@ iamgesapi: { // 이미지검색
                     calendar += "</div>"; // calTableGroup
                     this.el.append(calendar);
                     $('.calendar_table tr').each(function() {
-                        $(this).find('td:first').addClass('SUN');
-                        $(this).find('td:last').addClass('SAT');
+                        var $this = $(this);
+                        $this.find('td:first').addClass('SUN');
+                        $this.find('td:last').addClass('SAT');
                     });
                 },
                 initSch: function() {
@@ -1966,53 +1975,104 @@ iamgesapi: { // 이미지검색
                     var _this = this;
                     var $calTbodyGroup = $('.calTbodyGroup');
                     var $calTbl = $('.cal_tbl');
-                    html += '<div class="scVirTableGroup">';
-                    html += '<table>';
-                    html += '<colgroup><col width="14.285%"><col width="14.285%"><col width="14.285%"><col width="14.285%"><col width="14.285%"><col width="14.285%"><col width="14.285%"></colgroup>';
-                    html += '<tbody>';
-                    html += '<tr>';
-                    for(var i = 0; i < 7; i++) {
-                        html += '<td>&nbsp;</td>';
-                    }
-                    html += '</tr>';
-                    html += '</tbody>';
-                    html += '</table>';
-                    html += '</div>';
+                    var $fragment = $(document.createDocumentFragment());
                     for(var i = 0; i < this.opt.sch.schItem.length; i++) {
                         var time = '<td class="txt_left"><b>' + this.opt.sch.schItem[i][5] + '</b></td>';
                         var suj = '<td class="txt_left">' + this.opt.sch.schItem[i][2] + '</td>';
                         var suj2 = '<td class="txt_left">' + this.opt.sch.schItem[i][4] + '</td>';
-                        $calTbl.find('tbody').append('<tr>' + time + suj + suj2 + '</tr>');
+                        $fragment.append('<tr>' + time + suj + suj2 + '</tr>');
                     }
+                    $calTbl.find('tbody').append($fragment);
                     $calTbodyGroup.each(function() {
-                        for(var i = 0; i < _this.opt.sch.schMax; i++) {
-                            $(this).append(html);
+                        var $this = $(this);
+                        var $cal_tbl = $this.find('.calendar_table');
+                        var $_fragment = $(document.createDocumentFragment());
+                        html += '<table>';
+                        html += '<colgroup><col width="14.285%"><col width="14.285%"><col width="14.285%"><col width="14.285%"><col width="14.285%"><col width="14.285%"><col width="14.285%"></colgroup>';
+                        html += '<tbody>';
+                        html += '<tr>';
+                        for(var i = 0; i < 7; i++) {
+                            var x = $cal_tbl.find('tbody td:eq(' + i + ')').text();
+                            if(!x.replace(/\s/g, '')) {
+                                x = null;
+                            }
+                            html += '<td data-table-index="' + x + '">&nbsp;</td>';
                         }
+                        html += '</tr>';
+                        html += '</tbody>';
+                        html += '</table>';
+                        for(var i = 0; i < _this.opt.sch.schMax; i++) {
+                            $_fragment.append('<div class="scVirTableGroup" data-table-index="' + i + '">' + html + '</div>');
+                        }
+                        $this.append($_fragment);
+                        html = '';
                     });
                 },
                 schParsing: function() {
                     var _this = this;
                     var $tbl = $('.calTbodyGroup .calendar_table');
-                    for(var i = 0; i < this.opt.sch.schItem.length; i++) {
+                    var item = this.opt.sch.schItem;
+                    var items = item.length;
+                    var $td_w = $tbl.find('td').innerWidth();
+                    for(var i = 0; i < items; i++) {
+                        //schItem: [기간,시작날짜,스케줄설명,스케줄들어간애 클래스네임,이건뭐지?,스케줄타이틀],
                         $tbl.find('td').each(function() {
-                            var $thisIdx = $(this).index();
-                            var $thisTxt = $(this).text();
-                            var $thisParent = $(this).closest('.calTbodyGroup');
-                            if($thisTxt == _this.opt.sch.schItem[i][1]) {
-                                if(_this.opt.sch.schItem[i][0] != 1) {
-                                    for(var o = 1; o < _this.opt.sch.schItem[i][0]; o++) {
-                                        $thisParent.find('.scVirTableGroup td:eq(' + $thisIdx + ')').next().remove();
-                                    }
+                            var $this = $(this);
+                            var $i = $this.index();
+                            var $t = $this.text();
+                            var $p = $this.closest('.calTbodyGroup');
+                            if($t == item[i][1]) {
+                                if(item[i][0]) {
+                                    $p.find('.scVirTableGroup td[data-table-index="' + $t + '"]').attr('colspan', item[i][0]).html('<span class="sch_lb ' + item[i][3] + '" style="">' + item[i][5] + '</span>');
                                 }
-                                var $spanW = 200;
-                                $thisParent.find('.scVirTableGroup td:eq(' + $thisIdx + ')').attr('colspan', _this.opt.sch.schItem[i][0]).append('<span class="' + _this.opt.sch.schItem[i][3] + '" style="width:' + ($spanW * _this.opt.sch.schItem[i][0]) + 'px">' + (_this.opt.sch.schItem[i][5] + _this.opt.sch.schItem[i][2]) + '</span>');
                             }
                         });
                     }
+                    var emp = [];
+                    $('.calTbodyGroup').find('.scVirTableGroup td[colspan]').each(function() {
+                        var $this = $(this);
+                        var $i = $this.index();
+                        var $colspan = $this.attr('colspan');
+                        var c = 0;
+                        var cc = 1;
+                        var ccc = 0;
+                        $this.closest('tr').find('td').each(function() {
+                            var $_this = $(this);
+                            if(!$_this.attr('colspan')) {
+                                c++;
+                            } else {
+                                c += Number($_this.attr('colspan'));
+                            }
+                        });
+                        if(c > 7) {
+                            for(var i = 0; i < $colspan - 1; i++) {
+                                if($this.next()[0]) {
+                                    cc++;
+                                    $this.next().remove();
+                                } else {
+                                    ccc++;
+                                    var tnc = $.extend(true, {}, {
+                                        tar: $this.closest('.calTbodyGroup').next().find('.scVirTableGroup td:eq(0)'),
+                                        lop: ccc
+                                    });
+                                }
+                            }
+                            emp.push(tnc);
+                            $this.attr('colspan', cc);
+                        }
+                    });
+                    for(var i = 0; i < emp.length; i++) {
+                        if(emp[i]) {
+                            for(var o = 1; o < emp[i].lop; o++) {
+                                emp[i].tar.next().remove();
+                            }
+                            emp[i].tar.attr('colspan', emp[i].lop).html('<span class="sch_lb ' + item[i][3] + '" style="">' + item[i][5] + '</span>');
+                        }
+                    }
                 },
                 resize: function() {
-                    $('.calTbodyGroup').find('.scVirTableGroup td span').remove();
-                    this.schParsing();
+                    this.el.empty();
+                    this.init();
                 }
             };
             this.each(function() {
@@ -2124,8 +2184,8 @@ iamgesapi: { // 이미지검색
                     var motions = this.obj.motions;
                     var transform = null;
                     var target = {
-                        centerWidth: event.target.clientWidth / 2,
-                        centerHeight: event.target.clientHeight / 2
+                        centerWidth: this.obj.offset ? event.target.clientWidth / 2 : window.innerWidth / 2,
+                        centerHeight: this.obj.offset ? event.target.clientHeight / 2 : window.innerHeight / 2
                     };
                     for(var i = 0; i < motions.length; i++) {
                         var distance = function() {
