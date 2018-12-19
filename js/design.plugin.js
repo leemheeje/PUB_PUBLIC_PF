@@ -792,6 +792,11 @@ iamgesapi: { // 이미지검색
                             $(document).on('click' ,'.asdfasdf12',function(){
                                 console.log($(this));
                             })
+                        }],
+                        ['커스텀버튼2', 'asdf asdfasdf12', {
+                            href: "링크값"
+                            target: "_self"
+                            title: " "
                         }]
                     ]
                 }); 
@@ -801,7 +806,7 @@ iamgesapi: { // 이미지검색
             var defaults = {
                 type: '',
                 align: ['center', 'center'], //['center' , 'center'] 배열에 css백그라운드 처럼 적용
-                width: 320, //너비적용
+                width: 360, //너비적용
                 height: null, //그냥 주지않는게 편함
                 openAfterScroll: false, //팝업오픈 후 스크롤 막기 false 스크롤 안막기 true
                 title: '타이틀', //팝업 타이틀 
@@ -855,7 +860,16 @@ iamgesapi: { // 이미지검색
                     this.submitFun();
                 },
                 set: function() {
-                    this.cont += '<div class="' + this.clsFormat(this.targetParent) + ' ' + this.obj.parentAddClass + '">';
+                    switch (this.obj.type) {
+                        case 'alert':
+                            this.cont += '<div class="' + this.clsFormat(this.targetParent) + ' cmmParaenAlert ' + this.obj.parentAddClass + '">';
+                            break;
+                        case 'confirm':
+                            this.cont += '<div class="' + this.clsFormat(this.targetParent) + ' cmmParaenConfirm ' + this.obj.parentAddClass + '">';
+                            break;
+                        default:
+                            this.cont += '<div class="' + this.clsFormat(this.targetParent) + ' ' + this.obj.parentAddClass + '">';
+                    }
                     if(!this.obj.height) {
                         this.obj.height = 'auto';
                     } else {
@@ -890,7 +904,17 @@ iamgesapi: { // 이미지검색
                             $(this.target).closest(this.targetParentIn).find(this.targetBottom).html('');
                             for(var i = 0; i < this.obj.targetCustomBtnsName.length; i++) {
                                 var clsn = this.obj.targetCustomBtnsName[i][1] ? this.obj.targetCustomBtnsName[i][1] : 'cst_btn';
-                                var html = '<a href="javascript:;" class="' + clsn + '">' + this.obj.targetCustomBtnsName[i][0] + '</a>';
+                                if(typeof this.obj.targetCustomBtnsName[i][2] === 'object') {
+                                    var t = this.obj.targetCustomBtnsName[i][2];
+                                    var o = {
+                                        href: t.href ? t.href : '',
+                                        target: t.target ? t.target : '_self',
+                                        title: t.title ? t.title : '',
+                                    }
+                                    var html = '<a href="' + o.href + '" target="' + o.target + '" title="' + o.title + '"  class="' + clsn + '">' + this.obj.targetCustomBtnsName[i][0] + '</a>';
+                                } else {
+                                    var html = '<a href="javascript:;" class="' + clsn + '">' + this.obj.targetCustomBtnsName[i][0] + '</a>';
+                                }
                                 var $html = $(html);
                                 $(this.target).closest(this.targetParentIn).find(this.targetBottom).append(html);
                                 if(typeof this.obj.targetCustomBtnsName[i][2] === 'function') {
@@ -912,14 +936,14 @@ iamgesapi: { // 이미지검색
                 alignFun: function() {
                     var _this = this;
                     var sc = {
-                        val: $(document).scrollTop(),
+                        val: $(document).scrollTop() * (1 / window.ZOOM_VIEW),
                     };
                     var align = function($this) {
                         var v = null;
                         switch (_this.obj.align[0], _this.obj.align[1]) {
                             case 'center', 'center':
                                 v = {
-                                    'top': sc.val + ($(window).height() / 2) - ($this.outerHeight() / 2)
+                                    'top': $('html').is('.mobile') ? sc.val + (window.innerHeight / 2) + ($this.outerHeight() / 2) : sc.val + (window.innerHeight / 2) - ($this.outerHeight() / 2)
                                 };
                                 break;
                             case 'left', 'top':
@@ -934,7 +958,7 @@ iamgesapi: { // 이미지검색
                     $(this.target).closest(this.targetParent).css(align($(this.target).closest(this.targetParent)));
                     if(typeof this.obj.afterCallback === 'function') {
                         $(this.target).closest(this.targetParent).attr('data-layerpop-visible', true);
-                        this.obj.afterCallback($(this.target));
+                        this.obj.afterCallback($(this.target).closest(this.targetParent));
                     }
                 },
                 submitFun: function() {
@@ -946,6 +970,7 @@ iamgesapi: { // 이미지검색
                                 if(_this.obj.type == 'alert' || _this.obj.type == 'confirm') {
                                     $(_this).closest(_this.targetParent).remove();
                                 }
+                                $(document).scrollTop(_this.currentScrolltop);
                             } else {
                                 _this.act().hide();
                             }
@@ -954,12 +979,21 @@ iamgesapi: { // 이미지검색
                 },
                 scrLock: function(bool) {
                     if(!this.obj.openAfterScroll) {
+                        /* 신세계만 : S */
+                        var as = [];
+                        $('.laypopWarp').each(function() {
+                            if($(this).is(':visible')) {
+                                as.push($(this));
+                            }
+                        });
+                        /* 신세계만 : E */
                         if(bool) {
                             $('body').css({
                                 'overflow-y': 'hidden',
                                 'position': 'fixed',
                                 'width': '100%',
-                                'margin-top': -this.currentScrolltop
+                                'height': '100%',
+                                'margin-top': -(this.currentScrolltop * (1 / window.ZOOM_VIEW))
                             });
                             $(this.target).closest(this.targetParent).find(this.dimmClsName).on('wheel scroll mousemove touchmove touchstart', function(e) {
                                 e.preventDefault();
@@ -980,9 +1014,10 @@ iamgesapi: { // 이미지검색
                             });
                         } else {
                             $('body').css({
-                                'overflow-y': 'hidden',
+                                'overflow-y': 'auto',
                                 'position': 'static',
                                 'width': 'auto',
+                                'height': 'auto',
                                 'margin-top': 0
                             });
                             $(document).scrollTop(this.currentScrolltop);
@@ -996,15 +1031,14 @@ iamgesapi: { // 이미지검색
                             _this.act().hide();
                         }
                     });
-                    $(_this.target).closest(_this.targetParent).find(this.targetBtns[0]).on({
+                    $(_this.target).closest(_this.targetParent).find(this.targetBtns[0]).off().on({
                         'click': function(e) {
-                            _this.act().hide();
+                            _this.act().hide($(this));
                             return false;
                         }
                     });
-                    $(_this.target).closest(_this.targetParent).find(this.dimmClsName).on({
+                    $(_this.target).closest(_this.targetParent).find(this.dimmClsName).off().on({
                         'click': function() {
-                            _this.act().hide();
                             return false;
                         }
                     });
@@ -1014,13 +1048,23 @@ iamgesapi: { // 이미지검색
                     return {
                         show: function() {
                             $(_this.target).closest(_this.targetParent).show();
+                            $(_this.target).closest(_this.targetParentIn).addClass('layerpop_on');
                             _this.dimm().get(true);
                             _this.scrLock(true);
                         },
-                        hide: function() {
+                        hide: function($self) {
                             $(_this.target).closest(_this.targetParent).hide();
-                            _this.dimm().get(false);
+                            $(_this.target).closest(_this.targetParentIn).removeClass('layerpop_on');
+                            _this.dimm().get(false, '', $self);
                             _this.scrLock(false);
+                            $(_this.target).find('input, select, textarea').each(function() {
+                                var $this = $(this);
+                                if($this.is('[type="radio"]') || $this.is('[type="checkbox"]')) {
+                                    $this.prop('checked', false);
+                                } else {
+                                    $this.val('');
+                                }
+                            });
                             $(_this.target).closest(_this.targetParent).attr('data-layerpop-visible', false);
                             if(typeof _this.obj.closeCallb === 'function') {
                                 _this.obj.closeCallb($(_this.target).closest(_this.targetParent));
@@ -1030,10 +1074,11 @@ iamgesapi: { // 이미지검색
                 },
                 dimm: function() {
                     var _this = this;
+                    var $p = $(_this.target).closest(_this.targetParent);
                     return {
                         set: function() {
-                            $(_this.target).closest(_this.targetParent).append('<div class="' + _this.clsFormat(_this.dimmClsName) + '" style="display: none;"></div>');
-                            $(_this.dimmClsName).css({
+                            $p.append('<div class="' + _this.clsFormat(_this.dimmClsName) + '" style="display: none;"></div>');
+                            $p.find(_this.dimmClsName).css({
                                 'position': 'fixed',
                                 'z-index': 100,
                                 'left': 0,
@@ -1044,15 +1089,16 @@ iamgesapi: { // 이미지검색
                                 'background': 'black'
                             });
                         },
-                        get: function(bool, callb) {
+                        get: function(bool, callb, $self) {
                             if(bool) {
-                                $(_this.target).closest(_this.targetParent).find(_this.dimmClsName).show().animate({
-                                    'opacity': .2
+                                $p.find(_this.dimmClsName).show().animate({
+                                    'opacity': .7
                                 }, $.extend({
+                                    'duration': 200,
                                     'complete': function() {}
                                 }, callb));
                             } else {
-                                $(_this.target).closest(_this.targetParent).find(_this.dimmClsName).animate({
+                                $p.find(_this.dimmClsName).animate({
                                     'opacity': 0
                                 }, $.extend({
                                     'complete': function() {
