@@ -802,7 +802,7 @@ iamgesapi: { // 이미지검색
                 type: '',
                 align: ['center', 'center'], //['center' , 'center'] 배열에 css백그라운드 처럼 적용
                 garaboon: false, //너비적용
-                width: 757, //너비적용
+                width: 500, //너비적용
                 height: null, //그냥 주지않는게 편함
                 openAfterScroll: false, //팝업오픈 후 스크롤 막기 false 스크롤 안막기 true
                 title: '타이틀', //팝업 타이틀 
@@ -841,6 +841,7 @@ iamgesapi: { // 이미지검색
                 this.title = '';
                 this.bottom = '';
                 this.currentScrolltop = $(document).scrollTop();
+                window.ZOOM_VIEW = window.ZOOM_VIEW ? window.ZOOM_VIEW : 1;
                 this.init();
             };
             CmmLocLaypop.prototype = {
@@ -850,21 +851,11 @@ iamgesapi: { // 이미지검색
                         this.act().hide();
                         return;
                     }
-                    if($('html').is('.mobile')) {//모바일만 0.5초 뒤에
-                        
-                            _this.set();
-                            _this.dimm().set();
-                            _this.act().show();
-                            _this.close();
-                            _this.submitFun();
-                        
-                    } else {
-                        _this.set();
-                        _this.dimm().set();
-                        _this.act().show();
-                        _this.close();
-                        _this.submitFun();
-                    }
+                    _this.set();
+                    _this.dimm().set();
+                    _this.act().show();
+                    _this.close();
+                    _this.submitFun();
                 },
                 set: function() {
                     switch (this.obj.type) {
@@ -966,11 +957,13 @@ iamgesapi: { // 이미지검색
                             }
                             return v;
                         };
-                        $(this.target).closest(this.targetParent).css(align($(this.target).closest(this.targetParent)));
-                        if(typeof this.obj.afterCallback === 'function') {
-                            $(this.target).closest(this.targetParent).attr('data-layerpop-visible', true);
-                            this.obj.afterCallback($(this.target).closest(this.targetParent));
-                        }
+                        setTimeout(function() {//만약 팝업안에 이미지가있다면 이미지불러오는시간때문에 높이값이 제대로 측정안됨. 그래서타임아웃
+                            $(_this.target).closest(_this.targetParent).css(align($(_this.target).closest(_this.targetParent)));
+                            if(typeof _this.obj.afterCallback === 'function') {
+                                $(_this.target).closest(_this.targetParent).attr('data-layerpop-visible', true);
+                                _this.obj.afterCallback($(_this.target).closest(_this.targetParent));
+                            }
+                        }, 10);
                     }
                 },
                 submitFun: function() {
@@ -2698,6 +2691,9 @@ iamgesapi: { // 이미지검색
     });
     $['__ALERT'] = function(obj) {
         $('body').append('<span class="cmmAlert"></span>');
+        var params = typeof obj === 'string' ? {
+            msg: obj
+        } : obj;
         $('.cmmAlert').cmmLocLaypop($.extend(true, {
             type: 'alert',
             title: '알림',
@@ -2711,10 +2707,13 @@ iamgesapi: { // 이미지검색
                 $el.cmmLocLaypop('close');
                 $el.remove();
             }
-        }, obj));
+        }, params));
     };
     $['__CONFIRM'] = function(obj) {
         $('body').append('<span class="cmmConfirm"></span>');
+        var params = typeof obj === 'string' ? {
+            msg: obj
+        } : obj;
         $('.cmmConfirm').cmmLocLaypop($.extend(true, {
             type: 'confirm',
             title: '알림',
@@ -2728,7 +2727,7 @@ iamgesapi: { // 이미지검색
                 $el.cmmLocLaypop('close');
                 $el.remove();
             }
-        }, obj));
+        }, params));
     };
 })(jQuery);
 /*
