@@ -792,11 +792,6 @@ iamgesapi: { // 이미지검색
                             $(document).on('click' ,'.asdfasdf12',function(){
                                 console.log($(this));
                             })
-                        }],
-                        ['커스텀버튼2', 'asdf asdfasdf12', {
-                            href: "링크값"
-                            target: "_self"
-                            title: " "
                         }]
                     ]
                 }); 
@@ -806,12 +801,13 @@ iamgesapi: { // 이미지검색
             var defaults = {
                 type: '',
                 align: ['center', 'center'], //['center' , 'center'] 배열에 css백그라운드 처럼 적용
-                width: 360, //너비적용
+                garaboon: false, //너비적용
+                width: 757, //너비적용
                 height: null, //그냥 주지않는게 편함
                 openAfterScroll: false, //팝업오픈 후 스크롤 막기 false 스크롤 안막기 true
                 title: '타이틀', //팝업 타이틀 
                 parentAddClass: '', //특정요소만 커스텀style 해야할때 추가
-                targetBtnsName: ['취소', '확인'], //버튼텍스트 [0][1] 인덱스 번호로 이벤트가 부여되니 순서 지켜야함
+                targetBtnsName: ['취<span class="cmm_layerpop_btn_blank"></span>소', '확<span class="cmm_layerpop_btn_blank"></span>인'], //버튼텍스트 [0][1] 인덱스 번호로 이벤트가 부여되니 순서 지켜야함
                 targetCustomBtnsName: null,
                 /*
                 * 하단부에 추가적으로 노출되어야할 버튼
@@ -849,15 +845,26 @@ iamgesapi: { // 이미지검색
             };
             CmmLocLaypop.prototype = {
                 init: function() {
+                    var _this = this;
                     if(this.obj == 'close') {
                         this.act().hide();
                         return;
                     }
-                    this.set();
-                    this.dimm().set();
-                    this.act().show();
-                    this.close();
-                    this.submitFun();
+                    if($('html').is('.mobile')) {//모바일만 0.5초 뒤에
+                        
+                            _this.set();
+                            _this.dimm().set();
+                            _this.act().show();
+                            _this.close();
+                            _this.submitFun();
+                        
+                    } else {
+                        _this.set();
+                        _this.dimm().set();
+                        _this.act().show();
+                        _this.close();
+                        _this.submitFun();
+                    }
                 },
                 set: function() {
                     switch (this.obj.type) {
@@ -931,34 +938,39 @@ iamgesapi: { // 이미지검색
                     }
                     $(this.target).show();
                     $(this.target).closest(this.targetParent).hide();
-                    this.alignFun();
                 },
-                alignFun: function() {
+                alignFun: function(bool, popOpenGoobun) {
                     var _this = this;
-                    var sc = {
-                        val: $(document).scrollTop() * (1 / window.ZOOM_VIEW),
-                    };
-                    var align = function($this) {
-                        var v = null;
-                        switch (_this.obj.align[0], _this.obj.align[1]) {
-                            case 'center', 'center':
-                                v = {
-                                    'top': $('html').is('.mobile') ? sc.val + (window.innerHeight / 2) + ($this.outerHeight() / 2) : sc.val + (window.innerHeight / 2) - ($this.outerHeight() / 2)
-                                };
-                                break;
-                            case 'left', 'top':
-                            case 'right', 'top':
-                                v = {
-                                    'top': sc.val + 50
-                                };
-                                break;
+                    if(bool) {
+                        var sc = {
+                            val: $(document).scrollTop() * (1 / window.ZOOM_VIEW),
+                        };
+                        var align = function($this) {
+                            var v = null;
+                            switch (_this.obj.align[0], _this.obj.align[1]) {
+                                case 'center', 'center':
+                                    var tp = $('html').is('.mobile') ? sc.val + (window.innerHeight / 2) + ($this.outerHeight() / 2) : sc.val + (window.innerHeight / 2) - ($this.outerHeight() / 2);
+                                    if(!popOpenGoobun && $('body').css('margin-top')) {
+                                        tp += Number($('body').css('margin-top').replace(/[^0-9.]/g, ''));
+                                    }
+                                    v = {
+                                        'top': tp
+                                    };
+                                    break;
+                                case 'left', 'top':
+                                case 'right', 'top':
+                                    v = {
+                                        'top': sc.val + 50
+                                    };
+                                    break;
+                            }
+                            return v;
+                        };
+                        $(this.target).closest(this.targetParent).css(align($(this.target).closest(this.targetParent)));
+                        if(typeof this.obj.afterCallback === 'function') {
+                            $(this.target).closest(this.targetParent).attr('data-layerpop-visible', true);
+                            this.obj.afterCallback($(this.target).closest(this.targetParent));
                         }
-                        return v;
-                    };
-                    $(this.target).closest(this.targetParent).css(align($(this.target).closest(this.targetParent)));
-                    if(typeof this.obj.afterCallback === 'function') {
-                        $(this.target).closest(this.targetParent).attr('data-layerpop-visible', true);
-                        this.obj.afterCallback($(this.target).closest(this.targetParent));
                     }
                 },
                 submitFun: function() {
@@ -977,24 +989,25 @@ iamgesapi: { // 이미지검색
                         }
                     });
                 },
-                scrLock: function(bool) {
-                    if(!this.obj.openAfterScroll) {
-                        /* 신세계만 : S */
-                        var as = [];
-                        $('.laypopWarp').each(function() {
-                            if($(this).is(':visible')) {
-                                as.push($(this));
-                            }
-                        });
-                        /* 신세계만 : E */
+                scrLock: function(bool, popOpenGoobun) {
+                    /*
+                     * parametter : popOpenGoobun = 팝업이 하나라도 열려있으면 ? false : true
+                     */
+                    this.alignFun(bool, popOpenGoobun);
+                    if(!this.obj.openAfterScroll && !this.obj.garaboon) {
                         if(bool) {
-                            $('body').css({
+                            var o = {
                                 'overflow-y': 'hidden',
                                 'position': 'fixed',
                                 'width': '100%',
                                 'height': '100%',
-                                'margin-top': -(this.currentScrolltop * (1 / window.ZOOM_VIEW))
-                            });
+                            }
+                            if(popOpenGoobun) {
+                                o = $.extend(false, o, {
+                                    'margin-top': -(this.currentScrolltop * (1 / window.ZOOM_VIEW))
+                                });
+                            }
+                            $('body').css(o);
                             $(this.target).closest(this.targetParent).find(this.dimmClsName).on('wheel scroll mousemove touchmove touchstart', function(e) {
                                 e.preventDefault();
                                 e.stopPropagation();
@@ -1013,14 +1026,16 @@ iamgesapi: { // 이미지검색
                                 return cnt;
                             });
                         } else {
-                            $('body').css({
-                                'overflow-y': 'auto',
-                                'position': 'static',
-                                'width': 'auto',
-                                'height': 'auto',
-                                'margin-top': 0
-                            });
-                            $(document).scrollTop(this.currentScrolltop);
+                            if(popOpenGoobun) {
+                                $('body').css({
+                                    'overflow-y': 'auto',
+                                    'position': 'static',
+                                    'width': 'auto',
+                                    'height': 'auto',
+                                    'margin-top': 0
+                                });
+                                $(document).scrollTop(this.currentScrolltop);
+                            }
                         }
                     }
                 },
@@ -1045,18 +1060,31 @@ iamgesapi: { // 이미지검색
                 },
                 act: function(bool) {
                     var _this = this;
+                    var popOpenFun = function() {
+                        var popOpenGoobun = true;
+                        /* 팝업이 하나라도 열려있을땐 바디얼라인 안탐 : S */
+                        $(_this.targetParent).each(function() {
+                            var $this = $(this);
+                            if($this.is(':visible')) {
+                                popOpenGoobun = false;
+                            }
+                        });
+                        /* 팝업이 하나라도 열려있을땐 바디얼라인 안탐 : E */
+                        return popOpenGoobun;
+                    };
                     return {
                         show: function() {
+                            var gt = popOpenFun();
                             $(_this.target).closest(_this.targetParent).show();
                             $(_this.target).closest(_this.targetParentIn).addClass('layerpop_on');
                             _this.dimm().get(true);
-                            _this.scrLock(true);
+                            _this.scrLock(true, gt);
                         },
                         hide: function($self) {
                             $(_this.target).closest(_this.targetParent).hide();
                             $(_this.target).closest(_this.targetParentIn).removeClass('layerpop_on');
                             _this.dimm().get(false, '', $self);
-                            _this.scrLock(false);
+                            _this.scrLock(false, popOpenFun());
                             $(_this.target).find('input, select, textarea').each(function() {
                                 var $this = $(this);
                                 if($this.is('[type="radio"]') || $this.is('[type="checkbox"]')) {
